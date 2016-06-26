@@ -12,6 +12,7 @@ StackView {
     property string name: "HomeNavPane"
     // index to get access to Loader (Destination)
     property int myIndex: index
+    focus: true
 
     initialItem: HomePage{}
 
@@ -24,6 +25,13 @@ StackView {
 
     function pushQtPage() {
         navPane.push(qtPageLoader.item)
+    }
+    function popOnePage() {
+        navPane.pop()
+    }
+    // triggered from BACK KEY
+    function goBack() {
+        popOnePage()
     }
 
     Component.onDestruction: {

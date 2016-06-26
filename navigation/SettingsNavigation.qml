@@ -12,6 +12,7 @@ StackView {
     property string name: "SettingsNavPane"
     // index to get access to Loader (Destination)
     property int myIndex: index
+    focus: true
 
     initialItem: SettingsPage{}
 
@@ -40,7 +41,7 @@ StackView {
     function pushAccentColorPage() {
         accentColorPageLoader.active = true
     }
-    function popPage() {
+    function popOnePage() {
         var page = pop()
         if(page.name == "PrimaryColorPage") {
             primaryColorPageLoader.active = false
@@ -50,6 +51,10 @@ StackView {
             accentColorPageLoader.active = false
             return
         }
+    }
+    // triggered from BACK KEY
+    function goBack() {
+        popOnePage()
     }
 
     Component.onDestruction: {

@@ -49,7 +49,7 @@ Flickable {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            navPane.pop()
+                            navPane.popOnePage()
                         }
                     } // mouse
                 }

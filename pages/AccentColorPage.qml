@@ -61,7 +61,7 @@ Page {
                 anchors.fill: parent
                 onClicked: {
                     appWindow.switchAccentPalette(index)
-                    navPane.popPage()
+                    navPane.popOnePage()
                 }
             } // mouse
         } // end delegateItem

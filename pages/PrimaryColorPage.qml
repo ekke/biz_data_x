@@ -55,7 +55,7 @@ Page {
                 anchors.fill: parent
                 onClicked: {
                     appWindow.switchPrimaryPalette(index)
-                    navPane.popPage()
+                    navPane.popOnePage()
                 }
             } // mouse
         } // end delegateItem
