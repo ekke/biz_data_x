@@ -120,6 +120,20 @@ ApplicationWindow {
         {"type": "../navigation/DrawerNavigationButton.qml", "name": "Settings", "icon": "settings.png", "source": "../navigation/SettingsNavigation.qml", "showCounter":false, "showMarker":false, "a_p":3, "canGoBack":true},
         {"type": "../navigation/DrawerNavigationTextButton.qml", "name": "About this App", "icon": "", "source": "../pages/AboutPage.qml", "showCounter":false, "showMarker":false, "a_p":3, "canGoBack":false}
     ]
+    property var navigationTitles: [
+        qsTr("Biz Data Homepage"),
+        "",
+        "",
+        qsTr("Biz Data Cars"),
+        qsTr("Biz Data Bus"),
+        qsTr("Biz Data Subway"),
+        qsTr("Biz Data Truck"),
+        qsTr("Biz Data Flight"),
+        "",
+        qsTr("Biz Data Settings"),
+        qsTr("Biz Data About")
+    ]
+    property string currentTitle: navigationTitles[navigationIndex]
     // Counter: Car
     // Marker: Subway, Flight
     property var navigationData: [
@@ -151,6 +165,24 @@ ApplicationWindow {
 
     // header per Page, footer global in Portrait + perhaps per Page, too
     footer: showFavorites && !isLandscape && navigationBar.position == 0 ? favoritesBar : null
+    header: isLandscape ? null : titleBar
+    Loader {
+        id: titleBar
+        visible: !isLandscape
+        active: !isLandscape
+        source: "navigation/DrawerTitleBar.qml"
+    }
+    // in LANDSCAPE header is null and we have a floating TitleBar
+    Loader {
+        id: titleBarFloating
+        visible: isLandscape
+        anchors.top: parent.top
+        anchors.left: parent.left
+        // anchors.leftMargin: sideBar.width+6
+        anchors.right: parent.right
+        active: isLandscape
+        source: "navigation/DrawerTitleBar.qml"
+    }
 
     // The sliding Drawer
     DrawerNavigationBar {
@@ -167,7 +199,11 @@ ApplicationWindow {
     StackView {
         id: rootPane
         focus: true
-        anchors.fill: parent
+        anchors.top: isLandscape ? titleBarFloating.bottom : parent.top
+        anchors.left: parent.left
+        anchors.topMargin: isLandscape ? 6 : 0
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
 
         // shows a Busy indicator - probably not noticed yet
         // but in real life app loading first Page or Pane could took some time if heavy
@@ -205,13 +241,11 @@ ApplicationWindow {
         // or to exit the app
         property bool firstPageInfoRead: false
         Keys.onBackPressed: {
-
             if(navigationModel[navigationIndex].canGoBack && destinations.itemAt(navigationIndex).item.depth > 1) {
                 destinations.itemAt(navigationIndex).item.goBack()
                 event.accepted = true
                 return
             }
-
             event.accepted = !firstPageInfoRead
             // user gets Popupo Info
             // hitting again BACK will close the app

@@ -45,6 +45,12 @@ private:
      SettingsData* mSettingsData;
      bool readSettings();
      void saveSettings();
+
+     bool mCachingInWork;
+     bool mCachingDone;
+     void resetCaching();
+     void startCaching();
+     void doCaching();
 };
 
 #endif // APPLICATIONUI_HPP

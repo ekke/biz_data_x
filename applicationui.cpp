@@ -34,6 +34,9 @@ ApplicationUI::ApplicationUI(QObject *parent) : QObject(parent)
         // default accent color is DeepOrange
         mSettingsData->setAccentColor(15);
     }
+
+    mCachingDone = false;
+    mCachingInWork = false;
 }
 
 /* Change Theme Palette */
@@ -149,16 +152,20 @@ QStringList ApplicationUI::defaultAccentPalette()
 // Android: NO SIGNAL if using HOME or OVERVIEW and THEN CLOSE from there
 void ApplicationUI::onAboutToQuit()
 {
-    saveSettings();
-    qDebug() << "Q U I T";
+    qDebug() << "On About to Q U I T Signal received";
+    startCaching();
 }
 
 void ApplicationUI::onApplicationStateChanged(Qt::ApplicationState applicationState)
 {
+    qDebug() << "S T A T E changed into: " << applicationState;
     if(applicationState == Qt::ApplicationState::ApplicationSuspended) {
-        saveSettings();
+        startCaching();
+        return;
     }
-    qDebug() << "S T A T E: " << applicationState;
+    if(applicationState == Qt::ApplicationState::ApplicationActive) {
+        resetCaching();
+    }
 }
 
 bool ApplicationUI::checkDirs()
@@ -216,6 +223,38 @@ void ApplicationUI::saveSettings()
     }
     qint64 bytesWritten = saveFile.write(jda.toJson());
     qDebug() << "Bytes written: " << bytesWritten;
+}
+
+void ApplicationUI::resetCaching()
+{
+    if(mCachingInWork) {
+        qDebug() << "no reset caching - already in work";
+        return;
+    }
+    qDebug() << "reset caching";
+    mCachingDone = false;
+}
+
+void ApplicationUI::startCaching()
+{
+    if(mCachingInWork || mCachingDone) {
+        qDebug() << "no start caching - already in work ? " << mCachingInWork << " done ? " << mCachingDone;
+        return;
+    }
+    doCaching();
+}
+
+void ApplicationUI::doCaching()
+{
+    qDebug() << "DO Caching BEGIN";
+    mCachingInWork = true;
+    mCachingDone = false;
+
+    saveSettings();
+
+    mCachingInWork = false;
+    mCachingDone = QGuiApplication::applicationState() != Qt::ApplicationState::ApplicationActive;
+    qDebug() << "DO Caching END - Done ? " << mCachingDone;
 }
 
 

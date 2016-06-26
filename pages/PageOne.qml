@@ -6,86 +6,94 @@ import QtQuick.Controls.Material 2.0
 import QtGraphicalEffects 1.0
 
 import "../common"
+import "../navigation"
 
-Flickable {
-    id: flickable
+Page {
+    id: carPage
+    property string name: "CarPage"
     // index to get access to Loader (Destination)
     property int myIndex: index
-    contentHeight: root.implicitHeight
-    // StackView manages this, so please no anchors here
-    // anchors.fill: parent
-    property string name: "PageOne"
 
-    Pane {
-        id: root
+    Flickable {
+        id: flickable
+        property string name: "PageOne"
+
+        contentHeight: root.implicitHeight
+        // StackView manages this, so please no anchors here
         anchors.fill: parent
-        ColumnLayout {
-            anchors.right: parent.right
-            anchors.left: parent.left
-            LabelHeadline {
-                leftPadding: 10
-                text: qsTr("Drive by Car")
-            }
-            RowLayout {
-                IconInactive {
-                    imageName: modelData.icon
-                    imageSize: 48
-                }
-                LabelSubheading {
-                    id: availableCars
-                    text: qsTr("Available Cars: ")+ navigationData[3].counter
-                }
-                LabelSubheading {
-                }
 
-                ButtonIconActive {
-                    imageName: "add.png"
-                    imageSize: 48
-                    onClicked: {
-                        rootPane.increaseCars()
-                        availableCars.text = qsTr("Available Cars: ")+ navigationData[3].counter
+        Pane {
+            id: root
+            anchors.fill: parent
+            ColumnLayout {
+                anchors.right: parent.right
+                anchors.left: parent.left
+                LabelHeadline {
+                    leftPadding: 10
+                    text: qsTr("Drive by Car")
+                }
+                RowLayout {
+                    IconInactive {
+                        imageName: modelData.icon
+                        imageSize: 48
+                    }
+                    LabelSubheading {
+                        id: availableCars
+                        text: qsTr("Available Cars: ")+ navigationData[3].counter
+                    }
+                    LabelSubheading {
+                    }
+
+                    ButtonIconActive {
+                        imageName: "add.png"
+                        imageSize: 48
+                        onClicked: {
+                            rootPane.increaseCars()
+                            availableCars.text = qsTr("Available Cars: ")+ navigationData[3].counter
+                        }
                     }
                 }
-            }
-            HorizontalDivider {}
-            RowLayout {
-                LabelSubheading {
-                    topPadding: 6
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Example APP demonstrating Qt Quick Controls 2\n\n")                }
-            }
-            RowLayout {
-                LabelSubheading {
-                    topPadding: 6
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Car is a normal Page with a Counter visible in Drawer. Counter can be increased tapping on the 'add' Icon above.\nNavigation Drawer can be opened swiping from left or tapping on Menu Button.\nCar is marked as Favority, so you can also navigate from Bottom (in Portrait Mode)\n")
+                HorizontalDivider {}
+                RowLayout {
+                    LabelSubheading {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Example APP demonstrating Qt Quick Controls 2\n\n")                }
                 }
-            }
-            RowLayout {
-                LabelBodySecondary {
-                    topPadding: 6
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Activation Policy: ")
+                RowLayout {
+                    LabelSubheading {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Car is a normal Page with a Counter visible in Drawer. Counter can be increased tapping on the 'add' Icon above.\nNavigation Drawer can be opened swiping from left or tapping on Menu Button.\nCar is marked as Favority, so you can also navigate from Bottom (in Portrait Mode)\n")
+                    }
                 }
-                LabelBody {
-                    topPadding: 6
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("LAZY")
+                RowLayout {
+                    LabelBodySecondary {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Activation Policy: ")
+                    }
+                    LabelBody {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: qsTr("LAZY")
+                    }
                 }
-            }
-            HorizontalDivider {}
-        } // col layout
-    } // root
-    ScrollIndicator.vertical: ScrollIndicator { }
+                HorizontalDivider {}
+            } // col layout
+        } // root
+        ScrollIndicator.vertical: ScrollIndicator { }
 
+
+    } // flickable
     // emitting a Signal could be another option
     Component.onDestruction: {
         cleanup()
@@ -99,4 +107,5 @@ Flickable {
     function cleanup() {
         console.log(qsTr("Cleanup done from Car"))
     }
-} // flickable
+
+} // carPage

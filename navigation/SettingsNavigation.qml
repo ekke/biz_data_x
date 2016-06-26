@@ -14,42 +14,9 @@ Page {
     // index to get access to Loader (Destination)
     property int myIndex: index
 
-    header: isLandscape ? null : titleBar
-    Loader {
-        id: titleBar
-        visible: !isLandscape
-        active: !isLandscape
-        source: "DrawerTitleBar.qml"
-        onLoaded: {
-            if(item) {
-                item.text = qsTr("Biz Data Settings")
-            }
-        }
-    }
-    // in LANDSCAPE header is null and we have a floating TitleBar
-    Loader {
-        id: titleBarFloating
-        visible: isLandscape
-        anchors.top: parent.top
-        anchors.left: parent.left
-        // anchors.leftMargin: sideBar.width+6
-        anchors.right: parent.right
-        active: isLandscape
-        source: "DrawerTitleBar.qml"
-        onLoaded: {
-            if(item) {
-                item.text = qsTr("Biz Data Settings")
-            }
-        }
-    }
-
     StackView {
         id: navPane
-        anchors.top: isLandscape ? titleBarFloating.bottom : parent.top
-        anchors.left: parent.left
-        anchors.topMargin: isLandscape ? 6 : 0
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
         property string name: "SettingsNavPane"
         focus: true
 

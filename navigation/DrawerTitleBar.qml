@@ -7,7 +7,6 @@ import "../common"
 
 ToolBar {
     id: myTitleBar
-    property alias text: titleLabel.text
 
     RowLayout {
         focus: false
@@ -43,7 +42,7 @@ ToolBar {
 
         LabelTitle {
             id: titleLabel
-            text: "ekke's Drawer APP"
+            text: currentTitle
             leftPadding: 6
             rightPadding: 6
             elide: Label.ElideRight
