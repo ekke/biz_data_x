@@ -7,54 +7,96 @@ import QtGraphicalEffects 1.0
 
 import "../pages"
 
-StackView {
-    id: navPane
-    property string name: "SettingsNavPane"
+Page {
+    id: navPage
+    property alias depth: navPane.depth
+    property string name: "SettingsNavPage"
     // index to get access to Loader (Destination)
     property int myIndex: index
-    focus: true
 
-    initialItem: SettingsPage{}
-
+    header: isLandscape ? null : titleBar
     Loader {
-        id: primaryColorPageLoader
-        active: false
-        visible: false
-        source: "../pages/PrimaryColorPage.qml"
+        id: titleBar
+        visible: !isLandscape
+        active: !isLandscape
+        source: "DrawerTitleBar.qml"
         onLoaded: {
-            navPane.push(item)
+            if(item) {
+                item.text = qsTr("Biz Data Settings")
+            }
         }
     }
+    // in LANDSCAPE header is null and we have a floating TitleBar
     Loader {
-        id: accentColorPageLoader
-        active: false
-        visible: false
-        source: "../pages/AccentColorPage.qml"
+        id: titleBarFloating
+        visible: isLandscape
+        anchors.top: parent.top
+        anchors.left: parent.left
+        // anchors.leftMargin: sideBar.width+6
+        anchors.right: parent.right
+        active: isLandscape
+        source: "DrawerTitleBar.qml"
         onLoaded: {
-            navPane.push(item)
+            if(item) {
+                item.text = qsTr("Biz Data Settings")
+            }
         }
     }
 
-    function pushPrimaryColorPage() {
-        primaryColorPageLoader.active = true
-    }
-    function pushAccentColorPage() {
-        accentColorPageLoader.active = true
-    }
-    function popOnePage() {
-        var page = pop()
-        if(page.name == "PrimaryColorPage") {
-            primaryColorPageLoader.active = false
-            return
+    StackView {
+        id: navPane
+        anchors.top: isLandscape ? titleBarFloating.bottom : parent.top
+        anchors.left: parent.left
+        anchors.topMargin: isLandscape ? 6 : 0
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        property string name: "SettingsNavPane"
+        focus: true
+
+        initialItem: SettingsPage{}
+
+        Loader {
+            id: primaryColorPageLoader
+            active: false
+            visible: false
+            source: "../pages/PrimaryColorPage.qml"
+            onLoaded: {
+                navPane.push(item)
+            }
         }
-        if(page.name == "AccentColorPage") {
-            accentColorPageLoader.active = false
-            return
+        Loader {
+            id: accentColorPageLoader
+            active: false
+            visible: false
+            source: "../pages/AccentColorPage.qml"
+            onLoaded: {
+                navPane.push(item)
+            }
         }
-    }
+
+        function pushPrimaryColorPage() {
+            primaryColorPageLoader.active = true
+        }
+        function pushAccentColorPage() {
+            accentColorPageLoader.active = true
+        }
+        function popOnePage() {
+            var page = pop()
+            if(page.name == "PrimaryColorPage") {
+                primaryColorPageLoader.active = false
+                return
+            }
+            if(page.name == "AccentColorPage") {
+                accentColorPageLoader.active = false
+                return
+            }
+        }
+
+    } // navPane
+
     // triggered from BACK KEY
     function goBack() {
-        popOnePage()
+        navPane.popOnePage()
     }
 
     Component.onDestruction: {
@@ -62,10 +104,10 @@ StackView {
     }
 
     function init() {
-        console.log("INIT HomeNavPane")
+        console.log("INIT SettingsNavPane")
     }
     function cleanup() {
-        console.log("CLEANUP HomeNavPane")
+        console.log("CLEANUP SettingsNavPane")
     }
 
-} // navPane
+} // navPage

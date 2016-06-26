@@ -11,7 +11,7 @@ Flickable {
     property string name: "SettingsPage"
     // index to get access to Loader (Destination)
     property int myIndex: index
-    contentHeight: root.height
+    contentHeight: root.implicitHeight
     // StackView manages this, so please no anchors here
     // anchors.fill: parent
     clip: true
@@ -19,7 +19,6 @@ Flickable {
     Pane {
         id: root
         anchors.fill: parent
-        padding: 24
 
         ColumnLayout {
             id: theContent

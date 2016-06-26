@@ -145,45 +145,12 @@ ApplicationWindow {
     onNavigationIndexChanged: {
         rootPane.activateDestination(navigationIndex)
     }
-    property bool hideTitleBar: false
-    onHideTitleBarChanged: {
-        //
-    }
+
     property bool showFavorites: true
     property bool highlightActiveNavigationButton : true
 
-    // header only used in PORTRAIT to provide a fixed TitleBar
-    header: isLandscape || hideTitleBar ? null : titleBar
-
+    // header per Page, footer global in Portrait + perhaps per Page, too
     footer: showFavorites && !isLandscape && navigationBar.position == 0 ? favoritesBar : null
-
-    Loader {
-        id: titleBar
-        visible: !isLandscape && !hideTitleBar
-        active: !isLandscape && !hideTitleBar
-        source: "navigation/DrawerTitleBar.qml"
-        onLoaded: {
-            if(item) {
-                item.text = qsTr("From Drawer to Destinations")
-            }
-        }
-    }
-    // in LANDSCAPE header is null and we have a floating TitleBar
-    Loader {
-        id: titleBarFloating
-        visible: isLandscape && !hideTitleBar
-        anchors.top: parent.top
-        anchors.left: parent.left
-        // anchors.leftMargin: sideBar.width+6
-        anchors.right: parent.right
-        active: isLandscape && !hideTitleBar
-        source: "navigation/DrawerTitleBar.qml"
-        onLoaded: {
-            if(item) {
-                item.text = qsTr("From Drawer to Destinations")
-            }
-        }
-    }
 
     // The sliding Drawer
     DrawerNavigationBar {
@@ -200,11 +167,7 @@ ApplicationWindow {
     StackView {
         id: rootPane
         focus: true
-        anchors.top: isLandscape && !hideTitleBar? titleBarFloating.bottom : parent.top
-        anchors.left: parent.left
-        anchors.topMargin: isLandscape && !hideTitleBar? 6 : 0
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
 
         // shows a Busy indicator - probably not noticed yet
         // but in real life app loading first Page or Pane could took some time if heavy
@@ -303,13 +266,14 @@ ApplicationWindow {
             }
             // because of https://bugreports.qt.io/browse/QTBUG-54260
             // remember currentIndex before being replaced
-            if(rootPane.currentItem.name == "colorSchemaNavPage") {
-                rootPane.currentItem.lastCurrentIndex = rootPane.currentItem.currentIndex
-            }
+            // use as pattern for SwipeViews
+//            if(rootPane.currentItem.name == "colorSchemaNavPage") {
+//                rootPane.currentItem.lastCurrentIndex = rootPane.currentItem.currentIndex
+//            }
             // reset currentIndex to the last one
-            if(theItemLoader.item.name == "colorSchemaNavPage") {
-                theItemLoader.item.currentIndex = theItemLoader.item.lastCurrentIndex
-            }
+//            if(theItemLoader.item.name == "colorSchemaNavPage") {
+//                theItemLoader.item.currentIndex = theItemLoader.item.lastCurrentIndex
+//            }
             // now replace the Page
             rootPane.replace(theItemLoader.item)
             // check if previous should be unloaded

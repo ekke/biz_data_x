@@ -18,6 +18,7 @@ ToolBar {
         }
 
         ToolButton {
+            visible: !backButton.visible
             focusPolicy: Qt.NoFocus
             Image {
                 anchors.centerIn: parent
@@ -27,6 +28,19 @@ ToolBar {
                 navigationBar.open()
             }
         }
+        ToolButton {
+            id: backButton
+            focusPolicy: Qt.NoFocus
+            visible: navigationModel[navigationIndex].canGoBack && destinations.itemAt(navigationIndex).item.depth > 1
+            Image {
+                anchors.centerIn: parent
+                source: "qrc:/images/"+iconOnPrimaryFolder+"/arrow_back.png"
+            }
+            onClicked: {
+                destinations.itemAt(navigationIndex).item.goBack()
+            }
+        }
+
         LabelTitle {
             id: titleLabel
             text: "ekke's Drawer APP"
