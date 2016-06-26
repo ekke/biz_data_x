@@ -143,11 +143,6 @@ QStringList ApplicationUI::defaultAccentPalette()
     return accentPalette(mSettingsData->accentColor());
 }
 
-SettingsData *ApplicationUI::getSettings()
-{
-    return mSettingsData;
-}
-
 // ATTENTION
 // iOS: NO SIGNAL
 // Android: SIGNAL if leaving the App with Android BACK Key

@@ -31,8 +31,6 @@ public:
      Q_INVOKABLE
      QStringList defaultAccentPalette();
 
-     Q_INVOKABLE
-     SettingsData* getSettings();
 
 signals:
 
