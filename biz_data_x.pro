@@ -6,21 +6,21 @@ QT += qml quick core
 CONFIG += c++11
 
 HEADERS += \
-    applicationui.hpp \
-    uiconstants.hpp \
-    SettingsData.hpp
+    cpp/applicationui.hpp \
+    cpp/uiconstants.hpp \
+    cpp/SettingsData.hpp
 
-SOURCES += main.cpp \
-    applicationui.cpp \
-    SettingsData.cpp
+SOURCES += cpp/main.cpp \
+    cpp/applicationui.cpp \
+    cpp/SettingsData.cpp
 
 lupdate_only {
-    SOURCES +=  main.qml \
-    common/*.qml \
-    navigation/*.qml \
-    pages/*.qml \
-    popups/*.qml \
-    tabs/*.qml
+    SOURCES +=  qml/main.qml \
+    qml/common/*.qml \
+    qml/navigation/*.qml \
+    qml/pages/*.qml \
+    qml/popups/*.qml \
+    qml/tabs/*.qml
 }
 
 OTHER_FILES += images/black/*.png \

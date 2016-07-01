@@ -31,6 +31,6 @@ int main(int argc, char *argv[])
     QQmlContext* context = engine.rootContext();
     context->setContextProperty("myApp", &appui);
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     return app.exec();
 }

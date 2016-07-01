@@ -155,7 +155,8 @@ ApplicationWindow {
     property var favoritesModel: [
         0, 3, 7, 9
     ]
-    property int navigationIndex: 0
+    property int firstActiveDestination: 0
+    property int navigationIndex: firstActiveDestination
     onNavigationIndexChanged: {
         rootPane.activateDestination(navigationIndex)
     }
@@ -211,7 +212,7 @@ ApplicationWindow {
 
         Loader {
             id: initialPlaceholder
-            source: "../pages/InitialItemPage.qml"
+            source: "pages/InitialItemPage.qml"
             active: true
             visible: false
             onLoaded: {
@@ -272,7 +273,7 @@ ApplicationWindow {
                 // all destinations (Loader) created
                 // all destinatation items w activationPolicy IMMEDIATELY activated
                 // now show first destination (should always be IMMEDIATELY)
-                rootPane.activateDestination(0)
+                rootPane.activateDestination(firstActiveDestination)
                 rootPane.firstDestinationLoaded()
             }
         }
