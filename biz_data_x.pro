@@ -8,11 +8,19 @@ CONFIG += c++11
 HEADERS += \
     cpp/applicationui.hpp \
     cpp/uiconstants.hpp \
-    cpp/SettingsData.hpp
+    cpp/SettingsData.hpp \
+    cpp/Customer.hpp \
+    cpp/DataManager.hpp \
+    cpp/Order.hpp \
+    cpp/Position.hpp
 
 SOURCES += cpp/main.cpp \
     cpp/applicationui.cpp \
-    cpp/SettingsData.cpp
+    cpp/SettingsData.cpp \
+    cpp/Customer.cpp \
+    cpp/DataManager.cpp \
+    cpp/Order.cpp \
+    cpp/Position.cpp
 
 lupdate_only {
     SOURCES +=  qml/main.qml \
@@ -33,6 +41,9 @@ OTHER_FILES += images/black/*.png \
     images/white/x48/*.png \
     images/extra/*.png \
     translations/*.* \
+    data-assets/*.json \
+	data-assets/prod/*.json \
+	data-assets/test/*.json \
     images/LICENSE \
     LICENSE \
     *.md
@@ -40,7 +51,8 @@ OTHER_FILES += images/black/*.png \
 RESOURCES += \
     translations.qrc \
     qml.qrc \
-    images.qrc
+    images.qrc \
+    data-assets.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

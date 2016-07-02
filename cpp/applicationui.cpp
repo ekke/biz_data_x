@@ -15,28 +15,27 @@ const QString settingsDataFile = "/settingsData.json";
 
 using namespace ekke::constants;
 
-ApplicationUI::ApplicationUI(QObject *parent) : QObject(parent)
+ApplicationUI::ApplicationUI(QObject *parent) : QObject(parent), mDataManager(new DataManager(this))
 {
-    bool ok = checkDirs();
-    if(!ok) {
-        qFatal("App won't work - cannot create data directory");
-    }
-
-    qmlRegisterType<SettingsData>("org.ekkescorner.data", 1, 0, "SettingsData");
-
-    mSettingsData = new SettingsData();
+    mSettingsData = mDataManager->settingsData();
     // Read settings from data cache - if not found use defaults
-    if(!readSettings()) {
-        // default theme is light
-        mSettingsData->setDarkTheme(false);
-        // default primary color is Teal
-        mSettingsData->setPrimaryColor(8);
-        // default accent color is DeepOrange
-        mSettingsData->setAccentColor(15);
-    }
+    //    if(!readSettings()) {
+    //        // default theme is light
+    //        mSettingsData->setDarkTheme(false);
+    //        // default primary color is Teal
+    //        mSettingsData->setPrimaryColor(8);
+    //        // default accent color is DeepOrange
+    //        mSettingsData->setAccentColor(15);
+    //    }
 
     mCachingDone = false;
     mCachingInWork = false;
+
+}
+
+void ApplicationUI::addContextProperty(QQmlContext *context)
+{
+    context->setContextProperty("dataManager", mDataManager);
 }
 
 /* Change Theme Palette */
@@ -146,6 +145,7 @@ QStringList ApplicationUI::defaultAccentPalette()
     return accentPalette(mSettingsData->accentColor());
 }
 
+
 // ATTENTION
 // iOS: NO SIGNAL
 // Android: SIGNAL if leaving the App with Android BACK Key
@@ -166,63 +166,6 @@ void ApplicationUI::onApplicationStateChanged(Qt::ApplicationState applicationSt
     if(applicationState == Qt::ApplicationState::ApplicationActive) {
         resetCaching();
     }
-}
-
-bool ApplicationUI::checkDirs()
-{
-    // Android: HomeLocation works, iOS: not writable
-    // Android: AppDataLocation works out of the box, iOS you must create the DIR first !!
-    mDataPath = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).value(0);
-    mDataPath += "/data";
-    qDebug() << "Data Path: " << mDataPath;
-    QDir myDir(mDataPath);
-    if (!myDir.exists()) {
-        bool ok = myDir.mkpath(mDataPath);
-        if(!ok) {
-            qWarning() << "Couldn't create dir. " << mDataPath;
-            return false;
-        }
-        qDebug() << "created directory path" << mDataPath;
-    }
-    return true;
-}
-
-bool ApplicationUI::readSettings()
-{
-    qDebug() << "Read the Settings File";
-    QFile readFile(mDataPath+settingsDataFile);
-    if(!readFile.exists()) {
-        qDebug() << "file doesn't exist: " << settingsDataFile;
-        return false;
-    }
-    if (!readFile.open(QIODevice::ReadOnly)) {
-        qWarning() << "Couldn't open file: " << settingsDataFile;
-        return false;
-    }
-    // create JSON Document from settings file
-    QJsonDocument jda = QJsonDocument::fromJson(readFile.readAll());
-    if(!jda.isObject()) {
-        qWarning() << "Couldn't create JSON from file: " << settingsDataFile;
-        return false;
-    }
-    // create SettingsData* from JSON
-    mSettingsData->fillFromMap(jda.toVariant().toMap());
-    return true;
-}
-
-void ApplicationUI::saveSettings()
-{
-    qDebug() << "Save the Settings";
-    // convert Settings* into JSONDocument and store to app data
-    QJsonDocument jda = QJsonDocument::fromVariant(mSettingsData->toMap());
-    // save JSON to data directory
-    QFile saveFile(mDataPath+settingsDataFile);
-    if (!saveFile.open(QIODevice::WriteOnly)) {
-        qWarning() << "Couldn't open file " << settingsDataFile;
-        return;
-    }
-    qint64 bytesWritten = saveFile.write(jda.toJson());
-    qDebug() << "Bytes written: " << bytesWritten;
 }
 
 void ApplicationUI::resetCaching()
@@ -250,7 +193,7 @@ void ApplicationUI::doCaching()
     mCachingInWork = true;
     mCachingDone = false;
 
-    saveSettings();
+    mDataManager->onManualExit();
 
     mCachingInWork = false;
     mCachingDone = QGuiApplication::applicationState() != Qt::ApplicationState::ApplicationActive;

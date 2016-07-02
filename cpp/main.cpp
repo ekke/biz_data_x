@@ -22,15 +22,19 @@ int main(int argc, char *argv[])
 
     ApplicationUI appui;
 
-    QObject::connect(&app, SIGNAL(aboutToQuit()), &appui, SLOT(onAboutToQuit()));
-    QObject::connect(&app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), &appui, SLOT(onApplicationStateChanged(Qt::ApplicationState)));
-
     QQmlApplicationEngine engine;
 
     // from QML we have access to ApplicationUI as myApp
     QQmlContext* context = engine.rootContext();
     context->setContextProperty("myApp", &appui);
+    // some more context properties
+    appui.addContextProperty(context);
 
+    // lifecycle management
+    QObject::connect(&app, SIGNAL(aboutToQuit()), &appui, SLOT(onAboutToQuit()));
+    QObject::connect(&app, SIGNAL(applicationStateChanged(Qt::ApplicationState)), &appui, SLOT(onApplicationStateChanged(Qt::ApplicationState)));
+
+    // Start QML
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     return app.exec();
 }

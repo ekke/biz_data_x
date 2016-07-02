@@ -4,7 +4,10 @@
 
 #include <QObject>
 
+#include <QtQml>
+
 #include "SettingsData.hpp"
+#include "DataManager.hpp"
 
 class ApplicationUI : public QObject
 {
@@ -31,6 +34,7 @@ public:
      Q_INVOKABLE
      QStringList defaultAccentPalette();
 
+     void addContextProperty(QQmlContext* context);
 
 signals:
 
@@ -39,12 +43,9 @@ public slots:
      void onApplicationStateChanged(Qt::ApplicationState applicationState);
 
 private:
-     QString mDataPath;
-     bool checkDirs();
+     DataManager* mDataManager;
 
      SettingsData* mSettingsData;
-     bool readSettings();
-     void saveSettings();
 
      bool mCachingInWork;
      bool mCachingDone;

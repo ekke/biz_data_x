@@ -10,7 +10,7 @@ import "../pages"
 Page {
     id: navPage
     property alias depth: navPane.depth
-    property string name: "SettingsNavPage"
+    property string name: "HomeNavPage"
     // index to get access to Loader (Destination)
     property int myIndex: index
 
