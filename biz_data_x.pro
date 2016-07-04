@@ -48,9 +48,8 @@ OTHER_FILES += images/black/*.png \
     LICENSE \
     *.md
 
-RESOURCES += \
+RESOURCES += qml.qrc \
     translations.qrc \
-    qml.qrc \
     images.qrc \
     data-assets.qrc
 
