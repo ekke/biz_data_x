@@ -31,6 +31,13 @@ ApplicationUI::ApplicationUI(QObject *parent) : QObject(parent), mDataManager(ne
     mCachingDone = false;
     mCachingInWork = false;
 
+
+#ifdef QT_DEBUG
+    qDebug() << "Running a   D E B U G  build";
+#else
+    qDebug() << "Running a RELEASE build";
+#endif
+
 }
 
 void ApplicationUI::addContextProperty(QQmlContext *context)
@@ -193,7 +200,7 @@ void ApplicationUI::doCaching()
     mCachingInWork = true;
     mCachingDone = false;
 
-    mDataManager->onManualExit();
+    mDataManager->finish();
 
     mCachingInWork = false;
     mCachingDone = QGuiApplication::applicationState() != Qt::ApplicationState::ApplicationActive;
