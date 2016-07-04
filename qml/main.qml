@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtGraphicalEffects 1.0
+import org.ekkescorner.data 1.0
 import "common"
 import "pages"
 import "popups"
@@ -270,6 +271,7 @@ ApplicationWindow {
         function firstDestinationLoaded() {
             // do some sepcial stuff here
             // first page just becomes visible
+            dataManager.init()
         }
         // switch to new Destination
         // Destinations are lazy loaded via Loader
@@ -317,6 +319,13 @@ ApplicationWindow {
             var counter = navigationData[3].counter + 1
             navigationData[3].counter = counter
             navigationBar.navigationButtons.itemAt(3).item.counter = counter
+        }
+
+        // dummi for some comfort: myCustomer. <-contextAssist
+        // property Customer myCustomer
+        function createCustomer() {
+            var myCustomer = dataManager.createCustomer()
+            dataManager.insertCustomer(myCustomer)
         }
 
     } // rootPane
