@@ -135,6 +135,7 @@ public:
     void initCustomerFromCache();
     void initOrderFromCache();
     void initSettingsDataFromCache();
+    void finish();
 
 Q_SIGNALS:
 
@@ -147,7 +148,6 @@ Q_SIGNALS:
 	void deletedFromAllOrder(Order* order);
     
 public slots:
-    void onManualExit();
 
 private:
 
@@ -194,7 +194,6 @@ private:
 
 	QVariantList readFromCache(const QString& fileName);
 	void writeToCache(const QString& fileName, QVariantList& data);
-	void finish();
 };
 
 #endif /* DATAMANAGER_HPP_ */

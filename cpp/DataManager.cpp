@@ -30,7 +30,7 @@ DataManager::DataManager(QObject *parent) :
         mDataRoot = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).value(0);
     }
     mDataPath = mDataRoot+"/data/";
-    mDataAssetsPath = "qrc:///data-assets/";
+    mDataAssetsPath = ":/data-assets/";
     qDebug() << "Data Path: " << mDataPath << " data-assets: " << mDataAssetsPath;
     // guarantee that dirs exist
     bool ok = checkDirs();
@@ -888,13 +888,11 @@ void DataManager::readSettings()
             // copy file from assets to data
             bool copyOk = assetDataFile.copy(cacheFilePath);
             if (!copyOk) {
-                qDebug() << "cannot copy settings from assets to cache";
-                // no cache, no assets - empty settings
+                qDebug() << "cannot copy settings from data-assets to cache";
                 return;
             }
         } else {
-            // no cache, no assets - empty settings
-            qDebug() << "no settings from assets: " << assetsFilePath;
+            qDebug() << "no settings from data-assets: " << assetsFilePath;
             return;
         }
     }
@@ -921,7 +919,7 @@ void DataManager::saveSettings()
     // save JSON to data directory
     QFile saveFile(mDataRoot+"/"+cacheSettingsData);
     if (!saveFile.open(QIODevice::WriteOnly)) {
-        qWarning() << "Couldn't open file " << cacheSettingsData;
+        qWarning() << "Couldn't open file to write " << cacheSettingsData;
         return;
     }
     qint64 bytesWritten = saveFile.write(jda.toJson());
@@ -937,26 +935,31 @@ QVariantList DataManager::readFromCache(const QString& fileName)
     QJsonDocument jda;
     QVariantList cacheList;
     QString cacheFilePath = dataPath(fileName);
-    QString assetsFilePath = dataAssetsPath(fileName);
     QFile dataFile(cacheFilePath);
+    // check if already something cached
     if (!dataFile.exists()) {
-        QFile assetDataFile(assetsFilePath);
-        if (assetDataFile.exists()) {
-            // copy file from assets to data
-            bool copyOk = assetDataFile.copy(cacheFilePath);
+        // check if there are some pre-defined data in data-assets
+        QString dataAssetsFilePath = dataAssetsPath(fileName);
+        QFile dataAssetsFile(dataAssetsFilePath);
+        if (dataAssetsFile.exists()) {
+            // copy file from data-assets to cached data
+            bool copyOk = dataAssetsFile.copy(cacheFilePath);
             if (!copyOk) {
-                qDebug() << "cannot copy dataAssetsPath(fileName) to dataPath(fileName)";
-                // no cache, no assets - empty list
+                qDebug() << "cannot copy " << dataAssetsFilePath << " to " << cacheFilePath;
                 return cacheList;
             }
         } else {
-            // no cache, no assets - empty list
+            // no cache, no prefilled data-assets - empty list
             return cacheList;
         }
     }
+    if (!dataFile.open(QIODevice::ReadOnly)) {
+        qWarning() << "Couldn't open file: " << cacheFilePath;
+        return cacheList;
+    }
     jda = QJsonDocument::fromJson(dataFile.readAll());
     if(!jda.isArray()) {
-        qWarning() << "Couldn't create JSON[] from file: " << cacheFilePath;
+        qWarning() << "Couldn't create JSON Array from file: " << cacheFilePath;
         return cacheList;
     }
     cacheList = jda.toVariant().toList();
@@ -965,21 +968,15 @@ QVariantList DataManager::readFromCache(const QString& fileName)
 
 void DataManager::writeToCache(const QString& fileName, QVariantList& data)
 {
-    QString filePath = dataPath(fileName);
+    QString cacheFilePath = dataPath(fileName);
     QJsonDocument jda = QJsonDocument::fromVariant(data);
-    QFile saveFile(filePath);
+    QFile saveFile(cacheFilePath);
     if (!saveFile.open(QIODevice::WriteOnly)) {
-        qWarning() << "Couldn't open file " << filePath;
+        qWarning() << "Couldn't open file to write " << cacheFilePath;
         return;
     }
     qint64 bytesWritten = saveFile.write(jda.toJson());
-    qDebug() << "Data Bytes written: " << bytesWritten << " to: " << filePath;
-}
-
-void DataManager::onManualExit()
-{
-    qDebug() << "## DataManager ## MANUAL EXIT";
-    finish();
+    qDebug() << "Data Bytes written: " << bytesWritten << " to: " << cacheFilePath;
 }
 
 DataManager::~DataManager()
