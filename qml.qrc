@@ -20,11 +20,8 @@
         <file>qml/common/IconActive.qml</file>
         <file>qml/common/IconInactive.qml</file>
         <file>qml/common/IconColored.qml</file>
-        <file>qml/pages/PageOne.qml</file>
-        <file>qml/pages/PageTwo.qml</file>
-        <file>qml/pages/PageFour.qml</file>
-        <file>qml/pages/PageThree.qml</file>
-        <file>qml/pages/PageFive.qml</file>
+        <file>qml/pages/CustomerPage.qml</file>
+        <file>qml/pages/OrdersPage.qml</file>
         <file>qml/common/ButtonRaised.qml</file>
         <file>qml/common/ButtonFlat.qml</file>
         <file>qml/common/StackTextTitle.qml</file>
@@ -51,8 +48,7 @@
         <file>qml/tabs/TextTabBar.qml</file>
         <file>qml/pages/PrimaryColorPage.qml</file>
         <file>qml/pages/AccentColorPage.qml</file>
-        <file>qml/navigation/HomeNavigation.qml</file>
-        <file>qml/pages/QtPage.qml</file>
+        <file>qml/navigation/OrdersNavigation.qml</file>
         <file>qml/navigation/SettingsNavigation.qml</file>
     </qresource>
 </RCC>

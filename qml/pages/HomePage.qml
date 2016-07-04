@@ -8,11 +8,11 @@ import QtGraphicalEffects 1.0
 import "../common"
 
 Flickable {
-    id: flickable
+    id: homePage
     contentHeight: root.implicitHeight
     // StackView manages this, so please no anchors here
     // anchors.fill: parent
-    property string name: "Home"
+    property string name: "HomePage"
 
     Pane {
         id: root
@@ -34,7 +34,7 @@ Flickable {
                     leftPadding: 10
                     rightPadding: 10
                     wrapMode: Text.WordWrap
-                    text: qsTr("This Page is on a StackView - want to push another Page on top ?\nTap on the 'Qt' Logo")                }
+                    text: qsTr("Welcome to ekke's QtQuickControls2 Apps")                }
                 Item {
                     implicitWidth: 96
                     implicitHeight: 96
@@ -45,12 +45,6 @@ Flickable {
                         fillMode: Image.PreserveAspectFit
                         source: "qrc:/images/extra/qt-logo.png"
                     }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            navPane.pushQtPage()
-                        }
-                    } // mouse
                 }
             }
 
@@ -70,7 +64,7 @@ Flickable {
                     leftPadding: 10
                     rightPadding: 10
                     wrapMode: Text.WordWrap
-                    text: qsTr("Home Page is a StackView.\nNavigation Drawer can be opened swiping from left or tapping on Menu Button.\nHome Page is marked as Favority, so you can also navigate from Bottom (in Portrait Mode)\n")
+                    text: qsTr("Navigation Drawer can be opened swiping from left or tapping on Menu Button.\nHome Page is marked as Favority, so you can also navigate from Bottom (in Portrait Mode)\n")
                 }
             }
             RowLayout {

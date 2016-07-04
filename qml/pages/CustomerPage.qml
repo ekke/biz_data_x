@@ -10,13 +10,13 @@ import "../navigation"
 
 Page {
     id: carPage
-    property string name: "CarPage"
+    property string name: "CustomerPage"
     // index to get access to Loader (Destination)
     property int myIndex: index
 
     Flickable {
         id: flickable
-        property string name: "PageOne"
+        property string name: "customer"
 
         contentHeight: root.implicitHeight
         // StackView manages this, so please no anchors here

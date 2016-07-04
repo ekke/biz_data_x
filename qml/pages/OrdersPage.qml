@@ -13,7 +13,7 @@ Flickable {
     property int myIndex: index
     // StackView manages this, so please no anchors here
     // anchors.fill: parent
-    property string name: "PageThree"
+    property string name: "OrdersPage"
     Pane {
         id: root
         anchors.fill: parent
@@ -22,19 +22,11 @@ Flickable {
             anchors.left: parent.left
             LabelHeadline {
                 leftPadding: 10
-                text: qsTr("GoTo next Subway Station")
+                text: qsTr("Take a Bus")
             }
-            RowLayout {
-                IconInactive {
-                    imageName: modelData.icon
-                    imageSize: 48
-                }
-                Rectangle {
-                    //anchors.right: parent.right
-                    width: 6
-                    height: 48
-                    color: navigationData[myIndex].marker
-                }
+            IconInactive {
+                imageName: modelData.icon
+                imageSize: 48
             }
             HorizontalDivider {}
             RowLayout {
@@ -53,7 +45,7 @@ Flickable {
                     leftPadding: 10
                     rightPadding: 10
                     wrapMode: Text.WordWrap
-                    text: qsTr("Subway is a normal Page.\nNavigation Drawer can be opened swiping from left or tapping on Menu Button.\nSubway has a colored Marker in Drawer\n")
+                    text: qsTr("Bus is a normal Page.\nNavigation Drawer can be opened swiping from left or tapping on Menu Button.\n")
                 }
             }
             RowLayout {
@@ -69,7 +61,7 @@ Flickable {
                     leftPadding: 10
                     rightPadding: 10
                     wrapMode: Text.WordWrap
-                    text: qsTr("WHILE SELECTED")
+                    text: qsTr("LAZY")
                 }
             }
             HorizontalDivider {}
@@ -83,11 +75,10 @@ Flickable {
     }
     // called immediately after Loader.loaded
     function init() {
-        console.log(qsTr("Init done from Subway"))
+        console.log(qsTr("Init done from Bus"))
     }
     // called from Component.destruction
     function cleanup() {
-        console.log(qsTr("Cleanup done from Subway"))
+        console.log(qsTr("Cleanup done from Bus"))
     }
 } // flickable
-

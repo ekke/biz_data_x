@@ -103,19 +103,16 @@ ApplicationWindow {
     }
 
     // NAVIGATION BAR PROPRTIES (a_p == activationPolicy)
-    // IMMEDIATELY: Home, Flight
-    // LAZY: Car, Bus, Truck
-    // WHILE_CURRENT: Subway, About, Settings
+    // IMMEDIATELY: Home
+    // LAZY: customer, orders
+    // WHILE_CURRENT: About, Settings
     // StackView: Home --> QtPage, Settings --> primary / Accent
     property var navigationModel: [
-        {"type": "../navigation/DrawerNavigationButton.qml", "name": "Home", "icon": "home.png", "source": "../navigation/HomeNavigation.qml", "showCounter":false, "showMarker":false, "a_p":1, "canGoBack":true},
+        {"type": "../navigation/DrawerNavigationButton.qml", "name": "Home", "icon": "home.png", "source": "../pages/HomePage.qml", "showCounter":false, "showMarker":false, "a_p":1, "canGoBack":true},
         {"type": "../navigation/DrawerDivider.qml", "name": "", "icon": "", "source": "", "a_p":1, "canGoBack":false},
-        {"type": "../navigation/DrawerSubtitle.qml", "name": "Transitoptions", "icon": "", "source": "", "a_p":1, "canGoBack":false},
-        {"type": "../navigation/DrawerNavigationButton.qml", "name": "Car", "icon": "car.png", "source": "../pages/PageOne.qml", "showCounter":true, "showMarker":false, "a_p":2, "canGoBack":false},
-        {"type": "../navigation/DrawerNavigationButton.qml", "name": "Bus", "icon": "bus.png", "source": "../pages/PageTwo.qml", "showCounter":false, "showMarker":false, "a_p":2, "canGoBack":false},
-        {"type": "../navigation/DrawerNavigationButton.qml", "name": "Subway", "icon": "subway.png", "source": "../pages/PageThree.qml", "showCounter":false, "showMarker":true, "a_p":3, "canGoBack":false},
-        {"type": "../navigation/DrawerNavigationButton.qml", "name": "Truck", "icon": "truck.png", "source": "../pages/PageFour.qml", "showCounter":false, "showMarker":false, "a_p":2, "canGoBack":false},
-        {"type": "../navigation/DrawerNavigationButton.qml", "name": "Flight", "icon": "flight.png", "source": "../pages/PageFive.qml", "showCounter":false, "showMarker":true, "a_p":1, "canGoBack":false},
+        {"type": "../navigation/DrawerSubtitle.qml", "name": "Business", "icon": "", "source": "", "a_p":1, "canGoBack":false},
+        {"type": "../navigation/DrawerNavigationButton.qml", "name": "Customer", "icon": "person.png", "source": "../pages/CustomerPage.qml", "showCounter":false, "showMarker":true, "a_p":2, "canGoBack":false},
+        {"type": "../navigation/DrawerNavigationButton.qml", "name": "Orders", "icon": "list.png", "source": "../pages/OrdersPage.qml", "showCounter":true, "showMarker":false, "a_p":2, "canGoBack":true},
         {"type": "../navigation/DrawerDivider.qml", "name": "", "icon": "", "source": "", "a_p":1, "canGoBack":false},
         {"type": "../navigation/DrawerNavigationButton.qml", "name": "Settings", "icon": "settings.png", "source": "../navigation/SettingsNavigation.qml", "showCounter":false, "showMarker":false, "a_p":3, "canGoBack":true},
         {"type": "../navigation/DrawerNavigationTextButton.qml", "name": "About this App", "icon": "", "source": "../pages/AboutPage.qml", "showCounter":false, "showMarker":false, "a_p":3, "canGoBack":false}
@@ -124,36 +121,30 @@ ApplicationWindow {
         qsTr("Biz Data Homepage"),
         "",
         "",
-        qsTr("Biz Data Cars"),
-        qsTr("Biz Data Bus"),
-        qsTr("Biz Data Subway"),
-        qsTr("Biz Data Truck"),
-        qsTr("Biz Data Flight"),
+        qsTr("Biz Data Customer"),
+        qsTr("Biz Data Orders"),
         "",
         qsTr("Biz Data Settings"),
         qsTr("Biz Data About")
     ]
     property string currentTitle: navigationTitles[navigationIndex]
-    // Counter: Car
-    // Marker: Subway, Flight
+    // Counter: orders
+    // Marker: customer
     property var navigationData: [
         {"counter":0, "marker":""},
         {},
         {},
-        {"counter":3, "marker":""},
-        {"counter":0, "marker":""},
         {"counter":0, "marker":"green"},
-        {"counter":0, "marker":""},
-        {"counter":0, "marker":"red"},
+        {"counter":3, "marker":""},
         {},
         {"counter":0, "marker":""},
         {"counter":0, "marker":""}
     ]
     // Menu Button
-    // plus max 4 from drawer: home, car, flight, settings
+    // plus max 4 from drawer: home, customer, orders, settings
     // favoritesModel maps to index from navigationModel
     property var favoritesModel: [
-        0, 3, 7, 9
+        0, 3, 4, 6
     ]
     property int firstActiveDestination: 0
     property int navigationIndex: firstActiveDestination

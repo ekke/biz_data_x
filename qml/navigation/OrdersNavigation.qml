@@ -17,7 +17,7 @@ Page {
     StackView {
         id: navPane
         anchors.fill: parent
-        property string name: "HomeNavPane"
+        property string name: "OrdersNavPane"
         focus: true
 
         initialItem: HomePage{}

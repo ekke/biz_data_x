@@ -21,7 +21,14 @@ DataManager::DataManager(QObject *parent) :
 {   
     // Android: HomeLocation works, iOS: not writable
     // Android: AppDataLocation works out of the box, iOS you must create the DIR first !!
-    mDataRoot = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).value(0);
+    bool isPublicDataMode = true;
+    if (isPublicDataMode) {
+        // great while testing: access files from file explorer
+        mDataRoot = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).value(0);
+        mDataRoot += "/data/ekkescorner/biz_data_x";
+    } else {
+        mDataRoot = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).value(0);
+    }
     mDataPath = mDataRoot+"/data/";
     mDataAssetsPath = "qrc:///data-assets/";
     qDebug() << "Data Path: " << mDataPath << " data-assets: " << mDataAssetsPath;
