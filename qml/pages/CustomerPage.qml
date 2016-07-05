@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtGraphicalEffects 1.0
+import org.ekkescorner.data 1.0
 
 import "../common"
 import "../navigation"
@@ -13,6 +14,8 @@ Page {
     property string name: "CustomerPage"
     // index to get access to Loader (Destination)
     property int myIndex: index
+
+    property Customer customer
 
     Flickable {
         id: flickable
@@ -30,7 +33,7 @@ Page {
                 anchors.left: parent.left
                 LabelHeadline {
                     leftPadding: 10
-                    text: qsTr("Drive by Car")
+                    text: qsTr("Customer Data (QObject*)")
                 }
                 RowLayout {
                     IconInactive {
@@ -39,28 +42,8 @@ Page {
                     }
                     LabelSubheading {
                         id: availableCars
-                        text: qsTr("Available Cars: ")+ navigationData[3].counter
+                        text: qsTr("Stored Customers: ")+ dataManager.customerPropertyList.length
                     }
-                    LabelSubheading {
-                    }
-
-                    ButtonIconActive {
-                        imageName: "add.png"
-                        imageSize: 48
-                        onClicked: {
-                            rootPane.increaseCars()
-                            availableCars.text = qsTr("Available Cars: ")+ navigationData[3].counter
-                        }
-                    }
-                }
-                HorizontalDivider {}
-                RowLayout {
-                    LabelSubheading {
-                        topPadding: 6
-                        leftPadding: 10
-                        rightPadding: 10
-                        wrapMode: Text.WordWrap
-                        text: qsTr("Example APP demonstrating Qt Quick Controls 2\n\n")                }
                 }
                 RowLayout {
                     LabelSubheading {
@@ -68,7 +51,7 @@ Page {
                         leftPadding: 10
                         rightPadding: 10
                         wrapMode: Text.WordWrap
-                        text: qsTr("Car is a normal Page with a Counter visible in Drawer. Counter can be increased tapping on the 'add' Icon above.\nNavigation Drawer can be opened swiping from left or tapping on Menu Button.\nCar is marked as Favority, so you can also navigate from Bottom (in Portrait Mode)\n")
+                        text: qsTr("There's only one Customer in this sample app\n'abc' can be changed and shows Marker at Drawer:\n  A = Green\n  B = Grey\n  C = Red")
                     }
                 }
                 RowLayout {
@@ -88,6 +71,131 @@ Page {
                     }
                 }
                 HorizontalDivider {}
+                LabelSubheading {
+                    leftPadding: 10
+                    text: qsTr("Customer")
+                    color: primaryColor
+                }
+                RowLayout {
+                    LabelBodySecondary {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Nr")
+                        Layout.preferredWidth: 1
+                    }
+                    LabelBody {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: customer.nr
+                        Layout.preferredWidth: 2
+                    }
+                }
+                RowLayout {
+                    LabelBodySecondary {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Name")
+                        Layout.preferredWidth: 1
+                    }
+                    LabelBody {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: customer.name
+                        Layout.preferredWidth: 2
+                    }
+                }
+                RowLayout {
+                    LabelBodySecondary {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Street")
+                        Layout.preferredWidth: 1
+                    }
+                    LabelBody {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: customer.street
+                        Layout.preferredWidth: 2
+                    }
+                }
+                RowLayout {
+                    LabelBodySecondary {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: qsTr("Zip, City")
+                        Layout.preferredWidth: 1
+                    }
+                    LabelBody {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: customer.zip + " " + customer.city
+                        Layout.preferredWidth: 2
+                    }
+                }
+                RowLayout {
+                    LabelBodySecondary {
+                        topPadding: 6
+                        leftPadding: 10
+                        rightPadding: 10
+                        wrapMode: Text.WordWrap
+                        text: qsTr("A B C")
+                        Layout.preferredWidth: 3
+                    }
+                    RadioButton {
+                        leftPadding: 10
+                        Layout.preferredWidth: 2
+                        Layout.fillWidth: true
+                        checked: customer.abc == 0
+                        text: qsTr("A")
+                        onCheckedChanged: {
+                            if(checked) {
+                                customer.abc = 0
+                                rootPane.updateCustomerMarker(customer.abc)
+                            }
+                        }
+                    }
+                    RadioButton {
+                        Layout.preferredWidth: 2
+                        Layout.fillWidth: true
+                        checked: customer.abc == 1
+                        text: qsTr("B")
+                        onCheckedChanged: {
+                            if(checked) {
+                                customer.abc = 1
+                                rootPane.updateCustomerMarker(customer.abc)
+                            }
+                        }
+                    }
+                    RadioButton {
+                        rightPadding: 10
+                        Layout.preferredWidth: 2
+                        Layout.fillWidth: true
+                        checked: customer.abc == 2
+                        text: qsTr("C")
+                        onCheckedChanged: {
+                            if(checked) {
+                                customer.abc = 2
+                                rootPane.updateCustomerMarker(customer.abc)
+                            }
+                        }
+                    }
+                }
             } // col layout
         } // root
         ScrollIndicator.vertical: ScrollIndicator { }
@@ -101,11 +209,13 @@ Page {
 
     // called immediately after Loader.loaded
     function init() {
-        console.log(qsTr("Init done from Car"))
+        console.log(qsTr("Init done from CustomerPage"))
+        customer = dataManager.customerPropertyList[0]
+        rootPane.updateCustomerMarker(customer.abc)
     }
     // called from Component.destruction
     function cleanup() {
-        console.log(qsTr("Cleanup done from Car"))
+        console.log(qsTr("Cleanup done from CustomerPage"))
     }
 
 } // carPage

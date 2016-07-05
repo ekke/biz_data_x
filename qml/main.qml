@@ -141,7 +141,7 @@ ApplicationWindow {
         {"counter":0, "marker":""},
         {},
         {},
-        {"counter":0, "marker":"green"},
+        {"counter":0, "marker":"transparent"},
         {"counter":3, "marker":""},
         {},
         {"counter":0, "marker":""},
@@ -348,6 +348,23 @@ ApplicationWindow {
             var counter = navigationData[4].counter + 1
             navigationData[4].counter = counter
             navigationBar.navigationButtons.itemAt(4).item.counter = counter
+        }
+        // example HowTo set a marker
+        function updateCustomerMarker(abc) {
+            switch(abc) {
+                case 0:
+                    navigationData[3].marker = "green"
+                    break;
+                case 1:
+                    navigationData[3].marker = "grey"
+                    break;
+                case 2:
+                    navigationData[3].marker = "red"
+                    break;
+                default:
+                    navigationData[3].marker = "transparent"
+            }
+            navigationBar.navigationButtons.itemAt(3).item.marker = navigationData[3].marker
         }
 
         // dummi for some comfort: myCustomer. <-contextAssist

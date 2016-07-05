@@ -38,6 +38,16 @@ Flickable {
                     wrapMode: Text.WordWrap
                     text: qsTr("Example APP demonstrating Qt Quick Controls 2\n\n")
                 }
+                LabelSubheading {
+                }
+                ButtonIconActive {
+                    imageName: "add.png"
+                    imageSize: 48
+                    onClicked: {
+                        rootPane.increaseCars()
+                        availableCars.text = qsTr("Available Cars: ")+ navigationData[3].counter
+                    }
+                }
             }
             RowLayout {
                 LabelSubheading {
@@ -75,10 +85,10 @@ Flickable {
     }
     // called immediately after Loader.loaded
     function init() {
-        console.log(qsTr("Init done from Bus"))
+        console.log(qsTr("Init done from OrdersPage"))
     }
     // called from Component.destruction
     function cleanup() {
-        console.log(qsTr("Cleanup done from Bus"))
+        console.log(qsTr("Cleanup done from OrdersPage"))
     }
 } // flickable

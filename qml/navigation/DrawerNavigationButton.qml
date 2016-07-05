@@ -11,6 +11,7 @@ ToolButton {
     property bool isActive: index == navigationIndex
     property string myIconFolder: iconFolder
     property int counter: navigationData[index].counter
+    property color marker: navigationData[index].marker
     Layout.fillWidth: true
     Layout.alignment: Qt.AlignHCenter
     focusPolicy: Qt.NoFocus
@@ -77,7 +78,7 @@ ToolButton {
         anchors.right: parent.right
         width: 6
         height: parent.height
-        color: navigationData[index].marker
+        color: marker
     }
     onClicked: {
         navigationIndex = index
