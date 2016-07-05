@@ -34,6 +34,9 @@ public:
      Q_INVOKABLE
      QStringList defaultAccentPalette();
 
+     Q_INVOKABLE
+     bool isDebugBuild();
+
      void addContextProperty(QQmlContext* context);
 
 signals:

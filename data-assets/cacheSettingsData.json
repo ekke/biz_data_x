@@ -1,8 +1,10 @@
 {
     "accentColor": 15,
     "darkTheme": false,
+    "hasPublicCache": false,
     "id": 1,
     "isProductionEnvironment": false,
     "primaryColor": 8,
+    "useCompactJsonFormat": true,
     "version": 1
 }

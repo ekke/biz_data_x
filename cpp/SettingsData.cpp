@@ -9,6 +9,8 @@ static const QString isProductionEnvironmentKey = "isProductionEnvironment";
 static const QString primaryColorKey = "primaryColor";
 static const QString accentColorKey = "accentColor";
 static const QString darkThemeKey = "darkTheme";
+static const QString hasPublicCacheKey = "hasPublicCache";
+static const QString useCompactJsonFormatKey = "useCompactJsonFormat";
 
 // keys used from Server API etc
 static const QString idForeignKey = "id";
@@ -17,12 +19,14 @@ static const QString isProductionEnvironmentForeignKey = "isProductionEnvironmen
 static const QString primaryColorForeignKey = "primaryColor";
 static const QString accentColorForeignKey = "accentColor";
 static const QString darkThemeForeignKey = "darkTheme";
+static const QString hasPublicCacheForeignKey = "hasPublicCache";
+static const QString useCompactJsonFormatForeignKey = "useCompactJsonFormat";
 
 /*
  * Default Constructor if SettingsData not initialized from QVariantMap
  */
 SettingsData::SettingsData(QObject *parent) :
-        QObject(parent), mId(-1), mVersion(0), mIsProductionEnvironment(false), mPrimaryColor(0), mAccentColor(0), mDarkTheme(false)
+        QObject(parent), mId(-1), mVersion(0), mIsProductionEnvironment(false), mPrimaryColor(0), mAccentColor(0), mDarkTheme(false), mHasPublicCache(false), mUseCompactJsonFormat(false)
 {
 }
 
@@ -41,6 +45,8 @@ void SettingsData::fillFromMap(const QVariantMap& settingsDataMap)
 	mPrimaryColor = settingsDataMap.value(primaryColorKey).toInt();
 	mAccentColor = settingsDataMap.value(accentColorKey).toInt();
 	mDarkTheme = settingsDataMap.value(darkThemeKey).toBool();
+	mHasPublicCache = settingsDataMap.value(hasPublicCacheKey).toBool();
+	mUseCompactJsonFormat = settingsDataMap.value(useCompactJsonFormatKey).toBool();
 }
 /*
  * initialize OrderData from QVariantMap
@@ -57,6 +63,8 @@ void SettingsData::fillFromForeignMap(const QVariantMap& settingsDataMap)
 	mPrimaryColor = settingsDataMap.value(primaryColorForeignKey).toInt();
 	mAccentColor = settingsDataMap.value(accentColorForeignKey).toInt();
 	mDarkTheme = settingsDataMap.value(darkThemeForeignKey).toBool();
+	mHasPublicCache = settingsDataMap.value(hasPublicCacheForeignKey).toBool();
+	mUseCompactJsonFormat = settingsDataMap.value(useCompactJsonFormatForeignKey).toBool();
 }
 /*
  * initialize OrderData from QVariantMap
@@ -73,6 +81,8 @@ void SettingsData::fillFromCacheMap(const QVariantMap& settingsDataMap)
 	mPrimaryColor = settingsDataMap.value(primaryColorKey).toInt();
 	mAccentColor = settingsDataMap.value(accentColorKey).toInt();
 	mDarkTheme = settingsDataMap.value(darkThemeKey).toBool();
+	mHasPublicCache = settingsDataMap.value(hasPublicCacheKey).toBool();
+	mUseCompactJsonFormat = settingsDataMap.value(useCompactJsonFormatKey).toBool();
 }
 
 void SettingsData::prepareNew()
@@ -104,6 +114,8 @@ QVariantMap SettingsData::toMap()
 	settingsDataMap.insert(primaryColorKey, mPrimaryColor);
 	settingsDataMap.insert(accentColorKey, mAccentColor);
 	settingsDataMap.insert(darkThemeKey, mDarkTheme);
+	settingsDataMap.insert(hasPublicCacheKey, mHasPublicCache);
+	settingsDataMap.insert(useCompactJsonFormatKey, mUseCompactJsonFormat);
 	return settingsDataMap;
 }
 
@@ -121,6 +133,8 @@ QVariantMap SettingsData::toForeignMap()
 	settingsDataMap.insert(primaryColorForeignKey, mPrimaryColor);
 	settingsDataMap.insert(accentColorForeignKey, mAccentColor);
 	settingsDataMap.insert(darkThemeForeignKey, mDarkTheme);
+	settingsDataMap.insert(hasPublicCacheForeignKey, mHasPublicCache);
+	settingsDataMap.insert(useCompactJsonFormatForeignKey, mUseCompactJsonFormat);
 	return settingsDataMap;
 }
 
@@ -219,6 +233,34 @@ void SettingsData::setDarkTheme(bool darkTheme)
 	if (darkTheme != mDarkTheme) {
 		mDarkTheme = darkTheme;
 		emit darkThemeChanged(darkTheme);
+	}
+}
+// ATT 
+// Optional: hasPublicCache
+bool SettingsData::hasPublicCache() const
+{
+	return mHasPublicCache;
+}
+
+void SettingsData::setHasPublicCache(bool hasPublicCache)
+{
+	if (hasPublicCache != mHasPublicCache) {
+		mHasPublicCache = hasPublicCache;
+		emit hasPublicCacheChanged(hasPublicCache);
+	}
+}
+// ATT 
+// Optional: useCompactJsonFormat
+bool SettingsData::useCompactJsonFormat() const
+{
+	return mUseCompactJsonFormat;
+}
+
+void SettingsData::setUseCompactJsonFormat(bool useCompactJsonFormat)
+{
+	if (useCompactJsonFormat != mUseCompactJsonFormat) {
+		mUseCompactJsonFormat = useCompactJsonFormat;
+		emit useCompactJsonFormatChanged(useCompactJsonFormat);
 	}
 }
 

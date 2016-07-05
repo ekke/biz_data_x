@@ -31,13 +31,6 @@ ApplicationUI::ApplicationUI(QObject *parent) : QObject(parent), mDataManager(ne
     mCachingDone = false;
     mCachingInWork = false;
 
-
-#ifdef QT_DEBUG
-    qDebug() << "Running a   D E B U G  build";
-#else
-    qDebug() << "Running a RELEASE build";
-#endif
-
 }
 
 void ApplicationUI::addContextProperty(QQmlContext *context)
@@ -150,6 +143,15 @@ QStringList ApplicationUI::defaultPrimaryPalette()
 QStringList ApplicationUI::defaultAccentPalette()
 {
     return accentPalette(mSettingsData->accentColor());
+}
+
+bool ApplicationUI::isDebugBuild()
+{
+#ifdef QT_DEBUG
+    return true;
+#endif
+    qDebug() << "Running a RELEASE build";
+    return false;
 }
 
 

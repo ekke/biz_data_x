@@ -17,6 +17,8 @@ class SettingsData: public QObject
 	Q_PROPERTY(int primaryColor READ primaryColor WRITE setPrimaryColor NOTIFY primaryColorChanged FINAL)
 	Q_PROPERTY(int accentColor READ accentColor WRITE setAccentColor NOTIFY accentColorChanged FINAL)
 	Q_PROPERTY(bool darkTheme READ darkTheme WRITE setDarkTheme NOTIFY darkThemeChanged FINAL)
+	Q_PROPERTY(bool hasPublicCache READ hasPublicCache WRITE setHasPublicCache NOTIFY hasPublicCacheChanged FINAL)
+	Q_PROPERTY(bool useCompactJsonFormat READ useCompactJsonFormat WRITE setUseCompactJsonFormat NOTIFY useCompactJsonFormatChanged FINAL)
 
 
 public:
@@ -48,6 +50,10 @@ public:
 	void setAccentColor(int accentColor);
 	bool darkTheme() const;
 	void setDarkTheme(bool darkTheme);
+	bool hasPublicCache() const;
+	void setHasPublicCache(bool hasPublicCache);
+	bool useCompactJsonFormat() const;
+	void setUseCompactJsonFormat(bool useCompactJsonFormat);
 
 
 
@@ -61,6 +67,8 @@ public:
 	void primaryColorChanged(int primaryColor);
 	void accentColorChanged(int accentColor);
 	void darkThemeChanged(bool darkTheme);
+	void hasPublicCacheChanged(bool hasPublicCache);
+	void useCompactJsonFormatChanged(bool useCompactJsonFormat);
 	
 
 private:
@@ -71,6 +79,8 @@ private:
 	int mPrimaryColor;
 	int mAccentColor;
 	bool mDarkTheme;
+	bool mHasPublicCache;
+	bool mUseCompactJsonFormat;
 
 	Q_DISABLE_COPY (SettingsData)
 };
