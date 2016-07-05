@@ -18,15 +18,6 @@ using namespace ekke::constants;
 ApplicationUI::ApplicationUI(QObject *parent) : QObject(parent), mDataManager(new DataManager(this))
 {
     mSettingsData = mDataManager->settingsData();
-    // Read settings from data cache - if not found use defaults
-    //    if(!readSettings()) {
-    //        // default theme is light
-    //        mSettingsData->setDarkTheme(false);
-    //        // default primary color is Teal
-    //        mSettingsData->setPrimaryColor(8);
-    //        // default accent color is DeepOrange
-    //        mSettingsData->setAccentColor(15);
-    //    }
 
     mCachingDone = false;
     mCachingInWork = false;
