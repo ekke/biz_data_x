@@ -161,79 +161,33 @@ ApplicationWindow {
     }
     property alias navigationBar: drawerLoader.item
 
-    property bool showFavorites: true
     property bool highlightActiveNavigationButton : true
 
     // header per Page, footer global in Portrait + perhaps per Page, too
-    // footer: showFavorites && !isLandscape && navigationBar.position == 0 ? favoritesBar : null
-    footer: initDone && showFavorites && !isLandscape && drawerLoader.status == Loader.Ready && navigationBar.position == 0 ? favoritesLoader.item : null
-    header: isLandscape ? null : titleBar
+    // header and footer invisible until initDone
+    footer: initDone && !isLandscape && drawerLoader.status == Loader.Ready && navigationBar.position == 0 ? favoritesLoader.item : null
+    header: isLandscape || !initDone ? null : titleBar
+    // show TITLE  BARS is delayed until INIT DONE
     Loader {
         id: titleBar
         visible: !isLandscape && initDone
-        active: !isLandscape
+        active: !isLandscape && initDone
         source: "navigation/DrawerTitleBar.qml"
     }
     // in LANDSCAPE header is null and we have a floating TitleBar
     Loader {
         id: titleBarFloating
         visible: isLandscape && initDone
+        active: isLandscape && initDone
+        source: "navigation/DrawerTitleBar.qml"
         anchors.top: parent.top
         anchors.left: parent.left
-        // anchors.leftMargin: sideBar.width+6
         anchors.right: parent.right
-        active: isLandscape
-        source: "navigation/DrawerTitleBar.qml"
     }
-
-    Item {
-        visible: false
-        // DUMMI ITEM to be able to manipulate navigationModel
-        Component.onCompleted: {
-            // add navigation model for DEBUG BUILD
-            console.log("NAV MODEL: " + navigationModel.length)
-            if(myApp.isDebugBuild()) {
-                console.log("DEBUG BUILD")
-                navigationModel.push(developerModel)
-            }
-            console.log("NAV MODEL: " + navigationModel.length)
-        }
-    }
-
-    Loader {
-        id: drawerLoader
-        active: initDone
-        visible: initDone
-        source: "navigation/DrawerNavigationBar.qml"
-    }
-    Loader {
-        id: favoritesLoader
-        active: initDone
-        visible: initDone && showFavorites && !isLandscape && (drawerLoader.status == Loader.Ready? navigationBar.position == 0 : false)
-        source: "navigation/DrawerFavoritesNavigationBar.qml"
-    }
-
-    function openNavigationBar() {
-        navigationBar.open()
-        // drawerLoader.item.open()
-    }
-    function closeNavigationBar() {
-        navigationBar.close()
-        // drawerLoader.item.close()
-    }
-
-//    // The sliding Drawer
-//    DrawerNavigationBar {
-//        id: navigationBar
-//    } // navigationBar
-//    // Bottom Toolbar (only Portrait)
-//    DrawerFavoritesNavigationBar {
-//        id: favoritesBar
-//        visible: showFavorites && !isLandscape && navigationBar.position == 0
-//    }
+    // end TITLE BARS
 
 
-
+    // STACK VIEW (rootPane)
     // the ROOT contains always only one Page,
     // which will be replaced if root node changed
     StackView {
@@ -245,35 +199,7 @@ ApplicationWindow {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
 
-        // shows a Busy indicator - probably not noticed yet
-        // but in real life app loading first Page or Pane could took some time if heavy
-        Loader {
-            id: initialPlaceholder
-            source: "pages/InitialItemPage.qml"
-            active: true
-            visible: false
-            onLoaded: {
-                // Show BUSY INDICATOR
-                rootPane.initialItem = item
-                item.init()
-                // Now something is VISIBLE - do the other time-consuming stuff
-                startupDelayedTimer.start()
-            }
-        }
-
-        Timer {
-            id: startupDelayedTimer
-            interval: 300
-            repeat: false
-            onTriggered: {
-                dataManager.init()
-                destinations.model = navigationModel
-                initDone = true
-                rootPane.activateDestination(firstActiveDestination)
-                rootPane.firstDestinationLoaded()
-            }
-        }
-
+        // STACK VIEW TRANSITIONS
         replaceEnter: Transition {
             PropertyAnimation {
                 property: "opacity"
@@ -290,7 +216,9 @@ ApplicationWindow {
                 duration: 300
             }
         }
+        // end STACKVIEW TRANSITIONS
 
+        // STACK VIEW KEYS and SHORTCUTS
         // support of BACK key
         // can be used from StackView pushed on ROOT (HomeNavigation) tp pop()
         // or to exit the app
@@ -310,11 +238,57 @@ ApplicationWindow {
                 return
             }
             // We must cleanup loaded Pages
+        }
+        // TODO some Shortcuts
+        // end STACK VIEW KEYS and SHORTCUTS
 
+        // STACK VIEW INITIAL ITEM (BUSY INDICATOR)
+        // immediately activated and pushed on stack as initialItem
+        Loader {
+            id: initialPlaceholder
+            source: "pages/InitialItemPage.qml"
+            active: true
+            visible: false
+            onLoaded: {
+                // Show BUSY INDICATOR
+                rootPane.initialItem = item
+                item.init()
+                // Now something is VISIBLE - do the other time-consuming stuff
+                startupDelayedTimer.start()
+            }
+        }
+        // end STACK VIEW INITIAL ITEM
+
+        // DELAYED STARTUP TIMER
+        // do the hevy stuff while initialItem is visible
+        // initialize Data, create Navigation, make Title visible, ...
+        Timer {
+            id: startupDelayedTimer
+            interval: 300
+            repeat: false
+            onTriggered: {
+                console.log("startupDelayedTimer START")
+                rootPane.initialItem.showInfo("Initialize Data ...")
+                dataManager.init()
+                rootPane.initialItem.showInfo("Create Navigation Controls ...")
+                // add navigation model for DEBUG BUILD ?
+                if(myApp.isDebugBuild()) {
+                    console.log("DEBUG BUILD added as destination")
+                    navigationModel.push(developerModel)
+                }
+                // inject model into Destinations Repeater
+                destinations.model = navigationModel
+                // show the Navigation Bars (Drawer and Favorites)
+                initDone = true
+                // show first destination (should always be IMMEDIATELY)
+                rootPane.activateDestination(firstActiveDestination)
+                console.log("startupDelayedTimer DONE")
+            }
         }
 
-        // TODO some Shortcus
-
+        // ASYNC STARTUP: Destinations will be loaded from Timer
+        // that's why no model is attached at the beginning
+        // startupDelayedTimer will set the model
         Repeater {
             id: destinations
             // model: navigationModel
@@ -323,31 +297,11 @@ ApplicationWindow {
             Destination {
                 id: destinationLoader
             }
-            Component.onCompleted: {
-                console.log("REPEATER COMPONENT DONE")
-                // all destinations (Loader) created
-                // all destinatation items w activationPolicy IMMEDIATELY activated
-                // now show first destination (should always be IMMEDIATELY)
-
-                //rootPane.activateDestination(firstActiveDestination)
-                //rootPane.firstDestinationLoaded()
-            }
+            // Repeater creates all destinations (Loader)
+            // all destinatation items w activationPolicy IMMEDIATELY are activated
         }
 
-        // ASYNC STARTUP: Destinations will be loaded from Timer
-//        Loader {
-//            id: destinationsRepeaterLoader
-//            property alias model: destinations.model
-//            active: false
-
-//        }
-
-
-        function firstDestinationLoaded() {
-            // do some sepcial stuff here
-            // first page just becomes visible
-
-        }
+        // STACK VIEW (rootPane) FUNCTIONS
         // switch to new Destination
         // Destinations are lazy loaded via Loader
         function activateDestination(navigationIndex) {
@@ -402,10 +356,37 @@ ApplicationWindow {
             var myCustomer = dataManager.createCustomer()
             dataManager.insertCustomer(myCustomer)
         }
+        // end STACKVIEW FUNCTIONS
 
     } // rootPane
 
+    // INIT DONE: show TITLE and NAVIGATION BARS
 
+    // NAVIGATION BARS (DRAWER and FAVORITES)
+    // The sliding Drawer
+    // there's an alias in appWindow: navigationBar --> drawerLoader.item
+    Loader {
+        id: drawerLoader
+        active: initDone
+        visible: initDone
+        source: "navigation/DrawerNavigationBar.qml"
+    }
+    Loader {
+        id: favoritesLoader
+        active: initDone
+        // visible: initDone && !isLandscape && (drawerLoader.status == Loader.Ready? navigationBar.position == 0 : false)
+        visible: initDone && !isLandscape && drawerLoader.status == Loader.Ready && navigationBar.position == 0
+        source: "navigation/DrawerFavoritesNavigationBar.qml"
+    }
+    function openNavigationBar() {
+        navigationBar.open()
+    }
+    function closeNavigationBar() {
+        navigationBar.close()
+    }
+    // end NAVIGATION BARS
+
+    // APP WINDOW FUNCTIONS
 
     function switchPrimaryPalette(paletteIndex) {
         primaryPalette = myApp.primaryPalette(paletteIndex)
@@ -424,7 +405,9 @@ ApplicationWindow {
         popupInfo.buttonText = qsTr("OK")
         popupInfo.open()
     }
+    // end APP WINDOW FUNCTIONS
 
+    // APP WINDOW POPUPS
     PopupInfo {
         id: popupInfo
         onAboutToHide: {
@@ -432,13 +415,13 @@ ApplicationWindow {
             resetFocus()
         }
     } // popupInfo
-
     // PopupToast
     PopupToast {
         id: popupToast
         onAboutToHide: {
             resetFocus()
         }
-    }
+    } // popupToast
+    // end APP WINDOW POPUPS
 
 } // app window
