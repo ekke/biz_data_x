@@ -61,6 +61,6 @@ ToolButton {
 
     onClicked: {
         navigationIndex = index
-        navigationBar.close()
+        closeNavigationBar()
     }
 } // myButton

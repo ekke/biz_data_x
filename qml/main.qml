@@ -118,6 +118,11 @@ ApplicationWindow {
         {"type": "../navigation/DrawerNavigationButton.qml", "name": "Settings", "icon": "settings.png", "source": "../navigation/SettingsNavigation.qml", "showCounter":false, "showMarker":false, "a_p":3, "canGoBack":true},
         {"type": "../navigation/DrawerNavigationTextButton.qml", "name": "About this App", "icon": "", "source": "../pages/AboutPage.qml", "showCounter":false, "showMarker":false, "a_p":3, "canGoBack":false}
     ]
+    property var developerModel: {
+        "type": "../navigation/DrawerNavigationButton.qml", "name": "Developer Tools", "icon": "code.png", "source": "../pages/AboutPage.qml", "showCounter":false, "showMarker":false, "a_p":3, "canGoBack":false
+    }
+    property bool initDone: false
+
     property var navigationTitles: [
         qsTr("Biz Data Homepage"),
         "",
@@ -126,7 +131,8 @@ ApplicationWindow {
         qsTr("Biz Data Orders"),
         "",
         qsTr("Biz Data Settings"),
-        qsTr("Biz Data About")
+        qsTr("Biz Data About"),
+        qsTr("Biz Data D E V E L O P E R Tools")
     ]
     property string currentTitle: navigationTitles[navigationIndex]
     // Counter: orders
@@ -138,6 +144,7 @@ ApplicationWindow {
         {"counter":0, "marker":"green"},
         {"counter":3, "marker":""},
         {},
+        {"counter":0, "marker":""},
         {"counter":0, "marker":""},
         {"counter":0, "marker":""}
     ]
@@ -152,23 +159,25 @@ ApplicationWindow {
     onNavigationIndexChanged: {
         rootPane.activateDestination(navigationIndex)
     }
+    property alias navigationBar: drawerLoader.item
 
     property bool showFavorites: true
     property bool highlightActiveNavigationButton : true
 
     // header per Page, footer global in Portrait + perhaps per Page, too
-    footer: showFavorites && !isLandscape && navigationBar.position == 0 ? favoritesBar : null
+    // footer: showFavorites && !isLandscape && navigationBar.position == 0 ? favoritesBar : null
+    footer: initDone && showFavorites && !isLandscape && drawerLoader.status == Loader.Ready && navigationBar.position == 0 ? favoritesLoader.item : null
     header: isLandscape ? null : titleBar
     Loader {
         id: titleBar
-        visible: !isLandscape
+        visible: !isLandscape && initDone
         active: !isLandscape
         source: "navigation/DrawerTitleBar.qml"
     }
     // in LANDSCAPE header is null and we have a floating TitleBar
     Loader {
         id: titleBarFloating
-        visible: isLandscape
+        visible: isLandscape && initDone
         anchors.top: parent.top
         anchors.left: parent.left
         // anchors.leftMargin: sideBar.width+6
@@ -177,15 +186,53 @@ ApplicationWindow {
         source: "navigation/DrawerTitleBar.qml"
     }
 
-    // The sliding Drawer
-    DrawerNavigationBar {
-        id: navigationBar
-    } // navigationBar
-    // Bottom Toolbar (only Portrait)
-    DrawerFavoritesNavigationBar {
-        id: favoritesBar
-        visible: showFavorites && !isLandscape && navigationBar.position == 0
+    Item {
+        visible: false
+        // DUMMI ITEM to be able to manipulate navigationModel
+        Component.onCompleted: {
+            // add navigation model for DEBUG BUILD
+            console.log("NAV MODEL: " + navigationModel.length)
+            if(myApp.isDebugBuild()) {
+                console.log("DEBUG BUILD")
+                navigationModel.push(developerModel)
+            }
+            console.log("NAV MODEL: " + navigationModel.length)
+        }
     }
+
+    Loader {
+        id: drawerLoader
+        active: initDone
+        visible: initDone
+        source: "navigation/DrawerNavigationBar.qml"
+    }
+    Loader {
+        id: favoritesLoader
+        active: initDone
+        visible: initDone && showFavorites && !isLandscape && (drawerLoader.status == Loader.Ready? navigationBar.position == 0 : false)
+        source: "navigation/DrawerFavoritesNavigationBar.qml"
+    }
+
+    function openNavigationBar() {
+        navigationBar.open()
+        // drawerLoader.item.open()
+    }
+    function closeNavigationBar() {
+        navigationBar.close()
+        // drawerLoader.item.close()
+    }
+
+//    // The sliding Drawer
+//    DrawerNavigationBar {
+//        id: navigationBar
+//    } // navigationBar
+//    // Bottom Toolbar (only Portrait)
+//    DrawerFavoritesNavigationBar {
+//        id: favoritesBar
+//        visible: showFavorites && !isLandscape && navigationBar.position == 0
+//    }
+
+
 
     // the ROOT contains always only one Page,
     // which will be replaced if root node changed
@@ -206,8 +253,24 @@ ApplicationWindow {
             active: true
             visible: false
             onLoaded: {
+                // Show BUSY INDICATOR
                 rootPane.initialItem = item
                 item.init()
+                // Now something is VISIBLE - do the other time-consuming stuff
+                startupDelayedTimer.start()
+            }
+        }
+
+        Timer {
+            id: startupDelayedTimer
+            interval: 300
+            repeat: false
+            onTriggered: {
+                dataManager.init()
+                destinations.model = navigationModel
+                initDone = true
+                rootPane.activateDestination(firstActiveDestination)
+                rootPane.firstDestinationLoaded()
             }
         }
 
@@ -254,24 +317,36 @@ ApplicationWindow {
 
         Repeater {
             id: destinations
-            model: navigationModel
+            // model: navigationModel
             // Destination encapsulates Loader
             // depends from activationPolicy how to load dynamically
             Destination {
                 id: destinationLoader
             }
             Component.onCompleted: {
+                console.log("REPEATER COMPONENT DONE")
                 // all destinations (Loader) created
                 // all destinatation items w activationPolicy IMMEDIATELY activated
                 // now show first destination (should always be IMMEDIATELY)
-                rootPane.activateDestination(firstActiveDestination)
-                rootPane.firstDestinationLoaded()
+
+                //rootPane.activateDestination(firstActiveDestination)
+                //rootPane.firstDestinationLoaded()
             }
         }
+
+        // ASYNC STARTUP: Destinations will be loaded from Timer
+//        Loader {
+//            id: destinationsRepeaterLoader
+//            property alias model: destinations.model
+//            active: false
+
+//        }
+
+
         function firstDestinationLoaded() {
             // do some sepcial stuff here
             // first page just becomes visible
-            dataManager.init()
+
         }
         // switch to new Destination
         // Destinations are lazy loaded via Loader
@@ -316,9 +391,9 @@ ApplicationWindow {
 
         // example HowTo increase a counter (visible from Drawer and Cars Page)
         function increaseCars() {
-            var counter = navigationData[3].counter + 1
-            navigationData[3].counter = counter
-            navigationBar.navigationButtons.itemAt(3).item.counter = counter
+            var counter = navigationData[4].counter + 1
+            navigationData[4].counter = counter
+            navigationBar.navigationButtons.itemAt(4).item.counter = counter
         }
 
         // dummi for some comfort: myCustomer. <-contextAssist

@@ -21,4 +21,7 @@ Loader {
             rootPane.replaceDestination(pageLoader)
         }
     }
+    Component.onCompleted: {
+        console.log("CREATED DESTINATION "+index)
+    }
 }

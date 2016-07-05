@@ -28,6 +28,10 @@
         <file>images/black/x18/clear@2x.png</file>
         <file>images/black/x18/clear@3x.png</file>
         <file>images/black/x18/clear@4x.png</file>
+        <file>images/black/x18/code.png</file>
+        <file>images/black/x18/code@2x.png</file>
+        <file>images/black/x18/code@3x.png</file>
+        <file>images/black/x18/code@4x.png</file>
         <file>images/black/x18/colors.png</file>
         <file>images/black/x18/colors@2x.png</file>
         <file>images/black/x18/colors@3x.png</file>
@@ -156,6 +160,10 @@
         <file>images/black/x36/clear@2x.png</file>
         <file>images/black/x36/clear@3x.png</file>
         <file>images/black/x36/clear@4x.png</file>
+        <file>images/black/x36/code.png</file>
+        <file>images/black/x36/code@2x.png</file>
+        <file>images/black/x36/code@3x.png</file>
+        <file>images/black/x36/code@4x.png</file>
         <file>images/black/x36/colors.png</file>
         <file>images/black/x36/colors@2x.png</file>
         <file>images/black/x36/colors@3x.png</file>
@@ -284,6 +292,10 @@
         <file>images/black/x48/clear@2x.png</file>
         <file>images/black/x48/clear@3x.png</file>
         <file>images/black/x48/clear@4x.png</file>
+        <file>images/black/x48/code.png</file>
+        <file>images/black/x48/code@2x.png</file>
+        <file>images/black/x48/code@3x.png</file>
+        <file>images/black/x48/code@4x.png</file>
         <file>images/black/x48/colors.png</file>
         <file>images/black/x48/colors@2x.png</file>
         <file>images/black/x48/colors@3x.png</file>
@@ -412,6 +424,10 @@
         <file>images/black/clear@2x.png</file>
         <file>images/black/clear@3x.png</file>
         <file>images/black/clear@4x.png</file>
+        <file>images/black/code.png</file>
+        <file>images/black/code@2x.png</file>
+        <file>images/black/code@3x.png</file>
+        <file>images/black/code@4x.png</file>
         <file>images/black/colors.png</file>
         <file>images/black/colors@2x.png</file>
         <file>images/black/colors@3x.png</file>
@@ -552,6 +568,10 @@
         <file>images/white/x18/clear@2x.png</file>
         <file>images/white/x18/clear@3x.png</file>
         <file>images/white/x18/clear@4x.png</file>
+        <file>images/white/x18/code.png</file>
+        <file>images/white/x18/code@2x.png</file>
+        <file>images/white/x18/code@3x.png</file>
+        <file>images/white/x18/code@4x.png</file>
         <file>images/white/x18/colors.png</file>
         <file>images/white/x18/colors@2x.png</file>
         <file>images/white/x18/colors@3x.png</file>
@@ -680,6 +700,10 @@
         <file>images/white/x36/clear@2x.png</file>
         <file>images/white/x36/clear@3x.png</file>
         <file>images/white/x36/clear@4x.png</file>
+        <file>images/white/x36/code.png</file>
+        <file>images/white/x36/code@2x.png</file>
+        <file>images/white/x36/code@3x.png</file>
+        <file>images/white/x36/code@4x.png</file>
         <file>images/white/x36/colors.png</file>
         <file>images/white/x36/colors@2x.png</file>
         <file>images/white/x36/colors@3x.png</file>
@@ -808,6 +832,10 @@
         <file>images/white/x48/clear@2x.png</file>
         <file>images/white/x48/clear@3x.png</file>
         <file>images/white/x48/clear@4x.png</file>
+        <file>images/white/x48/code.png</file>
+        <file>images/white/x48/code@2x.png</file>
+        <file>images/white/x48/code@3x.png</file>
+        <file>images/white/x48/code@4x.png</file>
         <file>images/white/x48/colors.png</file>
         <file>images/white/x48/colors@2x.png</file>
         <file>images/white/x48/colors@3x.png</file>
@@ -936,6 +964,10 @@
         <file>images/white/clear@2x.png</file>
         <file>images/white/clear@3x.png</file>
         <file>images/white/clear@4x.png</file>
+        <file>images/white/code.png</file>
+        <file>images/white/code@2x.png</file>
+        <file>images/white/code@3x.png</file>
+        <file>images/white/code@4x.png</file>
         <file>images/white/colors.png</file>
         <file>images/white/colors@2x.png</file>
         <file>images/white/colors@3x.png</file>
@@ -1040,5 +1072,6 @@
         <file>images/white/upload@2x.png</file>
         <file>images/white/upload@3x.png</file>
         <file>images/white/upload@4x.png</file>
+        <file>images/LICENSE</file>
     </qresource>
 </RCC>

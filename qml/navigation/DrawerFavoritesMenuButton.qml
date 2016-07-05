@@ -22,6 +22,6 @@ ToolButton {
         }
     }
     onClicked: {
-        navigationBar.open()
+        openNavigationBar()
     }
 }

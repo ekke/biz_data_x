@@ -24,13 +24,13 @@ ToolBar {
                 source: "qrc:/images/"+iconOnPrimaryFolder+"/menu.png"
             }
             onClicked: {
-                navigationBar.open()
+                appWindow.openNavigationBar()
             }
         }
         ToolButton {
             id: backButton
             focusPolicy: Qt.NoFocus
-            visible: navigationModel[navigationIndex].canGoBack && destinations.itemAt(navigationIndex).item.depth > 1
+            visible: initDone && navigationModel[navigationIndex].canGoBack && destinations.itemAt(navigationIndex).item.depth > 1
             Image {
                 anchors.centerIn: parent
                 source: "qrc:/images/"+iconOnPrimaryFolder+"/arrow_back.png"

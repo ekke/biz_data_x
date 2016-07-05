@@ -45,12 +45,13 @@ Drawer {
                         leftPadding: 16
                         rightPadding: 16
                         LabelBody {
-                            text: "ekke's Example APPs"
+                            text: "ekke's Business APPs\nQtQuickControls2"
+                            wrapMode: Text.WordWrap
                             font.weight: Font.Medium
                             color: textOnPrimary
                         }
                         LabelBody {
-                            text: "@ekkescorner"
+                            text: "@ekkescorner\n"
                             color: textOnPrimary
                         }
                     }
@@ -60,13 +61,13 @@ Drawer {
                     height: 8
                 }
                 Item {
-                    width: 48
-                    height: 48
+                    width: 64
+                    height: 64
                     x: 16
                     y: 12
                     IconColored {
-                        imageName: "directions.png"
-                        imageSize: 48
+                        imageName: "group.png"
+                        imageSize: 36
                         color: textOnPrimary
                     }
                 }
