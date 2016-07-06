@@ -41,7 +41,6 @@ Page {
                         imageSize: 48
                     }
                     LabelSubheading {
-                        id: availableCars
                         text: qsTr("Stored Customers: ")+ dataManager.customerPropertyList.length
                     }
                 }

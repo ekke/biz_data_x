@@ -142,7 +142,7 @@ ApplicationWindow {
         {},
         {},
         {"counter":0, "marker":"transparent"},
-        {"counter":3, "marker":""},
+        {"counter":0, "marker":""},
         {},
         {"counter":0, "marker":""},
         {"counter":0, "marker":""},
@@ -280,6 +280,8 @@ ApplicationWindow {
                 destinations.model = navigationModel
                 // show the Navigation Bars (Drawer and Favorites)
                 initDone = true
+                // now NavigationBars available, we can update counters:
+                rootPane.updateOrderCounter()
                 // show first destination (should always be IMMEDIATELY)
                 rootPane.activateDestination(firstActiveDestination)
                 console.log("startupDelayedTimer DONE")
@@ -343,9 +345,9 @@ ApplicationWindow {
             }
         }
 
-        // example HowTo increase a counter (visible from Drawer and Cars Page)
-        function increaseCars() {
-            var counter = navigationData[4].counter + 1
+        // example HowTo set a counter
+        function updateOrderCounter() {
+            var counter = dataManager.orderPropertyList.length
             navigationData[4].counter = counter
             navigationBar.navigationButtons.itemAt(4).item.counter = counter
         }
@@ -367,11 +369,13 @@ ApplicationWindow {
             navigationBar.navigationButtons.itemAt(3).item.marker = navigationData[3].marker
         }
 
-        // dummi for some comfort: myCustomer. <-contextAssist
-        // property Customer myCustomer
-        function createCustomer() {
-            var myCustomer = dataManager.createCustomer()
-            dataManager.insertCustomer(myCustomer)
+        // dummi for some comfort: myOrder. <-contextAssist
+        // property Order myOrder
+        function createOrder() {
+            var myOrder = dataManager.createOrder()
+            dataManager.insertOrder(myOrder)
+            myOrder = dataManager.createOrder()
+            dataManager.insertOrder(myOrder)
         }
         // end STACKVIEW FUNCTIONS
 

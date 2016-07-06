@@ -22,31 +22,15 @@ Flickable {
             anchors.left: parent.left
             LabelHeadline {
                 leftPadding: 10
-                text: qsTr("Take a Bus")
+                text: qsTr("Order Data (List of QObject*)")
             }
-            IconInactive {
-                imageName: modelData.icon
-                imageSize: 48
-            }
-            HorizontalDivider {}
             RowLayout {
-                LabelSubheading {
-                    topPadding: 6
-                    bottomPadding: 6
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Example APP demonstrating Qt Quick Controls 2\n\n")
-                }
-                LabelSubheading {
-                }
-                ButtonIconActive {
-                    imageName: "add.png"
+                IconInactive {
+                    imageName: modelData.icon
                     imageSize: 48
-                    onClicked: {
-                        rootPane.increaseCars()
-                        availableCars.text = qsTr("Available Cars: ")+ navigationData[3].counter
-                    }
+                }
+                LabelSubheading {
+                    text: qsTr("Stored Orders: ")+ dataManager.orderPropertyList.length
                 }
             }
             RowLayout {
@@ -55,7 +39,7 @@ Flickable {
                     leftPadding: 10
                     rightPadding: 10
                     wrapMode: Text.WordWrap
-                    text: qsTr("Bus is a normal Page.\nNavigation Drawer can be opened swiping from left or tapping on Menu Button.\n")
+                    text: qsTr("See the List of Orders ?\nTap on the Floating Action Button.\n")
                 }
             }
             RowLayout {
