@@ -8,7 +8,7 @@ import "../common"
 
 Flickable {
     id: flickable
-    contentHeight: root.implicitHeight
+    contentHeight: Math.max(parent.height * 1.2,  root.implicitHeight)
     // index to get access to Loader (Destination)
     property int myIndex: index
     // StackView manages this, so please no anchors here
@@ -59,15 +59,10 @@ Flickable {
                 }
             }
             HorizontalDivider {}
-            Button {
-                text: "List"
-                onClicked: {
-                    navPane.pushOrderListPage()
-                }
-            }
         } // col layout
     } // pane root
     ScrollIndicator.vertical: ScrollIndicator { }
+
 
     // emitting a Signal could be another option
     Component.onDestruction: {
@@ -82,3 +77,5 @@ Flickable {
         console.log(qsTr("Cleanup done from OrdersPage"))
     }
 } // flickable
+// primaryDarkColor is used because FAB can overlap Raised Buttons colored in primaryColor
+

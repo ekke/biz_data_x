@@ -13,59 +13,55 @@ Page {
     bottomPadding: 24
     topPadding: 16
 
-    LabelHeadline {
-        id: headline
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        leftPadding: 16
-        rightPadding: 16
-        bottomPadding: 16
-        text: qsTr("Select Material Primary Color")
-    }
-
     ListView {
         id: listView
+        focus: true
         clip: true
+        highlight: Rectangle {color: Material.listHighlightColor }
         currentIndex: -1
-        anchors.top: headline.bottom
+        anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
         model: dataManager.orderPropertyList
 
-        delegate: ColumnLayout {
+        delegate:
+            ColumnLayout {
             id: itemDelegate
             // property Order order: model.modelData
             width: parent.width
             implicitHeight: 40
             RowLayout {
                 spacing: 10
+                Layout.fillWidth: true
                 LabelBody {
-                    id: theLabel
-                    Layout.preferredWidth: 1
                     leftPadding: 40
+                    rightPadding: 10
+                    Layout.preferredWidth: 1
+                    Layout.fillWidth: true
                     anchors.verticalCenter: parent.verticalCenter
                     text: model.modelData.remarks // or only remarks // order.remarks
                     wrapMode: Label.WordWrap
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
+                            listView.currentIndex = index
                             navPane.popOnePage()
                         }
-                    } // mouse
+                    }
                 }
-                Switch {
-                    id: theSwitch
-                    Layout.preferredWidth: 1
-                    Layout.fillWidth: true
+                SwitchWithLeftLabel {
+                    rightPadding: 12
                     text: "test"
                     onCheckedChanged: {
+                        listView.currentIndex = index
                         remarks += checked
                     }
                 }
-
             } // end Row
+            HorizontalDivider{
+                height: 2
+            }
         } // end delegateItem
 
         ScrollIndicator.vertical: ScrollIndicator { }

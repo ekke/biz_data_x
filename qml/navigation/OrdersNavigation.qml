@@ -6,6 +6,7 @@ import QtQuick.Controls.Material 2.0
 import QtGraphicalEffects 1.0
 
 import "../pages"
+import "../common"
 
 Page {
     id: navPage
@@ -45,6 +46,24 @@ Page {
 
 
     } // navPane
+
+    FloatingActionButton {
+        visible: navPane.depth == 1
+        property string imageName: dataManager.orderPropertyList.length == 0 ? "/add.png" : "/list.png"
+        z: 1
+        anchors.margins: 16
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        imageSource: "qrc:/images/"+iconOnPrimaryDarkFolder+imageName
+        backgroundColor: primaryDarkColor
+        onClicked: {
+            if(dataManager.orderPropertyList.length == 0) {
+                // navPane.pushNextPage()
+            } else {
+                navPane.pushOrderListPage()
+            }
+        }
+    } // FAB
 
     // triggered from BACK KEY
     function goBack() {
