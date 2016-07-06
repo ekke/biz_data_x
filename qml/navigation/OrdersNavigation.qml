@@ -10,7 +10,7 @@ import "../pages"
 Page {
     id: navPage
     property alias depth: navPane.depth
-    property string name: "HomeNavPage"
+    property string name: "OrderNavPage"
     // index to get access to Loader (Destination)
     property int myIndex: index
 
@@ -20,20 +20,27 @@ Page {
         property string name: "OrdersNavPane"
         focus: true
 
-        initialItem: HomePage{}
+        initialItem: OrdersPage{}
 
         Loader {
-            id: qtPageLoader
-            active: true
+            id: orderListPageLoader
+            active: false
             visible: false
-            source: "../pages/QtPage.qml"
+            source: "../pages/OrderListPage.qml"
+            onLoaded: {
+                navPane.push(item)
+            }
         }
 
-        function pushQtPage() {
-            navPane.push(qtPageLoader.item)
+        function pushOrderListPage() {
+            orderListPageLoader.active = true
         }
         function popOnePage() {
-            navPane.pop()
+            var page = pop()
+            if(page.name == "OrderListPage") {
+                orderListPageLoader.active = false
+                return
+            }
         }
 
 
@@ -49,10 +56,10 @@ Page {
     }
 
     function init() {
-        console.log("INIT HomeNavPane")
+        console.log("INIT OrderNavPane")
     }
     function cleanup() {
-        console.log("CLEANUP HomeNavPane")
+        console.log("CLEANUP OrderNavPane")
     }
 
 } // navPage

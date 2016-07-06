@@ -59,6 +59,12 @@ Flickable {
                 }
             }
             HorizontalDivider {}
+            Button {
+                text: "List"
+                onClicked: {
+                    navPane.pushOrderListPage()
+                }
+            }
         } // col layout
     } // pane root
     ScrollIndicator.vertical: ScrollIndicator { }

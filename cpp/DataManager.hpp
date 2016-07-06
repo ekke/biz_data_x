@@ -16,7 +16,7 @@ Q_OBJECT
 
 // QDeclarativeListProperty to get easy access from QML
 Q_PROPERTY(QQmlListProperty<Customer> customerPropertyList READ customerPropertyList CONSTANT)
-Q_PROPERTY(QQmlListProperty<Order> orderPropertyList READ orderPropertyList CONSTANT)
+Q_PROPERTY(QQmlListProperty<Order> orderPropertyList READ orderPropertyList CONSTANT NOTIFY orderPropertyListChanged)
 
 public:
     DataManager(QObject *parent = 0);
@@ -146,6 +146,8 @@ Q_SIGNALS:
 	void addedToAllOrder(Order* order);
 	void deletedFromAllOrderByNr(int nr);
 	void deletedFromAllOrder(Order* order);
+
+    void orderPropertyListChanged();
     
 public slots:
 

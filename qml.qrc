@@ -50,5 +50,6 @@
         <file>qml/pages/AccentColorPage.qml</file>
         <file>qml/navigation/OrdersNavigation.qml</file>
         <file>qml/navigation/SettingsNavigation.qml</file>
+        <file>qml/pages/OrderListPage.qml</file>
     </qresource>
 </RCC>

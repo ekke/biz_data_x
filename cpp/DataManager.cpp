@@ -720,6 +720,7 @@ void DataManager::insertOrder(Order* order)
     order->setParent(this);
     mAllOrder.append(order);
     emit addedToAllOrder(order);
+    emit orderPropertyListChanged();
 }
 
 void DataManager::insertOrderFromMap(const QVariantMap& orderMap,
@@ -734,6 +735,7 @@ void DataManager::insertOrderFromMap(const QVariantMap& orderMap,
     }
     mAllOrder.append(order);
     emit addedToAllOrder(order);
+    emit orderPropertyListChanged();
 }
 
 bool DataManager::deleteOrder(Order* order)
@@ -745,6 +747,7 @@ bool DataManager::deleteOrder(Order* order)
     }
     emit deletedFromAllOrderByNr(order->nr());
     emit deletedFromAllOrder(order);
+    emit orderPropertyListChanged();
     order->deleteLater();
     order = 0;
     return ok;
@@ -760,6 +763,7 @@ bool DataManager::deleteOrderByNr(const int& nr)
             mAllOrder.removeAt(i);
             emit deletedFromAllOrderByNr(nr);
             emit deletedFromAllOrder(order);
+            emit orderPropertyListChanged();
             order->deleteLater();
             order = 0;
             return true;
