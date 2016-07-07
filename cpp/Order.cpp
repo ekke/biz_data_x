@@ -6,6 +6,7 @@
 static const QString nrKey = "nr";
 static const QString orderDateKey = "orderDate";
 static const QString remarksKey = "remarks";
+static const QString expressDeliveryKey = "expressDelivery";
 static const QString positionsKey = "positions";
 static const QString customerKey = "customer";
 
@@ -13,6 +14,7 @@ static const QString customerKey = "customer";
 static const QString nrForeignKey = "nr";
 static const QString orderDateForeignKey = "orderDate";
 static const QString remarksForeignKey = "remarks";
+static const QString expressDeliveryForeignKey = "expressDelivery";
 static const QString positionsForeignKey = "positions";
 static const QString customerForeignKey = "customer";
 
@@ -20,7 +22,7 @@ static const QString customerForeignKey = "customer";
  * Default Constructor if Order not initialized from QVariantMap
  */
 Order::Order(QObject *parent) :
-        QObject(parent), mNr(-1), mRemarks("")
+        QObject(parent), mNr(-1), mRemarks(""), mExpressDelivery(false)
 {
 	// lazy references:
 	mCustomer = -1;
@@ -58,6 +60,7 @@ void Order::fillFromMap(const QVariantMap& orderMap)
 		}
 	}
 	mRemarks = orderMap.value(remarksKey).toString();
+	mExpressDelivery = orderMap.value(expressDeliveryKey).toBool();
 	// customer lazy pointing to Customer* (domainKey: nr)
 	if (orderMap.contains(customerKey)) {
 		mCustomer = orderMap.value(customerKey).toInt();
@@ -98,6 +101,7 @@ void Order::fillFromForeignMap(const QVariantMap& orderMap)
 		}
 	}
 	mRemarks = orderMap.value(remarksForeignKey).toString();
+	mExpressDelivery = orderMap.value(expressDeliveryForeignKey).toBool();
 	// customer lazy pointing to Customer* (domainKey: nr)
 	if (orderMap.contains(customerForeignKey)) {
 		mCustomer = orderMap.value(customerForeignKey).toInt();
@@ -138,6 +142,7 @@ void Order::fillFromCacheMap(const QVariantMap& orderMap)
 		}
 	}
 	mRemarks = orderMap.value(remarksKey).toString();
+	mExpressDelivery = orderMap.value(expressDeliveryKey).toBool();
 	// customer lazy pointing to Customer* (domainKey: nr)
 	if (orderMap.contains(customerKey)) {
 		mCustomer = orderMap.value(customerKey).toInt();
@@ -198,6 +203,7 @@ QVariantMap Order::toMap()
 		orderMap.insert(orderDateKey, mOrderDate.toString("yyyy-MM-dd"));
 	}
 	orderMap.insert(remarksKey, mRemarks);
+	orderMap.insert(expressDeliveryKey, mExpressDelivery);
 	// mPositions points to Position*
 	orderMap.insert(positionsKey, positionsAsQVariantList());
 	return orderMap;
@@ -220,6 +226,7 @@ QVariantMap Order::toForeignMap()
 		orderMap.insert(orderDateForeignKey, mOrderDate.toString("yyyy-MM-dd"));
 	}
 	orderMap.insert(remarksForeignKey, mRemarks);
+	orderMap.insert(expressDeliveryForeignKey, mExpressDelivery);
 	// mPositions points to Position*
 	orderMap.insert(positionsForeignKey, positionsAsForeignQVariantList());
 	return orderMap;
@@ -357,6 +364,20 @@ void Order::setRemarks(QString remarks)
 	if (remarks != mRemarks) {
 		mRemarks = remarks;
 		emit remarksChanged(remarks);
+	}
+}
+// ATT 
+// Optional: expressDelivery
+bool Order::expressDelivery() const
+{
+	return mExpressDelivery;
+}
+
+void Order::setExpressDelivery(bool expressDelivery)
+{
+	if (expressDelivery != mExpressDelivery) {
+		mExpressDelivery = expressDelivery;
+		emit expressDeliveryChanged(expressDelivery);
 	}
 }
 // REF

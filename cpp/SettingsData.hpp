@@ -19,6 +19,7 @@ class SettingsData: public QObject
 	Q_PROPERTY(bool darkTheme READ darkTheme WRITE setDarkTheme NOTIFY darkThemeChanged FINAL)
 	Q_PROPERTY(bool hasPublicCache READ hasPublicCache WRITE setHasPublicCache NOTIFY hasPublicCacheChanged FINAL)
 	Q_PROPERTY(bool useCompactJsonFormat READ useCompactJsonFormat WRITE setUseCompactJsonFormat NOTIFY useCompactJsonFormatChanged FINAL)
+	Q_PROPERTY(int lastUsedNumber READ lastUsedNumber WRITE setLastUsedNumber NOTIFY lastUsedNumberChanged FINAL)
 
 
 public:
@@ -54,6 +55,8 @@ public:
 	void setHasPublicCache(bool hasPublicCache);
 	bool useCompactJsonFormat() const;
 	void setUseCompactJsonFormat(bool useCompactJsonFormat);
+	int lastUsedNumber() const;
+	void setLastUsedNumber(int lastUsedNumber);
 
 
 
@@ -69,6 +72,7 @@ public:
 	void darkThemeChanged(bool darkTheme);
 	void hasPublicCacheChanged(bool hasPublicCache);
 	void useCompactJsonFormatChanged(bool useCompactJsonFormat);
+	void lastUsedNumberChanged(int lastUsedNumber);
 	
 
 private:
@@ -81,6 +85,7 @@ private:
 	bool mDarkTheme;
 	bool mHasPublicCache;
 	bool mUseCompactJsonFormat;
+	int mLastUsedNumber;
 
 	Q_DISABLE_COPY (SettingsData)
 };

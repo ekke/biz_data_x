@@ -11,6 +11,7 @@ static const QString accentColorKey = "accentColor";
 static const QString darkThemeKey = "darkTheme";
 static const QString hasPublicCacheKey = "hasPublicCache";
 static const QString useCompactJsonFormatKey = "useCompactJsonFormat";
+static const QString lastUsedNumberKey = "lastUsedNumber";
 
 // keys used from Server API etc
 static const QString idForeignKey = "id";
@@ -21,12 +22,13 @@ static const QString accentColorForeignKey = "accentColor";
 static const QString darkThemeForeignKey = "darkTheme";
 static const QString hasPublicCacheForeignKey = "hasPublicCache";
 static const QString useCompactJsonFormatForeignKey = "useCompactJsonFormat";
+static const QString lastUsedNumberForeignKey = "lastUsedNumber";
 
 /*
  * Default Constructor if SettingsData not initialized from QVariantMap
  */
 SettingsData::SettingsData(QObject *parent) :
-        QObject(parent), mId(-1), mVersion(0), mIsProductionEnvironment(false), mPrimaryColor(0), mAccentColor(0), mDarkTheme(false), mHasPublicCache(false), mUseCompactJsonFormat(false)
+        QObject(parent), mId(-1), mVersion(0), mIsProductionEnvironment(false), mPrimaryColor(0), mAccentColor(0), mDarkTheme(false), mHasPublicCache(false), mUseCompactJsonFormat(false), mLastUsedNumber(0)
 {
 }
 
@@ -47,6 +49,7 @@ void SettingsData::fillFromMap(const QVariantMap& settingsDataMap)
 	mDarkTheme = settingsDataMap.value(darkThemeKey).toBool();
 	mHasPublicCache = settingsDataMap.value(hasPublicCacheKey).toBool();
 	mUseCompactJsonFormat = settingsDataMap.value(useCompactJsonFormatKey).toBool();
+	mLastUsedNumber = settingsDataMap.value(lastUsedNumberKey).toInt();
 }
 /*
  * initialize OrderData from QVariantMap
@@ -65,6 +68,7 @@ void SettingsData::fillFromForeignMap(const QVariantMap& settingsDataMap)
 	mDarkTheme = settingsDataMap.value(darkThemeForeignKey).toBool();
 	mHasPublicCache = settingsDataMap.value(hasPublicCacheForeignKey).toBool();
 	mUseCompactJsonFormat = settingsDataMap.value(useCompactJsonFormatForeignKey).toBool();
+	mLastUsedNumber = settingsDataMap.value(lastUsedNumberForeignKey).toInt();
 }
 /*
  * initialize OrderData from QVariantMap
@@ -83,6 +87,7 @@ void SettingsData::fillFromCacheMap(const QVariantMap& settingsDataMap)
 	mDarkTheme = settingsDataMap.value(darkThemeKey).toBool();
 	mHasPublicCache = settingsDataMap.value(hasPublicCacheKey).toBool();
 	mUseCompactJsonFormat = settingsDataMap.value(useCompactJsonFormatKey).toBool();
+	mLastUsedNumber = settingsDataMap.value(lastUsedNumberKey).toInt();
 }
 
 void SettingsData::prepareNew()
@@ -116,6 +121,7 @@ QVariantMap SettingsData::toMap()
 	settingsDataMap.insert(darkThemeKey, mDarkTheme);
 	settingsDataMap.insert(hasPublicCacheKey, mHasPublicCache);
 	settingsDataMap.insert(useCompactJsonFormatKey, mUseCompactJsonFormat);
+	settingsDataMap.insert(lastUsedNumberKey, mLastUsedNumber);
 	return settingsDataMap;
 }
 
@@ -135,6 +141,7 @@ QVariantMap SettingsData::toForeignMap()
 	settingsDataMap.insert(darkThemeForeignKey, mDarkTheme);
 	settingsDataMap.insert(hasPublicCacheForeignKey, mHasPublicCache);
 	settingsDataMap.insert(useCompactJsonFormatForeignKey, mUseCompactJsonFormat);
+	settingsDataMap.insert(lastUsedNumberForeignKey, mLastUsedNumber);
 	return settingsDataMap;
 }
 
@@ -261,6 +268,20 @@ void SettingsData::setUseCompactJsonFormat(bool useCompactJsonFormat)
 	if (useCompactJsonFormat != mUseCompactJsonFormat) {
 		mUseCompactJsonFormat = useCompactJsonFormat;
 		emit useCompactJsonFormatChanged(useCompactJsonFormat);
+	}
+}
+// ATT 
+// Optional: lastUsedNumber
+int SettingsData::lastUsedNumber() const
+{
+	return mLastUsedNumber;
+}
+
+void SettingsData::setLastUsedNumber(int lastUsedNumber)
+{
+	if (lastUsedNumber != mLastUsedNumber) {
+		mLastUsedNumber = lastUsedNumber;
+		emit lastUsedNumberChanged(lastUsedNumber);
 	}
 }
 

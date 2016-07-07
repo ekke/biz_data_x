@@ -18,6 +18,7 @@ class Order: public QObject
 	Q_PROPERTY(int nr READ nr WRITE setNr NOTIFY nrChanged FINAL)
 	Q_PROPERTY(QDate orderDate READ orderDate WRITE setOrderDate NOTIFY orderDateChanged FINAL)
 	Q_PROPERTY(QString remarks READ remarks WRITE setRemarks NOTIFY remarksChanged FINAL)
+	Q_PROPERTY(bool expressDelivery READ expressDelivery WRITE setExpressDelivery NOTIFY expressDeliveryChanged FINAL)
 	// customer lazy pointing to Customer* (domainKey: nr)
 	Q_PROPERTY(int customer READ customer WRITE setCustomer NOTIFY customerChanged FINAL)
 	Q_PROPERTY(Customer* customerAsDataObject READ customerAsDataObject WRITE resolveCustomerAsDataObject NOTIFY customerAsDataObjectChanged FINAL)
@@ -53,6 +54,8 @@ public:
 	void setOrderDate(QDate orderDate);
 	QString remarks() const;
 	void setRemarks(QString remarks);
+	bool expressDelivery() const;
+	void setExpressDelivery(bool expressDelivery);
 	// customer lazy pointing to Customer* (domainKey: nr)
 	int customer() const;
 	void setCustomer(int customer);
@@ -119,6 +122,7 @@ public:
 	void nrChanged(int nr);
 	void orderDateChanged(QDate orderDate);
 	void remarksChanged(QString remarks);
+	void expressDeliveryChanged(bool expressDelivery);
 	// customer lazy pointing to Customer* (domainKey: nr)
 	void customerChanged(int customer);
 	void customerAsDataObjectChanged(Customer* customer);
@@ -133,6 +137,7 @@ private:
 	int mNr;
 	QDate mOrderDate;
 	QString mRemarks;
+	bool mExpressDelivery;
 	int mCustomer;
 	bool mCustomerInvalid;
 	Customer* mCustomerAsDataObject;
