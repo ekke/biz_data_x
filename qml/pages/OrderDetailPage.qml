@@ -19,7 +19,7 @@ Page {
     onOrderIndexChanged: {
         if(orderIndex >= 0) {
             order = dataManager.orderPropertyList[orderIndex]
-            dataManager.resolveOrderReferences(order)
+            // dataManager.resolveOrderReferences(order)
             customer = order.customerAsDataObject
             checkDate()
         } else {

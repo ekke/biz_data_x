@@ -86,26 +86,46 @@ Page {
         id: orderRowComponent
         ColumnLayout {
             width: parent.width
-            implicitHeight: 40
             RowLayout {
                 spacing: 20
                 Layout.fillWidth: true
-                LabelBody {
-                    leftPadding: 24
-                    rightPadding: 12
+                Item {
                     Layout.preferredWidth: 1
                     Layout.fillWidth: true
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: model.modelData.remarks + "\n#: " + model.modelData.nr
-                    wrapMode: Label.WordWrap
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            listView.currentIndex = index
-                            navPane.pushOrderDetail(index)
+                    height: threeLabels.implicitHeight
+                    ColumnLayout {
+                        id: threeLabels
+                        width: parent.width
+                        spacing: 6
+                        LabelBody {
+                            topPadding: 6
+                            leftPadding: 24
+                            rightPadding: 12
+                            text: model.modelData.customerAsDataObject.name + ", " + model.modelData.customerAsDataObject.city
+                            wrapMode: Label.WordWrap
+                            font.bold: true
+                        } // label
+                        LabelBody {
+                            leftPadding: 24
+                            rightPadding: 12
+                            text: model.modelData.remarks
+                            wrapMode: Label.WordWrap
+                        } // label
+                        LabelBodySecondary {
+                            leftPadding: 24
+                            rightPadding: 12
+                            text: "Nr: " + model.modelData.nr + qsTr(", Positions: ") + model.modelData.positionsPropertyList.length
+                            wrapMode: Label.WordWrap
+                        } // label
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                listView.currentIndex = index
+                                navPane.pushOrderDetail(index)
+                            }
                         }
-                    }
-                } // label
+                    } // 3 rows in first column
+                } // col item
                 SwitchWithLeftLabel {
                     leftPadding: 12
                     rightPadding: 12

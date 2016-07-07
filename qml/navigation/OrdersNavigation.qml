@@ -45,6 +45,7 @@ Page {
         }
 
         function pushOrderListPage() {
+            dataManager.resolveReferencesForAllOrder()
             orderListPageLoader.active = true
         }
         function pushOrderDetail(orderListIndex) {
