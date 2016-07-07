@@ -19,49 +19,45 @@ Page {
         clip: true
         highlight: Rectangle {color: Material.listHighlightColor }
         currentIndex: -1
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        anchors.left: parent.left
+        anchors.fill: parent
+        bottomMargin: 32
         model: dataManager.orderPropertyList
 
         delegate:
             ColumnLayout {
             id: itemDelegate
-            // property Order order: model.modelData
             width: parent.width
             implicitHeight: 40
             RowLayout {
-                spacing: 10
+                spacing: 20
                 Layout.fillWidth: true
                 LabelBody {
-                    leftPadding: 40
-                    rightPadding: 10
+                    leftPadding: 24
+                    rightPadding: 12
                     Layout.preferredWidth: 1
                     Layout.fillWidth: true
                     anchors.verticalCenter: parent.verticalCenter
-                    text: model.modelData.remarks // or only remarks // order.remarks
+                    text: model.modelData.remarks + "\n#: " + model.modelData.nr
                     wrapMode: Label.WordWrap
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
                             listView.currentIndex = index
-                            navPane.popOnePage()
+                            navPane.pushOrderDetail(index)
                         }
                     }
                 }
                 SwitchWithLeftLabel {
+                    leftPadding: 12
                     rightPadding: 12
-                    text: "test"
+                    text: qsTr("Express")
+                    checked: model.modelData.expressDelivery
                     onCheckedChanged: {
-                        listView.currentIndex = index
-                        remarks += checked
+                        model.modelData.expressDelivery = checked
                     }
                 }
             } // end Row
-            HorizontalDivider{
-                height: 2
-            }
+            HorizontalListDivider{}
         } // end delegateItem
 
         ScrollIndicator.vertical: ScrollIndicator { }

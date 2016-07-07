@@ -36,6 +36,10 @@ Page {
         function pushOrderListPage() {
             orderListPageLoader.active = true
         }
+        function pushOrderDetail(orderListIndex) {
+
+        }
+
         function popOnePage() {
             var page = pop()
             if(page.name == "OrderListPage") {
@@ -48,16 +52,16 @@ Page {
     } // navPane
 
     FloatingActionButton {
-        visible: navPane.depth == 1
-        property string imageName: dataManager.orderPropertyList.length == 0 ? "/add.png" : "/list.png"
+        visible: navPane.depth == 1 || (navPane.depth == 2 && navPane.get(1).name == "OrderListPage")
+        property string imageName: navPane.depth == 2 || dataManager.orderPropertyList.length == 0 ? "/add.png" : "/list.png"
         z: 1
-        anchors.margins: 16
+        anchors.margins: 20
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         imageSource: "qrc:/images/"+iconOnPrimaryDarkFolder+imageName
         backgroundColor: primaryDarkColor
         onClicked: {
-            if(dataManager.orderPropertyList.length == 0) {
+            if(navPane.depth == 2 || dataManager.orderPropertyList.length == 0) {
                 // navPane.pushNextPage()
             } else {
                 navPane.pushOrderListPage()
