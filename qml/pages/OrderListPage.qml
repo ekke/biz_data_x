@@ -13,6 +13,7 @@ Page {
     bottomPadding: 24
     topPadding: 16
 
+    // HEADER
     Component {
         id: headerComponent
         // placed the header controls inside a ToolBar
@@ -27,7 +28,6 @@ Page {
             // now header controls work as expected
             ColumnLayout {
                 width: parent.width
-                implicitHeight: 40
                 RowLayout {
                     spacing: 20
                     Layout.fillWidth: true
@@ -38,23 +38,50 @@ Page {
                         Layout.fillWidth: true
                         anchors.verticalCenter: parent.verticalCenter
                         text: qsTr("Order Info")
-                        color: primaryColor
+                        opacity: secondaryTextOpacity
                         wrapMode: Label.WordWrap
+                        font.italic: true
+                        font.bold: true
                     } // label order
                     LabelSubheading {
                         Layout.fillWidth: false
                         leftPadding: 12
                         rightPadding: 24
                         text: qsTr("Express Delivery")
-                        color: primaryColor
+                        opacity: secondaryTextOpacity
                         wrapMode: Label.WordWrap
+                        font.italic: true
+                        font.bold: true
                     } // label express
                 } // end Row Layout
                 HorizontalListDivider{}
             } // end Col Layout
-        }
+        } // toolbar
     } // header component
+    // SECTION HEADER
+    Component {
+        id: sectionHeading
+        ToolBar {
+            width: parent.width
+            // using z 1 because section header must under list header
+            z:1
+            background: Rectangle{color: Material.background}
+            ColumnLayout {
+                width: parent.width
+                LabelSubheading {
+                    topPadding: 6
+                    bottomPadding: 6
+                    leftPadding: 24
+                    text: Qt.formatDate(section, Qt.DefaultLocaleLongDate)
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: primaryColor
+                }
+                HorizontalListDivider{}
+            } // col layout
+        } // toolbar
+    }
 
+    // LIST ROW
     Component {
         id: orderRowComponent
         ColumnLayout {
@@ -93,6 +120,7 @@ Page {
         } // end Col Layout
     } // orderRowComponent
 
+    // LIST VIEW
     ListView {
         id: listView
         focus: true
@@ -111,6 +139,9 @@ Page {
         // in protrait header always visible
         headerPositioning: isLandscape? ListView.PullBackHeader : ListView.OverlayHeader
 
+        section.property: "orderDate"
+        section.criteria: ViewSection.FullString
+        section.delegate: sectionHeading
 
         ScrollIndicator.vertical: ScrollIndicator { }
     } // end listView

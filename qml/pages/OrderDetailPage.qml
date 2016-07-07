@@ -57,15 +57,6 @@ Page {
                     leftPadding: 10
                     text: qsTr("Order Data (QObject*)")
                 }
-                RowLayout {
-                    IconInactive {
-                        imageName: modelData.icon
-                        imageSize: 48
-                    }
-                    LabelSubheading {
-                        text: qsTr("Stored Orders: ")+ dataManager.orderPropertyList.length
-                    }
-                }
                 LabelSubheading {
                     leftPadding: 10
                     text: qsTr("Customer")
@@ -181,7 +172,7 @@ Page {
                         leftPadding: 10
                         rightPadding: 10
                         wrapMode: Text.WordWrap
-                        text: Qt.formatDate(order.orderDate)
+                        text: Qt.formatDate(order.orderDate, Qt.DefaultLocaleLongDate)
                         Layout.preferredWidth: 2
                     }
                 }
