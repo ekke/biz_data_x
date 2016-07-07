@@ -15,34 +15,45 @@ Page {
 
     Component {
         id: headerComponent
-        ColumnLayout {
+        // placed the header controls inside a ToolBar
+        // otherwise the header whill shine through to list content
+        // while scrolling with ListView.OverlayHeader
+        ToolBar {
             width: parent.width
-            implicitHeight: 40
-            RowLayout {
-                spacing: 20
-                Layout.fillWidth: true
-                LabelSubheading {
-                    leftPadding: 24
-                    rightPadding: 12
-                    Layout.preferredWidth: 1
+            // default stackorder of 1 doesn't work
+            z:2
+            // here we set the background to list background
+            background: Rectangle{color: Material.background}
+            // now header controls work as expected
+            ColumnLayout {
+                width: parent.width
+                implicitHeight: 40
+                RowLayout {
+                    spacing: 20
                     Layout.fillWidth: true
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("Order Info")
-                    color: primaryColor
-                    wrapMode: Label.WordWrap
-                } // label order
-                LabelSubheading {
-                    Layout.fillWidth: false
-                    leftPadding: 12
-                    rightPadding: 24
-                    text: qsTr("Express Delivery")
-                    color: primaryColor
-                    wrapMode: Label.WordWrap
-                } // label express
-            } // end Row Layout
-            HorizontalListDivider{}
-        } // end Col Layout
-    }
+                    LabelSubheading {
+                        leftPadding: 24
+                        rightPadding: 12
+                        Layout.preferredWidth: 1
+                        Layout.fillWidth: true
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: qsTr("Order Info")
+                        color: primaryColor
+                        wrapMode: Label.WordWrap
+                    } // label order
+                    LabelSubheading {
+                        Layout.fillWidth: false
+                        leftPadding: 12
+                        rightPadding: 24
+                        text: qsTr("Express Delivery")
+                        color: primaryColor
+                        wrapMode: Label.WordWrap
+                    } // label express
+                } // end Row Layout
+                HorizontalListDivider{}
+            } // end Col Layout
+        }
+    } // header component
 
     Component {
         id: orderRowComponent
@@ -96,7 +107,9 @@ Page {
 
         delegate: orderRowComponent
         header: headerComponent
-        headerPositioning: ListView.PullBackHeader
+        // in Landscape header scrolls away
+        // in protrait header always visible
+        headerPositioning: isLandscape? ListView.PullBackHeader : ListView.OverlayHeader
 
 
         ScrollIndicator.vertical: ScrollIndicator { }
