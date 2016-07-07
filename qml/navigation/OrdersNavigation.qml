@@ -32,18 +32,34 @@ Page {
                 navPane.push(item)
             }
         }
+        Loader {
+            id: orderDetailPageLoader
+            property int orderIndex: -1
+            active: false
+            visible: false
+            source: "../pages/OrderDetailPage.qml"
+            onLoaded: {
+                item.orderIndex = orderIndex
+                navPane.push(item)
+            }
+        }
 
         function pushOrderListPage() {
             orderListPageLoader.active = true
         }
         function pushOrderDetail(orderListIndex) {
-
+            orderDetailPageLoader.orderIndex = orderListIndex
+            orderDetailPageLoader.active = true
         }
 
         function popOnePage() {
             var page = pop()
             if(page.name == "OrderListPage") {
                 orderListPageLoader.active = false
+                return
+            }
+            if(page.name == "OrderDetailPage") {
+                orderDetailPageLoader.active = false
                 return
             }
         }
