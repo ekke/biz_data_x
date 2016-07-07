@@ -41,6 +41,7 @@ Page {
             onLoaded: {
                 item.orderIndex = orderIndex
                 navPane.push(item)
+                item.init()
             }
         }
 
