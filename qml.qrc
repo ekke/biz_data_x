@@ -51,5 +51,6 @@
         <file>qml/navigation/OrdersNavigation.qml</file>
         <file>qml/navigation/SettingsNavigation.qml</file>
         <file>qml/pages/OrderListPage.qml</file>
+        <file>qml/common/HorizontalListDivider.qml</file>
     </qresource>
 </RCC>
