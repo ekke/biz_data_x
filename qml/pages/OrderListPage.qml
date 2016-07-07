@@ -13,19 +13,40 @@ Page {
     bottomPadding: 24
     topPadding: 16
 
-    ListView {
-        id: listView
-        focus: true
-        clip: true
-        highlight: Rectangle {color: Material.listHighlightColor }
-        currentIndex: -1
-        anchors.fill: parent
-        bottomMargin: 32
-        model: dataManager.orderPropertyList
+    Component {
+        id: headerComponent
+        ColumnLayout {
+            width: parent.width
+            implicitHeight: 40
+            RowLayout {
+                spacing: 20
+                Layout.fillWidth: true
+                LabelSubheading {
+                    leftPadding: 24
+                    rightPadding: 12
+                    Layout.preferredWidth: 1
+                    Layout.fillWidth: true
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Order Info")
+                    color: primaryColor
+                    wrapMode: Label.WordWrap
+                } // label order
+                LabelSubheading {
+                    Layout.fillWidth: false
+                    leftPadding: 12
+                    rightPadding: 24
+                    text: qsTr("Express Delivery")
+                    color: primaryColor
+                    wrapMode: Label.WordWrap
+                } // label express
+            } // end Row Layout
+            HorizontalListDivider{}
+        } // end Col Layout
+    }
 
-        delegate:
-            ColumnLayout {
-            id: itemDelegate
+    Component {
+        id: orderRowComponent
+        ColumnLayout {
             width: parent.width
             implicitHeight: 40
             RowLayout {
@@ -46,7 +67,7 @@ Page {
                             navPane.pushOrderDetail(index)
                         }
                     }
-                }
+                } // label
                 SwitchWithLeftLabel {
                     leftPadding: 12
                     rightPadding: 12
@@ -55,10 +76,28 @@ Page {
                     onCheckedChanged: {
                         model.modelData.expressDelivery = checked
                     }
-                }
-            } // end Row
+                } // switch express
+            } // end Row Layout
             HorizontalListDivider{}
-        } // end delegateItem
+        } // end Col Layout
+    } // orderRowComponent
+
+    ListView {
+        id: listView
+        focus: true
+        clip: true
+        highlight: Rectangle {color: Material.listHighlightColor }
+        currentIndex: -1
+        anchors.fill: parent
+        // setting the margin to be able to scroll the list above the FAB to use the Switch on last row
+        bottomMargin: 40
+        // QList<Order*>
+        model: dataManager.orderPropertyList
+
+        delegate: orderRowComponent
+        header: headerComponent
+        headerPositioning: ListView.PullBackHeader
+
 
         ScrollIndicator.vertical: ScrollIndicator { }
     } // end listView
