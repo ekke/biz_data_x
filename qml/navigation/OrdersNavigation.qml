@@ -87,8 +87,21 @@ Page {
         }
     } // FAB
 
-    // triggered from BACK KEY
+    // triggered from BACK KEYs:
+    // a) Android system BACK
+    // b) Back Button from TitleBar
     function goBack() {
+        // check if goBack is allowed
+        if(navPane.get(navPane.depth-1).name == "OrderDetailPage") {
+            if(navPane.get(navPane.depth-1).isModified) {
+                // it's up to you: show Info Toast
+                // appWindow.showInfo(qsTr("Please Cancel or Save changes first"))
+                // or show a Toast:
+                appWindow.showToast(qsTr("Please Cancel or Save changes first"))
+                // or do auto-cancel or auto-save
+                return
+            }
+        }
         navPane.popOnePage()
     }
 

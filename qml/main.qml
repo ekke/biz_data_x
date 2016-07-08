@@ -220,7 +220,7 @@ ApplicationWindow {
 
         // STACK VIEW KEYS and SHORTCUTS
         // support of BACK key
-        // can be used from StackView pushed on ROOT (HomeNavigation) tp pop()
+        // can be used from StackView pushed on ROOT (OrdersNavigation) tp pop()
         // or to exit the app
         property bool firstPageInfoRead: false
         Keys.onBackPressed: {
@@ -419,6 +419,10 @@ ApplicationWindow {
     // we can loose the focus if Menu or Popup is opened
     function resetFocus() {
         rootPane.focus = true
+    }
+
+    function showToast(info) {
+        popupToast.start(info)
     }
 
     function showInfo(info) {

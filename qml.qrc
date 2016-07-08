@@ -53,5 +53,6 @@
         <file>qml/pages/OrderListPage.qml</file>
         <file>qml/common/HorizontalListDivider.qml</file>
         <file>qml/pages/OrderDetailPage.qml</file>
+        <file>qml/common/FooterCancelSave.qml</file>
     </qresource>
 </RCC>

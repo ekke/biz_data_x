@@ -41,38 +41,24 @@ Page {
 
     }
 
-
-
-    footer: ColumnLayout {
+    footer: FooterCancelSave {
+        id: footerButtons
         visible: isModified
-        z: 2
-        anchors.right: parent.right
-        anchors.left: parent.left
-        RowLayout {
-            spacing: 20
-            Item {
-                Layout.preferredWidth: 1
-                Layout.fillWidth: true
+        onButtonClickedChanged: {
+            if(buttonClicked == footerButtons.buttonRESET) {
+                return
             }
-
-            ButtonFlat {
-                Layout.preferredWidth: 1
-                text: qsTr("Cancel")
-                textColor: accentColor
-                onClicked: {
-                    navPane.popOnePage()
-                }
+            if( buttonClicked == footerButtons.buttonSAVE) {
+                order.expressDelivery = expressSwitch.checked
+                order.remarks = remarksTextField.text
             }
-            ButtonFlat {
-                Layout.preferredWidth: 1
-                text: qsTr("Save")
-                textColor: primaryColor
-                onClicked: {
-                    order.expressDelivery = expressSwitch.checked
-                    order.remarks = remarksTextField.text
-                    navPane.popOnePage()
-                }
+            if(buttonClicked == footerButtons.buttonCANCEL) {
+                expressSwitch.checked = order.expressDelivery
+                remarksTextField.text = order.remarks
             }
+            footerButtons.reset()
+            // want to go back to list now ?
+            // navPane.popOnePage()
         }
     }
 
