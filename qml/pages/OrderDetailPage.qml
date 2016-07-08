@@ -224,6 +224,7 @@ Page {
                         wrapMode: Text.WordWrap
                         placeholderText: qsTr("Optional: Remarks, Hints, Description")
                         text: order.remarks
+                        // inputMethodHints: Qt.ImhFormattedNumbersOnly
                         Layout.fillWidth: true
                         Layout.preferredWidth: 2
                     } // remarksTextField

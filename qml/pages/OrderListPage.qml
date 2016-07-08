@@ -83,74 +83,119 @@ Page {
 
     // LIST ROW
     Component {
-        id: orderRowComponent
-        ColumnLayout {
+        id: orderRowSwipeComponent
+        SwipeDelegate {
+            id: rowDelegate
             width: parent.width
-            RowLayout {
-                spacing: 20
-                Layout.fillWidth: true
-                Item {
-                    id: leftColumn
-                    Layout.preferredWidth: 1
+            height: dataColumn.implicitHeight
+            padding: 0
+            text: " "
+            down: pressed || swipe.complete
+
+            onClicked: {
+                if(swipe.complete) {
+                    console.log("NOW REMOVE")
+                    // listModel.remove(index)
+                    return
+                }
+                if(swipe.position == 0) {
+                    listView.currentIndex = index
+                    navPane.pushOrderDetail(index)
+                    return
+                }
+            }
+
+            // hint: if using without SwipeDelegate move onClicked code
+            // inside a MouseArea at leftColumn
+            // TODO set dataColumn directly as contentItem (not yet because of a bug mentioned by J-P)
+            ColumnLayout {
+                id: dataColumn
+                parent: rowDelegate.contentItem
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                RowLayout {
+                    spacing: 20
                     Layout.fillWidth: true
-                    // important to get height resized automatically if remakrs is changed from elsewhere
-                    implicitHeight: threeLabels.implicitHeight
-                    ColumnLayout {
-                        id: threeLabels
-                        width: parent.width
-                        spacing: 6
-                        LabelBody {
-                            topPadding: 6
-                            leftPadding: 24
-                            rightPadding: 12
-                            text: model.modelData.customerAsDataObject.name + ", " + model.modelData.customerAsDataObject.city
-                            wrapMode: Label.WordWrap
-                            font.bold: true
-                        } // label
-                        LabelBody {
-                            visible: model.modelData.remarks.length > 0
-                            leftPadding: 24
-                            rightPadding: 12
-                            text: model.modelData.remarks
-                            wrapMode: Label.WordWrap
-                        } // label
-                        LabelBodySecondary {
-                            leftPadding: 24
-                            rightPadding: 12
-                            text: "Nr: " + model.modelData.nr + qsTr(", Positions: ") + model.modelData.positionsPropertyList.length
-                            wrapMode: Label.WordWrap
-                        } // label
-                    } // 3 label rows in left column
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            listView.currentIndex = index
-                            navPane.pushOrderDetail(index)
+                    Item {
+                        id: leftColumn
+                        Layout.preferredWidth: 1
+                        Layout.fillWidth: true
+                        // important to get height resized automatically if remakrs is changed from elsewhere
+                        implicitHeight: threeLabels.implicitHeight
+                        ColumnLayout {
+                            id: threeLabels
+                            width: parent.width
+                            spacing: 6
+                            LabelBody {
+                                topPadding: 6
+                                leftPadding: 24
+                                rightPadding: 12
+                                text: model.modelData.customerAsDataObject.name + ", " + model.modelData.customerAsDataObject.city
+                                wrapMode: Label.WordWrap
+                                font.bold: true
+                            } // label
+                            LabelBody {
+                                visible: model.modelData.remarks.length > 0
+                                leftPadding: 24
+                                rightPadding: 12
+                                text: model.modelData.remarks
+                                wrapMode: Label.WordWrap
+                            } // label
+                            LabelBodySecondary {
+                                leftPadding: 24
+                                rightPadding: 12
+                                text: "Nr: " + model.modelData.nr + qsTr(", Positions: ") + model.modelData.positionsPropertyList.length
+                                wrapMode: Label.WordWrap
+                            } // label
+                        } // 3 label rows in left column
+                    } // leftColumn
+                    // right column: because left column fills all available space
+                    // the switch is at the right side
+                    SwitchWithLeftLabel {
+                        leftPadding: 12
+                        rightPadding: 12
+                        text: qsTr("Express")
+                        checked: model.modelData.expressDelivery
+                        onCheckedChanged: {
+                            model.modelData.expressDelivery = checked
                         }
-                    }
-                } // leftColumn
-                // right column: because left column fills all available space
-                // the switch is at the right side
-                SwitchWithLeftLabel {
-                    leftPadding: 12
-                    rightPadding: 12
-                    text: qsTr("Express")
-                    checked: model.modelData.expressDelivery
-                    onCheckedChanged: {
-                        model.modelData.expressDelivery = checked
-                    }
-                } // switch express
-            } // end Row Layout
-            HorizontalListDivider{}
-        } // end Col Layout
-    } // orderRowComponent
+                    } // switch express
+                } // end Row Layout
+                HorizontalListDivider{}
+            } // end Col Layout
+
+
+            swipe.behind:
+                Label {
+                Layout.fillWidth: true
+                text: "Remove"
+                color: "white"
+                width: parent.width
+                height: parent.height
+                horizontalAlignment: Qt.AlignHCenter
+                verticalAlignment: Qt.AlignVCenter
+                background: Rectangle {
+                    color: Material.color(Material.Red, rowDelegate.pressed ? Material.Shade800 : Material.Shade500)
+                }
+            }
+
+            ListView.onRemove: SequentialAnimation {
+                PropertyAction { target: rowDelegate; property: "ListView.delayRemove"; value: true }
+                NumberAnimation { target: rowDelegate; property: "height"; to: 0; easing.type: Easing.InOutQuad }
+                PropertyAction { target: rowDelegate; property: "ListView.delayRemove"; value: false }
+            }
+        }
+
+
+    } // orderRowSwipeComponent
 
     // LIST VIEW
     ListView {
         id: listView
         focus: true
         clip: true
-        highlight: Rectangle {color: Material.listHighlightColor }
+        // highlight: Rectangle {color: Material.listHighlightColor }
         currentIndex: -1
         anchors.fill: parent
         // setting the margin to be able to scroll the list above the FAB to use the Switch on last row
@@ -158,7 +203,7 @@ Page {
         // QList<Order*>
         model: dataManager.orderPropertyList
 
-        delegate: orderRowComponent
+        delegate: orderRowSwipeComponent // orderRowComponent
         header: headerComponent
         // in Landscape header scrolls away
         // in protrait header always visible
