@@ -90,9 +90,11 @@ Page {
                 spacing: 20
                 Layout.fillWidth: true
                 Item {
+                    id: leftColumn
                     Layout.preferredWidth: 1
                     Layout.fillWidth: true
-                    height: threeLabels.implicitHeight
+                    // important to get height resized automatically if remakrs is changed from elsewhere
+                    implicitHeight: threeLabels.implicitHeight
                     ColumnLayout {
                         id: threeLabels
                         width: parent.width
@@ -106,6 +108,7 @@ Page {
                             font.bold: true
                         } // label
                         LabelBody {
+                            visible: model.modelData.remarks.length > 0
                             leftPadding: 24
                             rightPadding: 12
                             text: model.modelData.remarks
@@ -117,15 +120,17 @@ Page {
                             text: "Nr: " + model.modelData.nr + qsTr(", Positions: ") + model.modelData.positionsPropertyList.length
                             wrapMode: Label.WordWrap
                         } // label
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                listView.currentIndex = index
-                                navPane.pushOrderDetail(index)
-                            }
+                    } // 3 label rows in left column
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            listView.currentIndex = index
+                            navPane.pushOrderDetail(index)
                         }
-                    } // 3 rows in first column
-                } // col item
+                    }
+                } // leftColumn
+                // right column: because left column fills all available space
+                // the switch is at the right side
                 SwitchWithLeftLabel {
                     leftPadding: 12
                     rightPadding: 12

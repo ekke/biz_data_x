@@ -86,6 +86,7 @@ Page {
                     color: primaryColor
                 }
                 RowLayout {
+                    Layout.leftMargin: 16
                     LabelBodySecondary {
                         topPadding: 6
                         leftPadding: 10
@@ -102,8 +103,9 @@ Page {
                         text: customer.nr
                         Layout.preferredWidth: 2
                     }
-                }
+                } // row
                 RowLayout {
+                    Layout.leftMargin: 16
                     LabelBodySecondary {
                         topPadding: 6
                         leftPadding: 10
@@ -120,8 +122,9 @@ Page {
                         text: customer.name
                         Layout.preferredWidth: 2
                     }
-                }
+                } // row
                 RowLayout {
+                    Layout.leftMargin: 16
                     LabelBodySecondary {
                         topPadding: 6
                         leftPadding: 10
@@ -138,8 +141,9 @@ Page {
                         text: customer.street
                         Layout.preferredWidth: 2
                     }
-                }
+                } // row
                 RowLayout {
+                    Layout.leftMargin: 16
                     LabelBodySecondary {
                         topPadding: 6
                         leftPadding: 10
@@ -156,7 +160,7 @@ Page {
                         text: customer.zip + " " + customer.city
                         Layout.preferredWidth: 2
                     }
-                }
+                } // row
                 HorizontalDivider {}
                 LabelSubheading {
                     leftPadding: 10
@@ -164,6 +168,7 @@ Page {
                     color: primaryColor
                 }
                 RowLayout {
+                    Layout.leftMargin: 16
                     LabelBodySecondary {
                         topPadding: 6
                         leftPadding: 10
@@ -180,8 +185,9 @@ Page {
                         text: order.nr
                         Layout.preferredWidth: 2
                     }
-                }
+                } // row
                 RowLayout {
+                    Layout.leftMargin: 16
                     LabelBodySecondary {
                         topPadding: 6
                         leftPadding: 10
@@ -198,8 +204,10 @@ Page {
                         text: Qt.formatDate(order.orderDate, Qt.DefaultLocaleLongDate)
                         Layout.preferredWidth: 2
                     }
-                }
+                } // row
                 RowLayout {
+                    Layout.leftMargin: 16
+                    Layout.rightMargin: 16
                     LabelBodySecondary {
                         leftPadding: 10
                         rightPadding: 10
@@ -216,14 +224,12 @@ Page {
                         wrapMode: Text.WordWrap
                         placeholderText: qsTr("Optional: Remarks, Hints, Description")
                         text: order.remarks
-                        onTextChanged: {
-
-                        }
                         Layout.fillWidth: true
                         Layout.preferredWidth: 2
-                    }
-                }
+                    } // remarksTextField
+                } // row
                 RowLayout {
+                    Layout.leftMargin: 16
                     LabelBodySecondary {
                         anchors.verticalCenter: parent.verticalCenter
                         leftPadding: 10
@@ -243,18 +249,14 @@ Page {
                             leftPadding: 10
                             rightPadding: 10
                             checked: order.expressDelivery
-                            onCheckedChanged: {
-
-                            }
-
-                        }
-                    }
-                }
+                        } // switch
+                    } // switch item
+                } // row
                 LabelBodySecondary {
                     leftPadding: 10
                     rightPadding: 10
                     wrapMode: Text.WordWrap
-                    text: qsTr("Change remarks or Express Delivery to get CANCEL / SAVE Buttons visible")
+                    text: qsTr("Editing Remarks or Express Delivery: CANCEL / SAVE Buttons become visible")
                     font.italic: true
                 }
                 HorizontalDivider {}
