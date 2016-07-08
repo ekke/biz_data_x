@@ -92,10 +92,23 @@ Page {
             text: " "
             down: pressed || swipe.complete
 
+            NumberAnimation {
+                id: removeFake
+                target: rowDelegate
+                property: "height"
+                to: 0
+                easing.type: Easing.InOutQuad
+                onStopped: {
+                    listView.removeOrder(index)
+                }
+            }
+
             onClicked: {
                 if(swipe.complete) {
                     console.log("NOW REMOVE")
                     // listModel.remove(index)
+                    removeFake.start()
+                    // listView.removeOrder(index)
                     return
                 }
                 if(swipe.position == 0) {
@@ -167,16 +180,54 @@ Page {
 
 
             swipe.behind:
-                Label {
-                Layout.fillWidth: true
-                text: "Remove"
-                color: "white"
+                Item {
                 width: parent.width
                 height: parent.height
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                background: Rectangle {
-                    color: Material.color(Material.Red, rowDelegate.pressed ? Material.Shade800 : Material.Shade500)
+                Rectangle {
+                    anchors.fill: parent
+                    color: Math.abs(swipe.position) > 0.3? Material.color(Material.Red, rowDelegate.pressed ? Material.Shade300 : Material.Shade500) : Material.color(Material.Grey)
+                }
+                ColumnLayout {
+                    width: parent.width
+                    height: parent.height
+                    LabelSubheading {
+                        topPadding: 12
+                        text: qsTr("Delete Order")
+                        color: "white"
+                        font.bold: true
+                        horizontalAlignment: Qt.AlignHCenter
+                    } // label
+                    LabelBody {
+                        bottomPadding: 12
+                        text: qsTr("Swipe back to cancel")
+                        color: "white"
+                        horizontalAlignment: Qt.AlignHCenter
+                    } // label
+                }
+                Item {
+                    visible: swipe.position > 0
+                    anchors.left: parent.left
+                    height: parent.height
+                    anchors.leftMargin: 24
+                    Image {
+                        anchors.verticalCenter: parent.verticalCenter
+                        height: 36
+                        width: 36
+                        source: "qrc:/images/white/x36/clear.png"
+                    }
+                }
+                Item {
+                    visible: swipe.position < 0
+                    anchors.right: parent.right
+                    height: parent.height
+                    anchors.rightMargin: 24
+                    Image {
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                        height: 36
+                        width: 36
+                        source: "qrc:/images/white/x36/clear.png"
+                    }
                 }
             }
 
@@ -214,6 +265,11 @@ Page {
         section.delegate: sectionHeading
 
         ScrollIndicator.vertical: ScrollIndicator { }
+
+        function removeOrder(index) {
+            console.log("remove from listview "+index)
+            dataManager.deleteOrderByNr(dataManager.orderPropertyList[index].nr)
+        }
     } // end listView
 
     Component.onDestruction: {
