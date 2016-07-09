@@ -34,23 +34,42 @@ Page {
         }
         Loader {
             id: orderDetailPageLoader
-            property int orderIndex: -1
+            property int orderNr: -1
             active: false
             visible: false
             source: "../pages/OrderDetailPage.qml"
             onLoaded: {
-                item.orderIndex = orderIndex
+                item.orderNr = orderNr
                 navPane.push(item)
                 item.init()
             }
+        }
+
+        property var ordersMarkedToDelete: []
+        function markOrderToDelete(orderNr) {
+            ordersMarkedToDelete.push(orderNr)
+        }
+        function deleteOrders() {
+            if(ordersMarkedToDelete.length == 0) {
+                return
+            }
+            // delete marked orders
+            for (var i = 0; i < ordersMarkedToDelete.length; i++) {
+                var orderNr = ordersMarkedToDelete[i]
+                console.log("remove from Orders nr:"+orderNr)
+                dataManager.deleteOrderByNr(orderNr)
+            }
+            appWindow.showToast(qsTr("Orders deleted: ")+ordersMarkedToDelete.length)
+            ordersMarkedToDelete = []
+            console.log("Orders to be deleted: "+ordersMarkedToDelete.length)
         }
 
         function pushOrderListPage() {
             dataManager.resolveReferencesForAllOrder()
             orderListPageLoader.active = true
         }
-        function pushOrderDetail(orderListIndex) {
-            orderDetailPageLoader.orderIndex = orderListIndex
+        function pushOrderDetail(orderNr) {
+            orderDetailPageLoader.orderNr = orderNr
             orderDetailPageLoader.active = true
         }
 
@@ -58,14 +77,14 @@ Page {
             var page = pop()
             if(page.name == "OrderListPage") {
                 orderListPageLoader.active = false
+                deleteOrders()
                 return
             }
             if(page.name == "OrderDetailPage") {
                 orderDetailPageLoader.active = false
                 return
             }
-        }
-
+        } // popOnePage
 
     } // navPane
 
@@ -86,6 +105,10 @@ Page {
             }
         }
     } // FAB
+
+    function destinationAboutToChange() {
+        navPane.deleteOrders()
+    }
 
     // triggered from BACK KEYs:
     // a) Android system BACK

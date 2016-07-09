@@ -324,14 +324,14 @@ ApplicationWindow {
             }
             // because of https://bugreports.qt.io/browse/QTBUG-54260
             // remember currentIndex before being replaced
-            // use as pattern for SwipeViews
-//            if(rootPane.currentItem.name == "colorSchemaNavPage") {
-//                rootPane.currentItem.lastCurrentIndex = rootPane.currentItem.currentIndex
-//            }
-            // reset currentIndex to the last one
-//            if(theItemLoader.item.name == "colorSchemaNavPage") {
-//                theItemLoader.item.currentIndex = theItemLoader.item.lastCurrentIndex
-//            }
+            // see example app swiped-nav_pages_x
+
+            // here you can call work to be done if user changes destination
+            // should also be called if app will be paused or exit
+            if(rootPane.currentItem.name == "OrderNavPage") {
+                rootPane.currentItem.destinationAboutToChange()
+            }
+
             // now replace the Page
             rootPane.replace(theItemLoader.item)
             // check if previous should be unloaded
@@ -367,15 +367,6 @@ ApplicationWindow {
                     navigationData[3].marker = "transparent"
             }
             navigationBar.navigationButtons.itemAt(3).item.marker = navigationData[3].marker
-        }
-
-        // dummi for some comfort: myOrder. <-contextAssist
-        // property Order myOrder
-        function createOrder() {
-            var myOrder = dataManager.createOrder()
-            dataManager.insertOrder(myOrder)
-            myOrder = dataManager.createOrder()
-            dataManager.insertOrder(myOrder)
         }
         // end STACKVIEW FUNCTIONS
 

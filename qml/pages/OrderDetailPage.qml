@@ -15,10 +15,10 @@ Page {
 
     property Customer customer
     property Order order
-    property int orderIndex: -2
-    onOrderIndexChanged: {
-        if(orderIndex >= 0) {
-            order = dataManager.orderPropertyList[orderIndex]
+    property int orderNr: -2
+    onOrderNrChanged: {
+        if(orderNr >= 0) {
+            order = dataManager.findOrderByNr(orderNr)
             // dataManager.resolveOrderReferences(order)
             customer = order.customerAsDataObject
             checkDate()

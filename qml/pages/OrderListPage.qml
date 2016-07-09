@@ -98,22 +98,21 @@ Page {
                 property: "height"
                 to: 0
                 easing.type: Easing.InOutQuad
-                onStopped: {
-                    listView.removeOrder(index)
-                }
             }
 
             onClicked: {
                 if(swipe.complete) {
-                    console.log("NOW REMOVE")
-                    // listModel.remove(index)
+                    // hide the Row from the List
                     removeFake.start()
-                    // listView.removeOrder(index)
+                    // mark order to be deleted
+                    // delete will be done when this Page not current
+                    // otherwise multi-delete-swipes wont work because of Notification redrawing the list
+                    navPane.markOrderToDelete(model.modelData.nr)
                     return
                 }
                 if(swipe.position == 0) {
                     listView.currentIndex = index
-                    navPane.pushOrderDetail(index)
+                    navPane.pushOrderDetail(model.modelData.nr)
                     return
                 }
             }
@@ -178,70 +177,63 @@ Page {
                 HorizontalListDivider{}
             } // end Col Layout
 
-
-            swipe.behind:
+            Component {
+                id: behindComponent
                 Item {
-                width: parent.width
-                height: parent.height
-                Rectangle {
-                    anchors.fill: parent
-                    color: Math.abs(swipe.position) > 0.3? Material.color(Material.Red, rowDelegate.pressed ? Material.Shade300 : Material.Shade500) : Material.color(Material.Grey)
-                }
-                ColumnLayout {
                     width: parent.width
                     height: parent.height
-                    LabelSubheading {
-                        topPadding: 12
-                        text: qsTr("Delete Order")
-                        color: "white"
-                        font.bold: true
-                        horizontalAlignment: Qt.AlignHCenter
-                    } // label
-                    LabelBody {
-                        bottomPadding: 12
-                        text: qsTr("Swipe back to cancel")
-                        color: "white"
-                        horizontalAlignment: Qt.AlignHCenter
-                    } // label
-                }
-                Item {
-                    visible: swipe.position > 0
-                    anchors.left: parent.left
-                    height: parent.height
-                    anchors.leftMargin: 24
-                    Image {
-                        anchors.verticalCenter: parent.verticalCenter
-                        height: 36
-                        width: 36
-                        source: "qrc:/images/white/x36/delete_sweep.png"
+                    Rectangle {
+                        anchors.fill: parent
+                        color: Math.abs(swipe.position) > 0.3? Material.color(Material.Red, rowDelegate.pressed ? Material.Shade300 : Material.Shade500) : Material.color(Material.Grey)
                     }
-                }
-                Item {
-                    visible: swipe.position < 0
-                    anchors.right: parent.right
-                    height: parent.height
-                    anchors.rightMargin: 24
-                    Image {
-                        anchors.verticalCenter: parent.verticalCenter
+                    ColumnLayout {
+                        width: parent.width
+                        height: parent.height
+                        LabelSubheading {
+                            topPadding: 12
+                            text: qsTr("Delete Order")
+                            color: "white"
+                            font.bold: true
+                            horizontalAlignment: Qt.AlignHCenter
+                        } // label
+                        LabelBody {
+                            bottomPadding: 12
+                            text: qsTr("Swipe back to cancel")
+                            color: "white"
+                            horizontalAlignment: Qt.AlignHCenter
+                        } // label
+                    }
+                    Item {
+                        visible: swipe.position > 0
+                        anchors.left: parent.left
+                        height: parent.height
+                        anchors.leftMargin: 24
+                        Image {
+                            anchors.verticalCenter: parent.verticalCenter
+                            height: 36
+                            width: 36
+                            source: "qrc:/images/white/x36/delete_sweep.png"
+                        }
+                    }
+                    Item {
+                        visible: swipe.position < 0
                         anchors.right: parent.right
-                        height: 36
-                        width: 36
-                        source: "qrc:/images/white/x36/delete_sweep.png"
+                        height: parent.height
+                        anchors.rightMargin: 24
+                        Image {
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.right: parent.right
+                            height: 36
+                            width: 36
+                            source: "qrc:/images/white/x36/delete_sweep.png"
+                        }
                     }
-                }
-            }
+                } // behindItem
+            } // behindComponent
 
-            // remove on ListView seems not to work with QQmlListProperty
-            // so I'm doing a fake-remove animation (see above)
-            // and remove using C++ INVOKABLE
-//            ListView.onRemove: SequentialAnimation {
-//                PropertyAction { target: rowDelegate; property: "ListView.delayRemove"; value: true }
-//                NumberAnimation { target: rowDelegate; property: "height"; to: 0; easing.type: Easing.InOutQuad }
-//                PropertyAction { target: rowDelegate; property: "ListView.delayRemove"; value: false }
-//            }
-        }
+            swipe.behind: behindComponent
 
-
+        } // swipe rowDelegate
     } // orderRowSwipeComponent
 
     // LIST VIEW
@@ -257,7 +249,7 @@ Page {
         // QList<Order*>
         model: dataManager.orderPropertyList
 
-        delegate: orderRowSwipeComponent // orderRowComponent
+        delegate: orderRowSwipeComponent
         header: headerComponent
         // in Landscape header scrolls away
         // in protrait header always visible
@@ -269,10 +261,6 @@ Page {
 
         ScrollIndicator.vertical: ScrollIndicator { }
 
-        function removeOrder(index) {
-            console.log("remove from listview "+index)
-            dataManager.deleteOrderByNr(dataManager.orderPropertyList[index].nr)
-        }
     } // end listView
 
     Component.onDestruction: {
