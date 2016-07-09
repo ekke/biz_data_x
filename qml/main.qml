@@ -346,11 +346,19 @@ ApplicationWindow {
         }
 
         // example HowTo set a counter
+        // first time called from startupDelayedTimer
         function updateOrderCounter() {
             var counter = dataManager.orderPropertyList.length
             navigationData[4].counter = counter
             navigationBar.navigationButtons.itemAt(4).item.counter = counter
         }
+        // update counter if Orders deleted or added
+        // connect C++ SIGNAL to QML SLOT
+        Connections {
+                target: dataManager
+                onOrderPropertyListChanged: rootPane.updateOrderCounter()
+            }
+
         // example HowTo set a marker
         function updateCustomerMarker(abc) {
             switch(abc) {
