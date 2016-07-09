@@ -80,10 +80,19 @@ Page {
                     leftPadding: 10
                     text: qsTr("Order Data (QObject*)")
                 }
-                LabelSubheading {
-                    leftPadding: 10
-                    text: qsTr("Customer")
-                    color: primaryColor
+                RowLayout {
+                    Layout.leftMargin: 10
+                    LabelSubheading {
+                        text: qsTr("Customer")
+                        color: primaryColor
+                        Layout.preferredWidth: 1
+                    }
+                    Rectangle {
+                        property var myColors: ["green","grey","red"]
+                        width: 40
+                        Layout.fillHeight: true
+                        color: myColors[order.customerAsDataObject.abc]
+                    }
                 }
                 RowLayout {
                     Layout.leftMargin: 16
