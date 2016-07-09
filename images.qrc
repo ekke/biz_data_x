@@ -20,6 +20,14 @@
         <file>images/black/x18/bus@2x.png</file>
         <file>images/black/x18/bus@3x.png</file>
         <file>images/black/x18/bus@4x.png</file>
+        <file>images/black/x18/business.png</file>
+        <file>images/black/x18/business@2x.png</file>
+        <file>images/black/x18/business@3x.png</file>
+        <file>images/black/x18/business@4x.png</file>
+        <file>images/black/x18/calendar.png</file>
+        <file>images/black/x18/calendar@2x.png</file>
+        <file>images/black/x18/calendar@3x.png</file>
+        <file>images/black/x18/calendar@4x.png</file>
         <file>images/black/x18/car.png</file>
         <file>images/black/x18/car@2x.png</file>
         <file>images/black/x18/car@3x.png</file>
@@ -40,6 +48,10 @@
         <file>images/black/x18/create@2x.png</file>
         <file>images/black/x18/create@3x.png</file>
         <file>images/black/x18/create@4x.png</file>
+        <file>images/black/x18/delete_sweep.png</file>
+        <file>images/black/x18/delete_sweep@2x.png</file>
+        <file>images/black/x18/delete_sweep@3x.png</file>
+        <file>images/black/x18/delete_sweep@4x.png</file>
         <file>images/black/x18/description.png</file>
         <file>images/black/x18/description@2x.png</file>
         <file>images/black/x18/description@3x.png</file>
@@ -152,6 +164,14 @@
         <file>images/black/x36/bus@2x.png</file>
         <file>images/black/x36/bus@3x.png</file>
         <file>images/black/x36/bus@4x.png</file>
+        <file>images/black/x36/business.png</file>
+        <file>images/black/x36/business@2x.png</file>
+        <file>images/black/x36/business@3x.png</file>
+        <file>images/black/x36/business@4x.png</file>
+        <file>images/black/x36/calendar.png</file>
+        <file>images/black/x36/calendar@2x.png</file>
+        <file>images/black/x36/calendar@3x.png</file>
+        <file>images/black/x36/calendar@4x.png</file>
         <file>images/black/x36/car.png</file>
         <file>images/black/x36/car@2x.png</file>
         <file>images/black/x36/car@3x.png</file>
@@ -172,6 +192,10 @@
         <file>images/black/x36/create@2x.png</file>
         <file>images/black/x36/create@3x.png</file>
         <file>images/black/x36/create@4x.png</file>
+        <file>images/black/x36/delete_sweep.png</file>
+        <file>images/black/x36/delete_sweep@2x.png</file>
+        <file>images/black/x36/delete_sweep@3x.png</file>
+        <file>images/black/x36/delete_sweep@4x.png</file>
         <file>images/black/x36/description.png</file>
         <file>images/black/x36/description@2x.png</file>
         <file>images/black/x36/description@3x.png</file>
@@ -284,6 +308,14 @@
         <file>images/black/x48/bus@2x.png</file>
         <file>images/black/x48/bus@3x.png</file>
         <file>images/black/x48/bus@4x.png</file>
+        <file>images/black/x48/business.png</file>
+        <file>images/black/x48/business@2x.png</file>
+        <file>images/black/x48/business@3x.png</file>
+        <file>images/black/x48/business@4x.png</file>
+        <file>images/black/x48/calendar.png</file>
+        <file>images/black/x48/calendar@2x.png</file>
+        <file>images/black/x48/calendar@3x.png</file>
+        <file>images/black/x48/calendar@4x.png</file>
         <file>images/black/x48/car.png</file>
         <file>images/black/x48/car@2x.png</file>
         <file>images/black/x48/car@3x.png</file>
@@ -304,6 +336,10 @@
         <file>images/black/x48/create@2x.png</file>
         <file>images/black/x48/create@3x.png</file>
         <file>images/black/x48/create@4x.png</file>
+        <file>images/black/x48/delete_sweep.png</file>
+        <file>images/black/x48/delete_sweep@2x.png</file>
+        <file>images/black/x48/delete_sweep@3x.png</file>
+        <file>images/black/x48/delete_sweep@4x.png</file>
         <file>images/black/x48/description.png</file>
         <file>images/black/x48/description@2x.png</file>
         <file>images/black/x48/description@3x.png</file>
@@ -416,6 +452,14 @@
         <file>images/black/bus@2x.png</file>
         <file>images/black/bus@3x.png</file>
         <file>images/black/bus@4x.png</file>
+        <file>images/black/business.png</file>
+        <file>images/black/business@2x.png</file>
+        <file>images/black/business@3x.png</file>
+        <file>images/black/business@4x.png</file>
+        <file>images/black/calendar.png</file>
+        <file>images/black/calendar@2x.png</file>
+        <file>images/black/calendar@3x.png</file>
+        <file>images/black/calendar@4x.png</file>
         <file>images/black/car.png</file>
         <file>images/black/car@2x.png</file>
         <file>images/black/car@3x.png</file>
@@ -436,6 +480,10 @@
         <file>images/black/create@2x.png</file>
         <file>images/black/create@3x.png</file>
         <file>images/black/create@4x.png</file>
+        <file>images/black/delete_sweep.png</file>
+        <file>images/black/delete_sweep@2x.png</file>
+        <file>images/black/delete_sweep@3x.png</file>
+        <file>images/black/delete_sweep@4x.png</file>
         <file>images/black/description.png</file>
         <file>images/black/description@2x.png</file>
         <file>images/black/description@3x.png</file>
@@ -560,6 +608,14 @@
         <file>images/white/x18/bus@2x.png</file>
         <file>images/white/x18/bus@3x.png</file>
         <file>images/white/x18/bus@4x.png</file>
+        <file>images/white/x18/business.png</file>
+        <file>images/white/x18/business@2x.png</file>
+        <file>images/white/x18/business@3x.png</file>
+        <file>images/white/x18/business@4x.png</file>
+        <file>images/white/x18/calendar.png</file>
+        <file>images/white/x18/calendar@2x.png</file>
+        <file>images/white/x18/calendar@3x.png</file>
+        <file>images/white/x18/calendar@4x.png</file>
         <file>images/white/x18/car.png</file>
         <file>images/white/x18/car@2x.png</file>
         <file>images/white/x18/car@3x.png</file>
@@ -580,6 +636,10 @@
         <file>images/white/x18/create@2x.png</file>
         <file>images/white/x18/create@3x.png</file>
         <file>images/white/x18/create@4x.png</file>
+        <file>images/white/x18/delete_sweep.png</file>
+        <file>images/white/x18/delete_sweep@2x.png</file>
+        <file>images/white/x18/delete_sweep@3x.png</file>
+        <file>images/white/x18/delete_sweep@4x.png</file>
         <file>images/white/x18/description.png</file>
         <file>images/white/x18/description@2x.png</file>
         <file>images/white/x18/description@3x.png</file>
@@ -692,6 +752,14 @@
         <file>images/white/x36/bus@2x.png</file>
         <file>images/white/x36/bus@3x.png</file>
         <file>images/white/x36/bus@4x.png</file>
+        <file>images/white/x36/business.png</file>
+        <file>images/white/x36/business@2x.png</file>
+        <file>images/white/x36/business@3x.png</file>
+        <file>images/white/x36/business@4x.png</file>
+        <file>images/white/x36/calendar.png</file>
+        <file>images/white/x36/calendar@2x.png</file>
+        <file>images/white/x36/calendar@3x.png</file>
+        <file>images/white/x36/calendar@4x.png</file>
         <file>images/white/x36/car.png</file>
         <file>images/white/x36/car@2x.png</file>
         <file>images/white/x36/car@3x.png</file>
@@ -712,6 +780,10 @@
         <file>images/white/x36/create@2x.png</file>
         <file>images/white/x36/create@3x.png</file>
         <file>images/white/x36/create@4x.png</file>
+        <file>images/white/x36/delete_sweep.png</file>
+        <file>images/white/x36/delete_sweep@2x.png</file>
+        <file>images/white/x36/delete_sweep@3x.png</file>
+        <file>images/white/x36/delete_sweep@4x.png</file>
         <file>images/white/x36/description.png</file>
         <file>images/white/x36/description@2x.png</file>
         <file>images/white/x36/description@3x.png</file>
@@ -824,6 +896,14 @@
         <file>images/white/x48/bus@2x.png</file>
         <file>images/white/x48/bus@3x.png</file>
         <file>images/white/x48/bus@4x.png</file>
+        <file>images/white/x48/business.png</file>
+        <file>images/white/x48/business@2x.png</file>
+        <file>images/white/x48/business@3x.png</file>
+        <file>images/white/x48/business@4x.png</file>
+        <file>images/white/x48/calendar.png</file>
+        <file>images/white/x48/calendar@2x.png</file>
+        <file>images/white/x48/calendar@3x.png</file>
+        <file>images/white/x48/calendar@4x.png</file>
         <file>images/white/x48/car.png</file>
         <file>images/white/x48/car@2x.png</file>
         <file>images/white/x48/car@3x.png</file>
@@ -844,6 +924,10 @@
         <file>images/white/x48/create@2x.png</file>
         <file>images/white/x48/create@3x.png</file>
         <file>images/white/x48/create@4x.png</file>
+        <file>images/white/x48/delete_sweep.png</file>
+        <file>images/white/x48/delete_sweep@2x.png</file>
+        <file>images/white/x48/delete_sweep@3x.png</file>
+        <file>images/white/x48/delete_sweep@4x.png</file>
         <file>images/white/x48/description.png</file>
         <file>images/white/x48/description@2x.png</file>
         <file>images/white/x48/description@3x.png</file>
@@ -956,6 +1040,14 @@
         <file>images/white/bus@2x.png</file>
         <file>images/white/bus@3x.png</file>
         <file>images/white/bus@4x.png</file>
+        <file>images/white/business.png</file>
+        <file>images/white/business@2x.png</file>
+        <file>images/white/business@3x.png</file>
+        <file>images/white/business@4x.png</file>
+        <file>images/white/calendar.png</file>
+        <file>images/white/calendar@2x.png</file>
+        <file>images/white/calendar@3x.png</file>
+        <file>images/white/calendar@4x.png</file>
         <file>images/white/car.png</file>
         <file>images/white/car@2x.png</file>
         <file>images/white/car@3x.png</file>
@@ -976,6 +1068,10 @@
         <file>images/white/create@2x.png</file>
         <file>images/white/create@3x.png</file>
         <file>images/white/create@4x.png</file>
+        <file>images/white/delete_sweep.png</file>
+        <file>images/white/delete_sweep@2x.png</file>
+        <file>images/white/delete_sweep@3x.png</file>
+        <file>images/white/delete_sweep@4x.png</file>
         <file>images/white/description.png</file>
         <file>images/white/description@2x.png</file>
         <file>images/white/description@3x.png</file>

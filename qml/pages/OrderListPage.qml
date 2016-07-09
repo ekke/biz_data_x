@@ -81,7 +81,7 @@ Page {
         } // toolbar
     }
 
-    // LIST ROW
+    // LIST ROW   S W I P E  DELEGATE
     Component {
         id: orderRowSwipeComponent
         SwipeDelegate {
@@ -213,7 +213,7 @@ Page {
                         anchors.verticalCenter: parent.verticalCenter
                         height: 36
                         width: 36
-                        source: "qrc:/images/white/x36/clear.png"
+                        source: "qrc:/images/white/x36/delete_sweep.png"
                     }
                 }
                 Item {
@@ -226,16 +226,19 @@ Page {
                         anchors.right: parent.right
                         height: 36
                         width: 36
-                        source: "qrc:/images/white/x36/clear.png"
+                        source: "qrc:/images/white/x36/delete_sweep.png"
                     }
                 }
             }
 
-            ListView.onRemove: SequentialAnimation {
-                PropertyAction { target: rowDelegate; property: "ListView.delayRemove"; value: true }
-                NumberAnimation { target: rowDelegate; property: "height"; to: 0; easing.type: Easing.InOutQuad }
-                PropertyAction { target: rowDelegate; property: "ListView.delayRemove"; value: false }
-            }
+            // remove on ListView seems not to work with QQmlListProperty
+            // so I'm doing a fake-remove animation (see above)
+            // and remove using C++ INVOKABLE
+//            ListView.onRemove: SequentialAnimation {
+//                PropertyAction { target: rowDelegate; property: "ListView.delayRemove"; value: true }
+//                NumberAnimation { target: rowDelegate; property: "height"; to: 0; easing.type: Easing.InOutQuad }
+//                PropertyAction { target: rowDelegate; property: "ListView.delayRemove"; value: false }
+//            }
         }
 
 
