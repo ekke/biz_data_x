@@ -85,14 +85,23 @@ Page {
                     LabelSubheading {
                         text: qsTr("Customer")
                         color: primaryColor
-                        Layout.preferredWidth: 1
+                        Layout.preferredWidth: 3
                     }
                     Rectangle {
+                        id: abcRectangle
                         property var myColors: ["green","grey","red"]
-                        width: 40
+                        property var myText: ["A","B","C"]
+                        Layout.preferredWidth: 1
+                        Layout.fillWidth: true
                         Layout.fillHeight: true
+                        anchors.right: parent.right
                         color: myColors[order.customerAsDataObject.abc]
-                    }
+                        LabelBody {
+                            anchors.centerIn: parent
+                            text: abcRectangle.myText[order.customerAsDataObject.abc]
+                            color: "white"
+                        }
+                    } // abc bar
                 }
                 RowLayout {
                     Layout.leftMargin: 16
