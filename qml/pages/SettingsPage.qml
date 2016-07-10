@@ -44,6 +44,7 @@ Flickable {
             }
             RowLayout {
                 LabelBodySecondary {
+                    Layout.preferredWidth: 1
                     topPadding: 6
                     leftPadding: 10
                     rightPadding: 10
@@ -51,6 +52,7 @@ Flickable {
                     text: qsTr("Activation Policy: ")
                 }
                 LabelBody {
+                    Layout.preferredWidth: 1
                     topPadding: 6
                     leftPadding: 10
                     rightPadding: 10
@@ -125,7 +127,43 @@ Flickable {
                     } // mouse
                 }
             } // row accent
-
+            HorizontalDivider {}
+            RowLayout {
+                LabelBodySecondary {
+                    Layout.preferredWidth: 1
+                    topPadding: 6
+                    leftPadding: 10
+                    rightPadding: 10
+                    wrapMode: Text.WordWrap
+                    text: qsTr("Last Number:")
+                }
+                LabelBody {
+                    Layout.preferredWidth: 1
+                    topPadding: 6
+                    leftPadding: 10
+                    rightPadding: 10
+                    wrapMode: Text.WordWrap
+                    text: dataManager.settingsData().lastUsedNumber
+                }
+            }
+            RowLayout {
+                LabelBodySecondary {
+                    Layout.preferredWidth: 1
+                    topPadding: 6
+                    leftPadding: 10
+                    rightPadding: 10
+                    wrapMode: Text.WordWrap
+                    text: qsTr("Version:")
+                }
+                LabelBody {
+                    Layout.preferredWidth: 1
+                    topPadding: 6
+                    leftPadding: 10
+                    rightPadding: 10
+                    wrapMode: Text.WordWrap
+                    text: dataManager.settingsData().version
+                }
+            }
         } // col layout
 
     } // root
