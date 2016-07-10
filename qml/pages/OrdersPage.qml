@@ -34,15 +34,6 @@ Flickable {
                 }
             }
             RowLayout {
-                LabelSubheading {
-                    topPadding: 6
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("See the List of Orders ?\nTap on the Floating Action Button.\n")
-                }
-            }
-            RowLayout {
                 LabelBodySecondary {
                     topPadding: 6
                     leftPadding: 10
@@ -56,6 +47,35 @@ Flickable {
                     rightPadding: 10
                     wrapMode: Text.WordWrap
                     text: qsTr("LAZY")
+                }
+            }
+            HorizontalDivider {}
+            RowLayout {
+                LabelSubheading {
+                    topPadding: 6
+                    leftPadding: 10
+                    rightPadding: 10
+                    wrapMode: Text.WordWrap
+                    text: qsTr("See the List of Orders ?\nTap on the Floating Action Button (List Icon).\n")
+                }
+            }
+            RowLayout {
+                LabelSubheading {
+                    topPadding: 6
+                    leftPadding: 10
+                    rightPadding: 10
+                    wrapMode: Text.WordWrap
+                    text: qsTr("From the List Page you can\n* ADD new Orders\n* EDIT Order (Tap on a Row)\n* DELETE Order (Swipe List Row to left or right site)\n")
+                }
+            }
+            HorizontalDivider {}
+            RowLayout {
+                LabelSubheading {
+                    topPadding: 6
+                    leftPadding: 10
+                    rightPadding: 10
+                    wrapMode: Text.WordWrap
+                    text: qsTr("No orders available yet ?\nTap on the Floating Action Button (Add Icon).\n")
                 }
             }
             HorizontalDivider {}

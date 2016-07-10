@@ -15,21 +15,21 @@ Page {
 
     property Customer customer
     property Order order
+    property SettingsData settingsData
     property int orderNr: -2
     onOrderNrChanged: {
-        if(orderNr >= 0) {
+        if(orderNr > 0) {
             order = dataManager.findOrderByNr(orderNr)
+            // already resolved for the list
             // dataManager.resolveOrderReferences(order)
             customer = order.customerAsDataObject
             checkDate()
         } else {
             order = dataManager.createOrder()
             customer = dataManager.customerPropertyList[0]
-            order.customer = customer.nr
-            dataManager.resolveOrderReferences(order)
         }
     }
-    property bool isModified: order.expressDelivery != expressSwitch.checked || order.remarks != remarksTextField.text
+    property bool isModified: order.expressDelivery != expressSwitch.checked || order.remarks != remarksTextField.text || order.nr <= 0
 
     function checkDate() {
         if(!order.hasOrderDate()) {
@@ -51,10 +51,29 @@ Page {
             if( buttonClicked == footerButtons.buttonSAVE) {
                 order.expressDelivery = expressSwitch.checked
                 order.remarks = remarksTextField.text
+                if(order.nr <= 0) {
+                    // NEW Order
+                    // get next number
+                    settingsData = dataManager.settingsData()
+                    settingsData.lastUsedNumber = settingsData.lastUsedNumber+1
+                    order.nr = settingsData.lastUsedNumber
+                    // resolve the customer reference
+                    order.resolveCustomerAsDataObject(customer)
+                    // insert into list of active Orders (important to get them cachehd)
+                    dataManager.insertOrder(order)
+                    orderNr = order.nr
+                }
             }
             if(buttonClicked == footerButtons.buttonCANCEL) {
-                expressSwitch.checked = order.expressDelivery
-                remarksTextField.text = order.remarks
+                if(order.nr > 0) {
+                    expressSwitch.checked = order.expressDelivery
+                    remarksTextField.text = order.remarks
+                } else {
+                    // NEW canceled
+                    dataManager.undoCreateOrder(order)
+                    // GO back
+                    navPane.popOnePage()
+                }
             }
             footerButtons.reset()
             // want to go back to list now ?
@@ -95,10 +114,10 @@ Page {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         anchors.right: parent.right
-                        color: myColors[order.customerAsDataObject.abc]
+                        color: myColors[customer.abc]
                         LabelBody {
                             anchors.centerIn: parent
-                            text: abcRectangle.myText[order.customerAsDataObject.abc]
+                            text: abcRectangle.myText[customer.abc]
                             color: "white"
                         }
                     } // abc bar
@@ -200,7 +219,9 @@ Page {
                         leftPadding: 10
                         rightPadding: 10
                         wrapMode: Text.WordWrap
-                        text: order.nr
+                        text: order.nr <= 0? qsTr("** NEW **") : order.nr
+                        color: Material.color(Material.Red, Material.Shade500)
+                        font.bold: true
                         Layout.preferredWidth: 2
                     }
                 } // row

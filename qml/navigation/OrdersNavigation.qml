@@ -59,7 +59,7 @@ Page {
                 console.log("remove from Orders nr:"+orderNr)
                 dataManager.deleteOrderByNr(orderNr)
             }
-            appWindow.showToast(qsTr("Orders deleted: ")+ordersMarkedToDelete.length)
+            // optional: appWindow.showToast(qsTr("Orders deleted: ")+ordersMarkedToDelete.length)
             ordersMarkedToDelete = []
             console.log("Orders to be deleted: "+ordersMarkedToDelete.length)
         }
@@ -99,7 +99,11 @@ Page {
         backgroundColor: primaryDarkColor
         onClicked: {
             if(navPane.depth == 2 || dataManager.orderPropertyList.length == 0) {
-                // navPane.pushNextPage()
+                // adding a new order will change the list
+                // so at first delete wentries marked to be deleted
+                navPane.deleteOrders()
+                // push an empty order
+                navPane.pushOrderDetail(-1)
             } else {
                 navPane.pushOrderListPage()
             }
