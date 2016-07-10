@@ -32,10 +32,12 @@ DataManager::DataManager(QObject *parent) :
     }
 
     // at first read settingsData (always from Sandbox)
+    mSettingsPath = mDataRoot+"/"+cacheSettingsData;
+    qDebug() << "Settings Path: " << mSettingsPath;
     readSettings();
 
 #ifdef QT_DEBUG
-  qDebug() << "Running a DEBUG BUILD";
+    qDebug() << "Running a DEBUG BUILD";
     // DEBUG MODE ?
     // now check if public cache is used
     if (mSettingsData->hasPublicCache()) {
@@ -52,8 +54,12 @@ DataManager::DataManager(QObject *parent) :
         // but settings will always be used from AppDataLocation
     }
 #else
-  qDebug() << "Running a RELEASE BUILD";
+    qDebug() << "Running a RELEASE BUILD";
+    // check if JSON is compact
+    mSettingsData->setUseCompactJsonFormat(true);
 #endif
+    // now set the compact or indent mode for JSON Documents
+    mCompactJson = mSettingsData->useCompactJsonFormat();
 
     // ApplicationUI is parent of DataManager
     // DataManager is parent of all root DataObjects
@@ -907,18 +913,16 @@ void DataManager::readSettings()
     mSettingsData = new SettingsData();
     mSettingsData->setParent(this);
     //
-    QString cacheFilePath;
     QString assetsFilePath;
-    cacheFilePath = mDataRoot+"/"+cacheSettingsData;
 
-    QFile readFile(cacheFilePath);
+    QFile readFile(mSettingsPath);
     if(!readFile.exists()) {
-        qDebug() << "settings cache doesn't exist: " << cacheFilePath;
+        qDebug() << "settings cache doesn't exist: " << mSettingsPath;
         assetsFilePath = mDataAssetsPath+cacheSettingsData;
         QFile assetDataFile(assetsFilePath);
         if(assetDataFile.exists()) {
             // copy file from assets to data
-            bool copyOk = assetDataFile.copy(cacheFilePath);
+            bool copyOk = assetDataFile.copy(mSettingsPath);
             if (!copyOk) {
                 qDebug() << "cannot copy settings from data-assets to cache";
                 return;
@@ -937,14 +941,14 @@ void DataManager::readSettings()
         }
     }
     if (!readFile.open(QIODevice::ReadOnly)) {
-        qWarning() << "Couldn't open file: " << cacheFilePath;
+        qWarning() << "Couldn't open file: " << mSettingsPath;
         return;
     }
     // create JSON Document from settings file
     QJsonDocument jda = QJsonDocument::fromJson(readFile.readAll());
     readFile.close();
     if(!jda.isObject()) {
-        qWarning() << "Couldn't create JSON from file: " << cacheFilePath;
+        qWarning() << "Couldn't create JSON from file: " << mSettingsPath;
         return;
     }
     // create SettingsData* from JSON
@@ -958,9 +962,9 @@ void DataManager::saveSettings()
     // convert Settings* into JSONDocument and store to app data
     QJsonDocument jda = QJsonDocument::fromVariant(mSettingsData->toMap());
     // save JSON to data directory
-    QFile saveFile(mDataRoot+"/"+cacheSettingsData);
+    QFile saveFile(mSettingsPath);
     if (!saveFile.open(QIODevice::WriteOnly)) {
-        qWarning() << "Couldn't open file to write " << cacheSettingsData;
+        qWarning() << "Couldn't open file to write " << mSettingsPath;
         return;
     }
     qint64 bytesWritten = saveFile.write(jda.toJson());
@@ -1021,12 +1025,13 @@ void DataManager::writeToCache(const QString& fileName, QVariantList& data)
 {
     QString cacheFilePath = dataPath(fileName);
     QJsonDocument jda = QJsonDocument::fromVariant(data);
+
     QFile saveFile(cacheFilePath);
     if (!saveFile.open(QIODevice::WriteOnly)) {
         qWarning() << "Couldn't open file to write " << cacheFilePath;
         return;
     }
-    qint64 bytesWritten = saveFile.write(jda.toJson());
+    qint64 bytesWritten = saveFile.write(jda.toJson(mCompactJson?QJsonDocument::Compact:QJsonDocument::Indented));
     saveFile.close();
     qDebug() << "Data Bytes written: " << bytesWritten << " to: " << cacheFilePath;
 }

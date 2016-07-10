@@ -62,18 +62,6 @@ Flickable {
                     } // switch
                 } // switch item
             } // row
-            RowLayout {
-                Layout.leftMargin: 16
-                LabelBodySecondary {
-                    anchors.verticalCenter: parent.verticalCenter
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("You must restart to enable public cache settings")
-                    Layout.preferredWidth: 1
-                    font.italic: true
-                }
-            } // row
             HorizontalDivider {}
 
             RowLayout {
@@ -116,6 +104,18 @@ Flickable {
                 }
             } // row
             HorizontalDivider {}
+            RowLayout {
+                Layout.leftMargin: 16
+                LabelBodySecondary {
+                    anchors.verticalCenter: parent.verticalCenter
+                    leftPadding: 10
+                    rightPadding: 10
+                    wrapMode: Text.WordWrap
+                    text: qsTr("You must restart to enable dev tools settings")
+                    Layout.preferredWidth: 1
+                    font.italic: true
+                }
+            } // row
         } // col layout
     } // root
     ScrollIndicator.vertical: ScrollIndicator { }

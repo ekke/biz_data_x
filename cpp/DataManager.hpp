@@ -16,7 +16,7 @@ Q_OBJECT
 
 // QDeclarativeListProperty to get easy access from QML
 Q_PROPERTY(QQmlListProperty<Customer> customerPropertyList READ customerPropertyList CONSTANT)
-Q_PROPERTY(QQmlListProperty<Order> orderPropertyList READ orderPropertyList CONSTANT NOTIFY orderPropertyListChanged)
+Q_PROPERTY(QQmlListProperty<Order> orderPropertyList READ orderPropertyList NOTIFY orderPropertyListChanged)
 
 public:
     DataManager(QObject *parent = 0);
@@ -155,6 +155,7 @@ private:
 
     QString mDataRoot;
     QString mDataPath;
+    QString mSettingsPath;
     QString mDataAssetsPath;
     QString dataAssetsPath(const QString& fileName);
     QString dataPath(const QString& fileName);
@@ -162,6 +163,7 @@ private:
     SettingsData* mSettingsData;
     void readSettings();
     void saveSettings();
+    bool mCompactJson;
 
 	// DataObject stored in List of QObject*
 	// GroupDataModel only supports QObject*
