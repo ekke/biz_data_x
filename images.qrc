@@ -144,6 +144,10 @@
         <file>images/black/x18/upload@2x.png</file>
         <file>images/black/x18/upload@3x.png</file>
         <file>images/black/x18/upload@4x.png</file>
+        <file>images/black/x18/work.png</file>
+        <file>images/black/x18/work@2x.png</file>
+        <file>images/black/x18/work@3x.png</file>
+        <file>images/black/x18/work@4x.png</file>
         <file>images/black/x36/add.png</file>
         <file>images/black/x36/add@2x.png</file>
         <file>images/black/x36/add@3x.png</file>
@@ -288,6 +292,10 @@
         <file>images/black/x36/upload@2x.png</file>
         <file>images/black/x36/upload@3x.png</file>
         <file>images/black/x36/upload@4x.png</file>
+        <file>images/black/x36/work.png</file>
+        <file>images/black/x36/work@2x.png</file>
+        <file>images/black/x36/work@3x.png</file>
+        <file>images/black/x36/work@4x.png</file>
         <file>images/black/x48/add.png</file>
         <file>images/black/x48/add@2x.png</file>
         <file>images/black/x48/add@3x.png</file>
@@ -432,6 +440,10 @@
         <file>images/black/x48/upload@2x.png</file>
         <file>images/black/x48/upload@3x.png</file>
         <file>images/black/x48/upload@4x.png</file>
+        <file>images/black/x48/work.png</file>
+        <file>images/black/x48/work@2x.png</file>
+        <file>images/black/x48/work@3x.png</file>
+        <file>images/black/x48/work@4x.png</file>
         <file>images/black/add.png</file>
         <file>images/black/add@2x.png</file>
         <file>images/black/add@3x.png</file>
@@ -580,6 +592,10 @@
         <file>images/black/upload@2x.png</file>
         <file>images/black/upload@3x.png</file>
         <file>images/black/upload@4x.png</file>
+        <file>images/black/work.png</file>
+        <file>images/black/work@2x.png</file>
+        <file>images/black/work@3x.png</file>
+        <file>images/black/work@4x.png</file>
         <file>images/extra/qt-arrow.png</file>
         <file>images/extra/qt-arrow@2x.png</file>
         <file>images/extra/qt-arrow@3x.png</file>
@@ -732,6 +748,10 @@
         <file>images/white/x18/upload@2x.png</file>
         <file>images/white/x18/upload@3x.png</file>
         <file>images/white/x18/upload@4x.png</file>
+        <file>images/white/x18/work.png</file>
+        <file>images/white/x18/work@2x.png</file>
+        <file>images/white/x18/work@3x.png</file>
+        <file>images/white/x18/work@4x.png</file>
         <file>images/white/x36/add.png</file>
         <file>images/white/x36/add@2x.png</file>
         <file>images/white/x36/add@3x.png</file>
@@ -876,6 +896,10 @@
         <file>images/white/x36/upload@2x.png</file>
         <file>images/white/x36/upload@3x.png</file>
         <file>images/white/x36/upload@4x.png</file>
+        <file>images/white/x36/work.png</file>
+        <file>images/white/x36/work@2x.png</file>
+        <file>images/white/x36/work@3x.png</file>
+        <file>images/white/x36/work@4x.png</file>
         <file>images/white/x48/add.png</file>
         <file>images/white/x48/add@2x.png</file>
         <file>images/white/x48/add@3x.png</file>
@@ -1020,6 +1044,10 @@
         <file>images/white/x48/upload@2x.png</file>
         <file>images/white/x48/upload@3x.png</file>
         <file>images/white/x48/upload@4x.png</file>
+        <file>images/white/x48/work.png</file>
+        <file>images/white/x48/work@2x.png</file>
+        <file>images/white/x48/work@3x.png</file>
+        <file>images/white/x48/work@4x.png</file>
         <file>images/white/add.png</file>
         <file>images/white/add@2x.png</file>
         <file>images/white/add@3x.png</file>
@@ -1168,6 +1196,10 @@
         <file>images/white/upload@2x.png</file>
         <file>images/white/upload@3x.png</file>
         <file>images/white/upload@4x.png</file>
+        <file>images/white/work.png</file>
+        <file>images/white/work@2x.png</file>
+        <file>images/white/work@3x.png</file>
+        <file>images/white/work@4x.png</file>
         <file>images/LICENSE</file>
     </qresource>
 </RCC>

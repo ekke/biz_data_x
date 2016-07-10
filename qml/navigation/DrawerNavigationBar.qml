@@ -66,7 +66,7 @@ Drawer {
                     x: 16
                     y: 12
                     IconColored {
-                        imageName: "group.png"
+                        imageName: "work.png"
                         imageSize: 36
                         color: textOnPrimary
                     }
