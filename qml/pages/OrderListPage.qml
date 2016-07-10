@@ -187,6 +187,7 @@ Page {
                         color: Math.abs(swipe.position) > 0.3? Material.color(Material.Red, rowDelegate.pressed ? Material.Shade300 : Material.Shade500) : Material.color(Material.Grey)
                     }
                     ColumnLayout {
+                        visible: Math.abs(swipe.position) == 1
                         width: parent.width
                         height: parent.height
                         LabelSubheading {
@@ -202,32 +203,22 @@ Page {
                             color: "white"
                             horizontalAlignment: Qt.AlignHCenter
                         } // label
-                    }
+                    } // col w Labels
                     Item {
-                        visible: swipe.position > 0
+                        id: imageItem
+                        property bool isLeftPosition: swipe.position > 0 || Math.abs(swipe.position) == 1
+                        height: parent.height
                         anchors.left: parent.left
-                        height: parent.height
-                        anchors.leftMargin: 24
-                        Image {
-                            anchors.verticalCenter: parent.verticalCenter
-                            height: 36
-                            width: 36
-                            source: "qrc:/images/white/x36/delete_sweep.png"
-                        }
-                    }
-                    Item {
-                        visible: swipe.position < 0
                         anchors.right: parent.right
-                        height: parent.height
-                        anchors.rightMargin: 24
                         Image {
                             anchors.verticalCenter: parent.verticalCenter
-                            anchors.right: parent.right
+                            anchors.horizontalCenter: imageItem.isLeftPosition? parent.left : parent.right
+                            anchors.horizontalCenterOffset: imageItem.isLeftPosition? 42 : -42
                             height: 36
                             width: 36
                             source: "qrc:/images/white/x36/delete_sweep.png"
-                        }
-                    }
+                        } // image
+                    } // icon item
                 } // behindItem
             } // behindComponent
 
