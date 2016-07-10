@@ -23,23 +23,14 @@ Page {
             // already resolved for the list
             // dataManager.resolveOrderReferences(order)
             customer = order.customerAsDataObject
-            checkDate()
         } else {
             order = dataManager.createOrder()
+            var today = new Date()
+            order.orderDate = today
             customer = dataManager.customerPropertyList[0]
         }
     }
     property bool isModified: order.expressDelivery != expressSwitch.checked || order.remarks != remarksTextField.text || order.nr <= 0
-
-    function checkDate() {
-        if(!order.hasOrderDate()) {
-            console.log("SET DATE")
-            var today = new Date()
-            order.orderDate = today
-            return
-        }
-
-    }
 
     footer: FooterCancelSave {
         id: footerButtons

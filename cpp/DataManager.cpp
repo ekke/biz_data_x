@@ -21,14 +21,7 @@ DataManager::DataManager(QObject *parent) :
 {   
     // Android: HomeLocation works, iOS: not writable
     // Android: AppDataLocation works out of the box, iOS you must create the DIR first !!
-    bool isPublicDataMode = true;
-    if (isPublicDataMode) {
-        // great while testing: access files from file explorer
-        mDataRoot = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).value(0);
-        mDataRoot += "/data/ekkescorner/biz_data_x";
-    } else {
-        mDataRoot = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).value(0);
-    }
+    mDataRoot = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).value(0);
     mDataPath = mDataRoot+"/data/";
     mDataAssetsPath = ":/data-assets/";
     qDebug() << "Data Path: " << mDataPath << " data-assets: " << mDataAssetsPath;
@@ -38,6 +31,30 @@ DataManager::DataManager(QObject *parent) :
         qFatal("App won't work - cannot create data directory");
     }
 
+    // at first read settingsData (always from Sandbox)
+    readSettings();
+
+#ifdef QT_DEBUG
+  qDebug() << "Running a DEBUG BUILD";
+    // DEBUG MODE ?
+    // now check if public cache is used
+    if (mSettingsData->hasPublicCache()) {
+        // great while testing: access files from file explorer
+        mDataRoot = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).value(0);
+        mDataRoot += "/data/ekkescorner/biz_data_x";
+        mDataPath = mDataRoot+"/data/";
+        ok = checkDirs();
+        if(!ok) {
+            qFatal("App won't work - cannot create data directory");
+        }
+        qDebug() << "Data Path redirected to PUBLIC CCHE: " << mDataPath;
+        // tip: copy settingsData to public cache to see the content
+        // but settings will always be used from AppDataLocation
+    }
+#else
+  qDebug() << "Running a RELEASE BUILD";
+#endif
+
     // ApplicationUI is parent of DataManager
     // DataManager is parent of all root DataObjects
     // ROOT DataObjects are parent of contained DataObjects
@@ -45,7 +62,7 @@ DataManager::DataManager(QObject *parent) :
     // Customer
     // Order
     // SettingsData
-    readSettings();
+
     isProductionEnvironment = mSettingsData->isProductionEnvironment();
 
     // register all DataObjects to get access to properties from QML:
@@ -74,28 +91,39 @@ bool DataManager::checkDirs()
     if (!exists) {
         bool ok = myDir.mkpath(mDataRoot);
         if(!ok) {
-            qWarning() << "Couldn't create /data dir. " << mDataRoot;
+            qWarning() << "Couldn't create mDataRoot " << mDataRoot;
             return false;
         }
-        qDebug() << "created directory path" << mDataRoot;
+        qDebug() << "created directory mDataRoot " << mDataRoot;
     }
+
+    exists = myDir.exists(mDataPath);
+    if (!exists) {
+        bool ok = myDir.mkpath(mDataPath);
+        if(!ok) {
+            qWarning() << "Couldn't create mDataPath " << mDataPath;
+            return false;
+        }
+        qDebug() << "created directory mDataPath"  << mDataRoot;
+    }
+
     exists = myDir.exists(mDataPath+PRODUCTION_ENVIRONMENT);
     if (!exists) {
         bool ok = myDir.mkpath(mDataPath+PRODUCTION_ENVIRONMENT);
         if(!ok) {
-            qWarning() << "Couldn't create /data/prod dir. " << mDataPath+PRODUCTION_ENVIRONMENT;
+            qWarning() << "Couldn't create /data/prod " << mDataPath+PRODUCTION_ENVIRONMENT;
             return false;
         }
-        qDebug() << "created directory path" << mDataPath+PRODUCTION_ENVIRONMENT;
+        qDebug() << "created directory /data/prod " << mDataPath+PRODUCTION_ENVIRONMENT;
     }
     exists = myDir.exists(mDataPath+TEST_ENVIRONMENT);
     if (!exists) {
         bool ok = myDir.mkpath(mDataPath+TEST_ENVIRONMENT);
         if(!ok) {
-            qWarning() << "Couldn't create /data/test dir. " << mDataPath+TEST_ENVIRONMENT;
+            qWarning() << "Couldn't create /data/test " << mDataPath+TEST_ENVIRONMENT;
             return false;
         }
-        qDebug() << "created directory path" << mDataPath+TEST_ENVIRONMENT;
+        qDebug() << "created directory /data/test " << mDataPath+TEST_ENVIRONMENT;
     }
     return true;
 }
@@ -217,8 +245,8 @@ QList<QObject*> DataManager::allCustomer()
 QQmlListProperty<Customer> DataManager::customerPropertyList()
 {
     return QQmlListProperty<Customer>(this, 0,
-                                              &DataManager::appendToCustomerProperty, &DataManager::customerPropertyCount,
-                                              &DataManager::atCustomerProperty, &DataManager::clearCustomerProperty);
+                                      &DataManager::appendToCustomerProperty, &DataManager::customerPropertyCount,
+                                      &DataManager::atCustomerProperty, &DataManager::clearCustomerProperty);
 }
 
 // implementation for QDeclarativeListProperty to use
@@ -601,8 +629,8 @@ QList<QObject*> DataManager::allOrder()
 QQmlListProperty<Order> DataManager::orderPropertyList()
 {
     return QQmlListProperty<Order>(this, 0,
-                                           &DataManager::appendToOrderProperty, &DataManager::orderPropertyCount,
-                                           &DataManager::atOrderProperty, &DataManager::clearOrderProperty);
+                                   &DataManager::appendToOrderProperty, &DataManager::orderPropertyCount,
+                                   &DataManager::atOrderProperty, &DataManager::clearOrderProperty);
 }
 
 // implementation for QDeclarativeListProperty to use
@@ -906,6 +934,7 @@ void DataManager::readSettings()
     }
     // create JSON Document from settings file
     QJsonDocument jda = QJsonDocument::fromJson(readFile.readAll());
+    readFile.close();
     if(!jda.isObject()) {
         qWarning() << "Couldn't create JSON from file: " << cacheFilePath;
         return;
@@ -927,6 +956,7 @@ void DataManager::saveSettings()
         return;
     }
     qint64 bytesWritten = saveFile.write(jda.toJson());
+    saveFile.close();
     qDebug() << "SettingsData Bytes written: " << bytesWritten;
 }
 
@@ -962,6 +992,7 @@ QVariantList DataManager::readFromCache(const QString& fileName)
         return cacheList;
     }
     jda = QJsonDocument::fromJson(dataFile.readAll());
+    dataFile.close();
     if(!jda.isArray()) {
         qWarning() << "Couldn't create JSON Array from file: " << cacheFilePath;
         return cacheList;
@@ -980,6 +1011,7 @@ void DataManager::writeToCache(const QString& fileName, QVariantList& data)
         return;
     }
     qint64 bytesWritten = saveFile.write(jda.toJson());
+    saveFile.close();
     qDebug() << "Data Bytes written: " << bytesWritten << " to: " << cacheFilePath;
 }
 
