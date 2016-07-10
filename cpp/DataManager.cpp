@@ -923,6 +923,14 @@ void DataManager::readSettings()
                 qDebug() << "cannot copy settings from data-assets to cache";
                 return;
             }
+            // IMPORTANT !!! copying from RESOURCES ":/data-assets/" to AppDataLocation
+            // makes the target file READ ONLY - you must set PERMISSIONS
+            // copying from RESOURCES ":/data-assets/" to GenericDataLocation the target is READ-WRITE
+            copyOk = readFile.setPermissions(QFileDevice::ReadUser | QFileDevice::WriteUser);
+            if (!copyOk) {
+                qDebug() << "cannot set Permissions to read / write settings";
+                return;
+            }
         } else {
             qDebug() << "no settings from data-assets: " << assetsFilePath;
             return;
@@ -980,6 +988,14 @@ QVariantList DataManager::readFromCache(const QString& fileName)
             bool copyOk = dataAssetsFile.copy(cacheFilePath);
             if (!copyOk) {
                 qDebug() << "cannot copy " << dataAssetsFilePath << " to " << cacheFilePath;
+                return cacheList;
+            }
+            // IMPORTANT !!! copying from RESOURCES ":/data-assets/" to AppDataLocation
+            // makes the target file READ ONLY - you must set PERMISSIONS
+            // copying from RESOURCES ":/data-assets/" to GenericDataLocation the target is READ-WRITE
+            copyOk = dataFile.setPermissions(QFileDevice::ReadUser | QFileDevice::WriteUser);
+            if (!copyOk) {
+                qDebug() << "cannot set Permissions to read / write settings";
                 return cacheList;
             }
         } else {
