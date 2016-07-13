@@ -11,6 +11,7 @@ import "../navigation"
 
 Page {
     id: orderDetailPage
+    focus: true
     property string name: "OrderDetailPage"
 
     property Customer customer
@@ -40,6 +41,8 @@ Page {
                 return
             }
             if( buttonClicked == footerButtons.buttonSAVE) {
+                // Important: without this the Textfield doesn't free if hardware keyboard connected
+                remarksTextField.focus = false
                 remarksTextField.text = remarksTextField.text.trim()
                 if(remarksTextField.text.length == 0) {
                     footerButtons.reset()
@@ -62,6 +65,8 @@ Page {
                 }
             }
             if(buttonClicked == footerButtons.buttonCANCEL) {
+                // Important: without this the Textfield doesn't free if hardware keyboard connected
+                remarksTextField.focus = false
                 if(order.nr > 0) {
                     expressSwitch.checked = order.expressDelivery
                     remarksTextField.text = order.remarks
@@ -331,7 +336,7 @@ Page {
     // called immediately after Loader.loaded
     function init() {
         console.log(qsTr("Init done from OrderDetailPage"))
-        remarksTextField.focus = true
+        remarksTextField.forceActiveFocus()
         console.log("REMARKS FOCUS ?"+remarksTextField.activeFocus)
     }
     // called from Component.destruction

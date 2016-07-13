@@ -16,6 +16,7 @@ Flickable {
     property string name: "OrdersPage"
     Pane {
         id: root
+        focus: true
         anchors.fill: parent
         ColumnLayout {
             anchors.right: parent.right

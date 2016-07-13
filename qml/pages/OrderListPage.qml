@@ -9,6 +9,7 @@ import "../common"
 
 Page {
     id: orderListPage
+    focus: true
     property string name: "OrderListPage"
     bottomPadding: 24
     topPadding: 16
