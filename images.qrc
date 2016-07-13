@@ -64,6 +64,10 @@
         <file>images/black/x18/done@2x.png</file>
         <file>images/black/x18/done@3x.png</file>
         <file>images/black/x18/done@4x.png</file>
+        <file>images/black/x18/error.png</file>
+        <file>images/black/x18/error@2x.png</file>
+        <file>images/black/x18/error@3x.png</file>
+        <file>images/black/x18/error@4x.png</file>
         <file>images/black/x18/flight.png</file>
         <file>images/black/x18/flight@2x.png</file>
         <file>images/black/x18/flight@3x.png</file>
@@ -212,6 +216,10 @@
         <file>images/black/x36/done@2x.png</file>
         <file>images/black/x36/done@3x.png</file>
         <file>images/black/x36/done@4x.png</file>
+        <file>images/black/x36/error.png</file>
+        <file>images/black/x36/error@2x.png</file>
+        <file>images/black/x36/error@3x.png</file>
+        <file>images/black/x36/error@4x.png</file>
         <file>images/black/x36/flight.png</file>
         <file>images/black/x36/flight@2x.png</file>
         <file>images/black/x36/flight@3x.png</file>
@@ -360,6 +368,10 @@
         <file>images/black/x48/done@2x.png</file>
         <file>images/black/x48/done@3x.png</file>
         <file>images/black/x48/done@4x.png</file>
+        <file>images/black/x48/error.png</file>
+        <file>images/black/x48/error@2x.png</file>
+        <file>images/black/x48/error@3x.png</file>
+        <file>images/black/x48/error@4x.png</file>
         <file>images/black/x48/flight.png</file>
         <file>images/black/x48/flight@2x.png</file>
         <file>images/black/x48/flight@3x.png</file>
@@ -508,6 +520,10 @@
         <file>images/black/done@2x.png</file>
         <file>images/black/done@3x.png</file>
         <file>images/black/done@4x.png</file>
+        <file>images/black/error.png</file>
+        <file>images/black/error@2x.png</file>
+        <file>images/black/error@3x.png</file>
+        <file>images/black/error@4x.png</file>
         <file>images/black/flight.png</file>
         <file>images/black/flight@2x.png</file>
         <file>images/black/flight@3x.png</file>
@@ -668,6 +684,10 @@
         <file>images/white/x18/done@2x.png</file>
         <file>images/white/x18/done@3x.png</file>
         <file>images/white/x18/done@4x.png</file>
+        <file>images/white/x18/error.png</file>
+        <file>images/white/x18/error@2x.png</file>
+        <file>images/white/x18/error@3x.png</file>
+        <file>images/white/x18/error@4x.png</file>
         <file>images/white/x18/flight.png</file>
         <file>images/white/x18/flight@2x.png</file>
         <file>images/white/x18/flight@3x.png</file>
@@ -816,6 +836,10 @@
         <file>images/white/x36/done@2x.png</file>
         <file>images/white/x36/done@3x.png</file>
         <file>images/white/x36/done@4x.png</file>
+        <file>images/white/x36/error.png</file>
+        <file>images/white/x36/error@2x.png</file>
+        <file>images/white/x36/error@3x.png</file>
+        <file>images/white/x36/error@4x.png</file>
         <file>images/white/x36/flight.png</file>
         <file>images/white/x36/flight@2x.png</file>
         <file>images/white/x36/flight@3x.png</file>
@@ -964,6 +988,10 @@
         <file>images/white/x48/done@2x.png</file>
         <file>images/white/x48/done@3x.png</file>
         <file>images/white/x48/done@4x.png</file>
+        <file>images/white/x48/error.png</file>
+        <file>images/white/x48/error@2x.png</file>
+        <file>images/white/x48/error@3x.png</file>
+        <file>images/white/x48/error@4x.png</file>
         <file>images/white/x48/flight.png</file>
         <file>images/white/x48/flight@2x.png</file>
         <file>images/white/x48/flight@3x.png</file>
@@ -1112,6 +1140,10 @@
         <file>images/white/done@2x.png</file>
         <file>images/white/done@3x.png</file>
         <file>images/white/done@4x.png</file>
+        <file>images/white/error.png</file>
+        <file>images/white/error@2x.png</file>
+        <file>images/white/error@3x.png</file>
+        <file>images/white/error@4x.png</file>
         <file>images/white/flight.png</file>
         <file>images/white/flight@2x.png</file>
         <file>images/white/flight@3x.png</file>
