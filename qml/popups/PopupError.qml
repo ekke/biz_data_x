@@ -8,7 +8,9 @@ Popup {
     id: popup
     closePolicy: Popup.NoAutoClose
     bottomMargin: isLandscape? 24 : 80
-    x: (appWindow.width - width) / 2
+    implicitWidth: isLandscape? parent.width * 0.50 : parent.width * 0.80
+
+    x: (appWindow.width - implicitWidth) / 2
     y: (appWindow.height - height)
     background: Rectangle{
         color: Material.color(Material.Red, isDarkTheme? Material.Shade500 : Material.Shade800)
@@ -23,13 +25,35 @@ Popup {
             popup.close()
         }
     } // toastTimer
-    Label {
-        id: errorLabel
-        leftPadding: 16
-        rightPadding: 16
-        font.pixelSize: 16
-        color: "white"
-    } // toastLabel
+    ColumnLayout {
+        Layout.fillWidth: true
+        Layout.leftMargin: 16
+        Layout.rightMargin: 16
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 16
+            IconActive {
+                id: alarmIcon
+                imageName: "error.png"
+                imageSize: 36
+                currentIconFolder: "white"
+            }
+            Label {
+                id: errorLabel
+                Layout.fillWidth: true
+                Layout.preferredWidth: 1
+                rightPadding: 24
+                font.pixelSize: 16
+                color: "white"
+                // TODO Why is WordWrap ignored ?
+                wrapMode: Label.WordWrap
+            } // errorLabel
+        }
+    }
+
+
+
+
     onAboutToShow: {
         errorTimer.start()
     }

@@ -43,7 +43,7 @@ Page {
                 remarksTextField.text = remarksTextField.text.trim()
                 if(remarksTextField.text.length == 0) {
                     footerButtons.reset()
-                    appWindow.showError(qsTr("Please enter something into 'Remarks' field"))
+                    appWindow.showError(qsTr("Entry missing:\nPlease enter something into the\n'Remarks' field"))
                     return
                 }
                 order.expressDelivery = expressSwitch.checked
