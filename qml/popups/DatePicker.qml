@@ -165,6 +165,7 @@ Popup {
             } // row layout title
         } // title column layout
 
+        // TODO not working in dark theme
         DayOfWeekRow {
             Layout.column: 2
             Layout.row: 2
@@ -174,7 +175,7 @@ Popup {
             opacity: 0.4
         } // day of weeks
 
-
+        // TODO not working in dark theme
         WeekNumberColumn {
             id: weekNumbers
             Layout.column: 1
