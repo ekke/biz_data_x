@@ -167,12 +167,18 @@ Popup {
 
         // TODO not working in dark theme
         DayOfWeekRow {
+            id: dayOfWeekRow
             Layout.column: 2
             Layout.row: 2
             rightPadding: 24
             Layout.fillWidth: true
             font.bold: false
-            opacity: 0.4
+            delegate: LabelBodySecondary {
+                    text: model.shortName
+                    font: dayOfWeekRow.font
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
         } // day of weeks
 
         // TODO not working in dark theme
@@ -182,10 +188,16 @@ Popup {
             Layout.row: 3
             Layout.fillHeight: true
             leftPadding: 24
+            font.bold: false
             month: datePickerRoot.displayMonth
             year: datePickerRoot.displayYear
-            font.bold: false
-            opacity: 0.4
+            delegate: LabelBodySecondary {
+                    text: model.weekNumber
+                    font: weekNumbers.font
+                    //font.bold: false
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
         } // WeekNumberColumn
 
 
