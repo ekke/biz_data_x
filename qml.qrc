@@ -56,5 +56,7 @@
         <file>qml/common/FooterCancelSave.qml</file>
         <file>qml/pages/DevToolsPage.qml</file>
         <file>qml/popups/PopupError.qml</file>
+        <file>qml/pages/CalendarTestPage.qml</file>
+        <file>qml/popups/DatePicker.qml</file>
     </qresource>
 </RCC>
