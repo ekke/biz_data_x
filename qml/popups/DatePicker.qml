@@ -10,12 +10,13 @@ Popup {
     property date selectedDate: new Date()
     property int displayMonth: selectedDate.getMonth()
     property int displayYear: selectedDate.getFullYear()
-    property int calendarWidth: isLandscape? parent.width * 0.70 : parent.width * 0.80
-    property int calendarHeight: isLandscape? parent.height * 0.90 : parent.height * 0.80
+    property int calendarWidth: isLandscape? parent.width * 0.70 : parent.width * 0.85
+    property int calendarHeight: isLandscape? appWindow.height * 0.94 : parent.height * 0.85
     property bool isOK: false
 
     x: (parent.width - calendarWidth) / 2
-    y: (parent.height - calendarHeight) / 2
+    y: ((parent.height - calendarHeight) / 2)-24
+    z: 2
     implicitWidth: calendarWidth
     implicitHeight: calendarHeight
 
@@ -256,7 +257,7 @@ Popup {
             RowLayout {
                 ButtonFlat {
                     Layout.fillWidth: true
-                    Layout.preferredWidth: 1
+                    Layout.preferredWidth: 3
                     text: qsTr("Today")
                     textColor: accentColor
                     onClicked: {
@@ -267,7 +268,7 @@ Popup {
                 } // cancel button
                 ButtonFlat {
                     Layout.fillWidth: true
-                    Layout.preferredWidth: 1
+                    Layout.preferredWidth: 3
                     text: qsTr("Cancel")
                     textColor: primaryColor
                     onClicked: {
@@ -276,7 +277,7 @@ Popup {
                 } // cancel button
                 ButtonFlat {
                     Layout.fillWidth: true
-                    Layout.preferredWidth: 1
+                    Layout.preferredWidth: 2
                     text: qsTr("OK")
                     textColor: primaryColor
                     onClicked: {
