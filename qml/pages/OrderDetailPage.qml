@@ -40,6 +40,12 @@ Page {
                 return
             }
             if( buttonClicked == footerButtons.buttonSAVE) {
+                remarksTextField.text = remarksTextField.text.trim()
+                if(remarksTextField.text.length == 0) {
+                    footerButtons.reset()
+                    appWindow.showError(qsTr("Please enter something into 'Remarks' field"))
+                    return
+                }
                 order.expressDelivery = expressSwitch.checked
                 order.remarks = remarksTextField.text
                 if(order.nr <= 0) {
@@ -211,8 +217,8 @@ Page {
                         rightPadding: 10
                         wrapMode: Text.WordWrap
                         text: order.nr <= 0? qsTr("** NEW **") : order.nr
-                        color: Material.color(Material.Red, Material.Shade500)
-                        font.bold: true
+                        color: order.nr <= 0? Material.color(Material.Red, Material.Shade500) : Material.foreground
+                        font.bold: order.nr <= 0? true : false
                         Layout.preferredWidth: 2
                     }
                 } // row
@@ -239,25 +245,35 @@ Page {
                     Layout.leftMargin: 16
                     Layout.rightMargin: 16
                     LabelBodySecondary {
+                        id: remarksLabel
                         leftPadding: 10
                         rightPadding: 10
                         wrapMode: Text.WordWrap
                         text: qsTr("Remarks")
                         Layout.preferredWidth: 1
                     }
-                    TextField {
-                        id: remarksTextField
-                        focus: true
+                    Pane {
                         topPadding: 6
                         leftPadding: 10
                         rightPadding: 10
-                        wrapMode: Text.WordWrap
-                        placeholderText: qsTr("Optional: Remarks, Hints, Description")
-                        text: order.remarks
-                        // inputMethodHints: Qt.ImhFormattedNumbersOnly
                         Layout.fillWidth: true
                         Layout.preferredWidth: 2
-                    } // remarksTextField
+                        TextField {
+                            id: remarksTextField
+                            focus: true
+                            anchors.fill: parent
+                            topPadding: 6
+                            leftPadding: 6
+                            //rightPadding: 10
+                            wrapMode: Text.WordWrap
+                            placeholderText: qsTr("Remarks, Hints, Description")
+                            text: order.remarks
+                            // TODO feature request textChanging and textChanged - per ex trim
+                            //Layout.fillWidth: true
+                            //Layout.preferredWidth: 2
+                        } // remarksTextField
+                    } // text pane
+
                 } // row
                 RowLayout {
                     Layout.leftMargin: 16
@@ -287,7 +303,7 @@ Page {
                     leftPadding: 10
                     rightPadding: 10
                     wrapMode: Text.WordWrap
-                    text: qsTr("Editing Remarks or Express Delivery: CANCEL / SAVE Buttons become visible")
+                    text: qsTr("Modify Remarks or Express Delivery: CANCEL / SAVE Buttons become visible")
                     font.italic: true
                 }
                 HorizontalDivider {}

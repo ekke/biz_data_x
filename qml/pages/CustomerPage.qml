@@ -195,6 +195,26 @@ Page {
                         }
                     }
                 }
+                RowLayout {
+                    Item {
+                        Layout.preferredWidth: 1
+                        Layout.fillWidth: true
+                    }
+                    Rectangle {
+                        id: abcRectangle
+                        property var myColors: ["green","grey","red"]
+                        property var myText: ["A","B","C"]
+                        height: 20
+                        Layout.fillWidth: true
+                        color: myColors[customer.abc]
+                        Layout.preferredWidth: 2
+                        LabelBody {
+                            anchors.centerIn: parent
+                            text: abcRectangle.myText[customer.abc]
+                            color: "white"
+                        }
+                    }
+                }
             } // col layout
         } // root
         ScrollIndicator.vertical: ScrollIndicator { }

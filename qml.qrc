@@ -55,5 +55,6 @@
         <file>qml/pages/OrderDetailPage.qml</file>
         <file>qml/common/FooterCancelSave.qml</file>
         <file>qml/pages/DevToolsPage.qml</file>
+        <file>qml/popups/PopupError.qml</file>
     </qresource>
 </RCC>

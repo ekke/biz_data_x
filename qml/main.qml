@@ -423,6 +423,9 @@ ApplicationWindow {
     function showToast(info) {
         popupToast.start(info)
     }
+    function showError(info) {
+        popupError.start(info)
+    }
 
     function showInfo(info) {
         popupInfo.text = info
@@ -446,6 +449,13 @@ ApplicationWindow {
             resetFocus()
         }
     } // popupToast
+    // PopupToast
+    PopupError {
+        id: popupError
+        onAboutToHide: {
+            resetFocus()
+        }
+    } // popupError
     // end APP WINDOW POPUPS
 
 } // app window
