@@ -16,21 +16,12 @@ This app is a follow-up to
 * blog http://bit.ly/qt-tab-pages-x (TabBar)
 * blog http://bit.ly/qt-bottom-nav-x (TabBar)
 * blog http://bit.ly/qt-drawer-nav-x (Drawer)
-please read these blogs and explroe corresponding apps before going on
+
+please read these blogs and explore corresponding apps before going on
 
 The topics of this 6th sample app:
 
-* Navigation with sliding Drawer
-* - Drawer flickable, Dividers, Subheaders, Counter, colored Marker
-* Navigation with Bottom Navigation containing Favorites from Drawer
-* Using Pages, StackView, SwipeView+TabBar as Nodes
-* Dark Theme and selecting primary and accent color from ColorSchema Page
-* Lazy instantiation of Pages using Loaders with activation Policies:
-* - IMMEDIATELY, LAZY, WHILE_CURRENT
-
-Strings are marked as translatable, but not translated yet. See the first app to learn about i18n.
-
-This 6th sample app is a simple app only to demonstrate navigation through complex APPs.
+* XXX W-I-P
  
 read more about this app here:
 http://bit.ly/qt-biz-data-x
