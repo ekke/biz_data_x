@@ -4,12 +4,17 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 
-ColumnLayout {
-        property string buttonCANCEL: "CANCEL"
-        property string buttonSAVE: "SAVE"
-        property string buttonRESET: "RESET"
-        property string buttonClicked: buttonRESET
-        z: 2
+Pane {
+    property string buttonCANCEL: "CANCEL"
+    property string buttonSAVE: "SAVE"
+    property string buttonRESET: "RESET"
+    property string buttonClicked: buttonRESET
+    anchors.right: parent.right
+    anchors.left: parent.left
+    padding: 0
+    z: 2
+    opacity: 0.80
+    ColumnLayout {
         anchors.right: parent.right
         anchors.left: parent.left
         RowLayout {
@@ -34,8 +39,12 @@ ColumnLayout {
                     buttonClicked = buttonSAVE
                 }
             }
-        }
-        function reset() {
-            buttonClicked = buttonRESET
-        }
+        } // row layout
+
+    } // col layout
+    function reset() {
+        buttonClicked = buttonRESET
     }
+} // pane
+
+
