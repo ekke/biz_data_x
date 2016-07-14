@@ -14,6 +14,7 @@ This app is a follow-up to
 * blog http://bit.ly/qt-swiped-pages-x (SwipeView)
 * blog http://bit.ly/qt-tab-pages-x (TabBar)
 * blog http://bit.ly/qt-bottom-nav-x (TabBar)
+* blog http://bit.ly/qt-drawer-nav-x (Drawer)
 please read these blogs and explroe corresponding apps before going on
 
 The topics of this 6th sample app:
@@ -31,7 +32,7 @@ Strings are marked as translatable, but not translated yet. See the first app to
 This 6th sample app is a simple app only to demonstrate navigation through complex APPs.
  
 read more about this app here:
-http://bit.ly/qt-drawer-nav-x
+http://bit.ly/qt-biz-data-x
 
 This app needs Qt 5.7 Release or greater
 
@@ -46,10 +47,10 @@ Images downloaded from https://design.google.com/icons/ - then renamed to match 
 ## Screenshots
 This sample app uses Material Design with UI Controls provided by Qt 5.7+ and was designed and tested on Android (BlackBerry PRIV Android 6.0.1) and iOS (iPhone 6s iOS 9.3).
 
-A detailed description you'll find at my blog: http://bit.ly/qt-drawer-nav-x
+A detailed description you'll find at my blog: http://bit.ly/qt-biz-data-x
 
 ### Screenshot
-![alt tag](https://appbus.files.wordpress.com/2016/06/drawer.png  "Screenshot Android Portrait")
+![alt tag](https://appbus.files.wordpress.com/2016/07/orderlist.png  "Screenshot Android Portrait")
 
 more screenshots here:
-http://bit.ly/qt-drawer-nav-x
+http://bit.ly/qt-biz-data-x

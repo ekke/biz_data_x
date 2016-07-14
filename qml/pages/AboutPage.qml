@@ -51,7 +51,7 @@ Flickable {
                     leftPadding: 10
                     rightPadding: 10
                     wrapMode: Text.WordWrap
-                    text: qsTr("About is a normal Page.\nNavigation Drawer can be opened swiping from left or tapping on Menu Button.\n")
+                    text: qsTr("blog ekkes-corner: http://ekkes-corner.org\nblog mobile app dev:http://appbus.org\nblog series Qt for Mobile:http://j.mp/qt-x\n")
                 }
             }
             RowLayout {

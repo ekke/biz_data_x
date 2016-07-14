@@ -305,6 +305,7 @@ Page {
                     } // switch item
                 } // row
                 LabelBodySecondary {
+                    visible: !isModified
                     leftPadding: 10
                     rightPadding: 10
                     wrapMode: Text.WordWrap
@@ -321,7 +322,7 @@ Page {
                     leftPadding: 10
                     rightPadding: 10
                     wrapMode: Text.WordWrap
-                    text: qsTr("Here you could place a ListView with Positions or create Positions using Repeater or have FAB to push List of Positions on top")
+                    text: qsTr("Here you could place a ListView with Positions or create Positions using Repeater or use FAB to push List of Positions on top")
                     font.italic: true
                 }
             } // col layout
