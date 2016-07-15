@@ -58,5 +58,6 @@
         <file>qml/popups/PopupError.qml</file>
         <file>qml/pages/CalendarTestPage.qml</file>
         <file>qml/popups/DatePicker.qml</file>
+        <file>qml/popups/TimePicker.qml</file>
     </qresource>
 </RCC>
