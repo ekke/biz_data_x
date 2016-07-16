@@ -140,6 +140,10 @@
         <file>images/black/x18/team_member@2x.png</file>
         <file>images/black/x18/team_member@3x.png</file>
         <file>images/black/x18/team_member@4x.png</file>
+        <file>images/black/x18/time.png</file>
+        <file>images/black/x18/time@2x.png</file>
+        <file>images/black/x18/time@3x.png</file>
+        <file>images/black/x18/time@4x.png</file>
         <file>images/black/x18/truck.png</file>
         <file>images/black/x18/truck@2x.png</file>
         <file>images/black/x18/truck@3x.png</file>
@@ -292,6 +296,10 @@
         <file>images/black/x36/team_member@2x.png</file>
         <file>images/black/x36/team_member@3x.png</file>
         <file>images/black/x36/team_member@4x.png</file>
+        <file>images/black/x36/time.png</file>
+        <file>images/black/x36/time@2x.png</file>
+        <file>images/black/x36/time@3x.png</file>
+        <file>images/black/x36/time@4x.png</file>
         <file>images/black/x36/truck.png</file>
         <file>images/black/x36/truck@2x.png</file>
         <file>images/black/x36/truck@3x.png</file>
@@ -444,6 +452,10 @@
         <file>images/black/x48/team_member@2x.png</file>
         <file>images/black/x48/team_member@3x.png</file>
         <file>images/black/x48/team_member@4x.png</file>
+        <file>images/black/x48/time.png</file>
+        <file>images/black/x48/time@2x.png</file>
+        <file>images/black/x48/time@3x.png</file>
+        <file>images/black/x48/time@4x.png</file>
         <file>images/black/x48/truck.png</file>
         <file>images/black/x48/truck@2x.png</file>
         <file>images/black/x48/truck@3x.png</file>
@@ -600,6 +612,10 @@
         <file>images/black/team_member@2x.png</file>
         <file>images/black/team_member@3x.png</file>
         <file>images/black/team_member@4x.png</file>
+        <file>images/black/time.png</file>
+        <file>images/black/time@2x.png</file>
+        <file>images/black/time@3x.png</file>
+        <file>images/black/time@4x.png</file>
         <file>images/black/truck.png</file>
         <file>images/black/truck@2x.png</file>
         <file>images/black/truck@3x.png</file>
@@ -760,6 +776,10 @@
         <file>images/white/x18/team_member@2x.png</file>
         <file>images/white/x18/team_member@3x.png</file>
         <file>images/white/x18/team_member@4x.png</file>
+        <file>images/white/x18/time.png</file>
+        <file>images/white/x18/time@2x.png</file>
+        <file>images/white/x18/time@3x.png</file>
+        <file>images/white/x18/time@4x.png</file>
         <file>images/white/x18/truck.png</file>
         <file>images/white/x18/truck@2x.png</file>
         <file>images/white/x18/truck@3x.png</file>
@@ -912,6 +932,10 @@
         <file>images/white/x36/team_member@2x.png</file>
         <file>images/white/x36/team_member@3x.png</file>
         <file>images/white/x36/team_member@4x.png</file>
+        <file>images/white/x36/time.png</file>
+        <file>images/white/x36/time@2x.png</file>
+        <file>images/white/x36/time@3x.png</file>
+        <file>images/white/x36/time@4x.png</file>
         <file>images/white/x36/truck.png</file>
         <file>images/white/x36/truck@2x.png</file>
         <file>images/white/x36/truck@3x.png</file>
@@ -1064,6 +1088,10 @@
         <file>images/white/x48/team_member@2x.png</file>
         <file>images/white/x48/team_member@3x.png</file>
         <file>images/white/x48/team_member@4x.png</file>
+        <file>images/white/x48/time.png</file>
+        <file>images/white/x48/time@2x.png</file>
+        <file>images/white/x48/time@3x.png</file>
+        <file>images/white/x48/time@4x.png</file>
         <file>images/white/x48/truck.png</file>
         <file>images/white/x48/truck@2x.png</file>
         <file>images/white/x48/truck@3x.png</file>
@@ -1220,6 +1248,10 @@
         <file>images/white/team_member@2x.png</file>
         <file>images/white/team_member@3x.png</file>
         <file>images/white/team_member@4x.png</file>
+        <file>images/white/time.png</file>
+        <file>images/white/time@2x.png</file>
+        <file>images/white/time@3x.png</file>
+        <file>images/white/time@4x.png</file>
         <file>images/white/truck.png</file>
         <file>images/white/truck@2x.png</file>
         <file>images/white/truck@3x.png</file>

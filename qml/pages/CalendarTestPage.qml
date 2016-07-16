@@ -52,6 +52,7 @@ Flickable {
             }
             Switch {
                 id:qSwitch
+                leftPadding: 30
                 text: qsTr("every 15 Minutes")
                 checked: root.onlyQuartersAllowed
                 onCheckedChanged: {
@@ -60,6 +61,7 @@ Flickable {
             }
             Switch {
                 id:wSwitch
+                leftPadding: 30
                 text: qsTr("use Work Hours")
                 checked: root.useWorkTimes
                 onCheckedChanged: {
@@ -81,6 +83,7 @@ Flickable {
         textColor: accentColor
         anchors.bottom: parent.bottom
         anchors.left: parent.left
+        anchors.leftMargin: 30
         onClicked: {
             datePicker.selectedDate = root.myDate
             datePicker.displayMonth = root.myDate.getMonth()
@@ -95,6 +98,7 @@ Flickable {
         textColor: accentColor
         anchors.bottom: parent.bottom
         anchors.right: parent.right
+        anchors.rightMargin: 30
         onClicked: {
             timePicker.open()
             timePicker.setDisplay(root.myTime, root.onlyQuartersAllowed, root.useWorkTimes)

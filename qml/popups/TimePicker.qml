@@ -294,7 +294,7 @@ Popup {
 
         ButtonIconActive {
             visible: !timePicker.pickMinutes
-            imageName: timePicker.useWorkTimes? "work.png" : "person.png"
+            imageName: timePicker.useWorkTimes? "work.png" : "time.png"
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.rightMargin: -10
