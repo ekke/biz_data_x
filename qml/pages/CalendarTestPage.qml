@@ -115,6 +115,8 @@ Flickable {
         onClosed: {
             if(timePicker.isOK) {
                 root.myTime = timePicker.hrsDisplay+":"+timePicker.minutesDisplay
+                root.useWorkTimes = timePicker.useWorkTimes
+                root.onlyQuartersAllowed = timePicker.onlyQuartersAllowed
             }
         }
     }

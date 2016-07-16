@@ -292,6 +292,32 @@ Popup {
             radius: width / 2
         }
 
+        ButtonIconActive {
+            visible: !timePicker.pickMinutes
+            imageName: timePicker.useWorkTimes? "work.png" : "person.png"
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.rightMargin: -10
+            anchors.topMargin: -20
+            onClicked: {
+                timePicker.useWorkTimes = !timePicker.useWorkTimes
+                timePicker.showHour(timePicker.hrsDisplay)
+            }
+        }
+        ButtonFlat {
+            visible: timePicker.pickMinutes
+            text: timePicker.onlyQuartersAllowed? "15" : "05"
+            textColor: Material.foreground
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.rightMargin: -10
+            anchors.topMargin: -20
+            onClicked: {
+                timePicker.onlyQuartersAllowed = !timePicker.onlyQuartersAllowed
+                timePicker.showMinutes(timePicker.minutesDisplay)
+            }
+        }
+
         ButtonGroup {
             id: outerButtonGroup
         }
