@@ -8,13 +8,15 @@ import "../common"
 
 Popup {
     id: timePicker
-    property bool isLandscape: parent.width > parent.height
-    property int timePickerWidth: parent.width * 0.80
-    property int timePickerHeight: parent.height * 0.80
+    property int timePickerWidth: isLandscape? appWindow.width * 0.85 : appWindow.width * 0.80
+    property int timePickerHeight: isLandscape? appWindow.height * 0.90 : appWindow.height * 0.85
     x: (parent.width - timePickerWidth) / 2
-    y: (parent.height - timePickerHeight) / 2
+    y: isLandscape? (parent.height - timePickerHeight) / 2 - 24 : (parent.height - timePickerHeight) / 2 + 12
     implicitWidth: timePickerWidth
     implicitHeight: timePickerHeight
+    z: 2
+
+    property bool isOK: false
 
     property int timeButtonsPaneSize: isLandscape? Math.min(timePicker.implicitHeight, timePicker.implicitWidth) - 40 - 20 : Math.min(timePicker.implicitHeight, timePicker.implicitWidth) - 40
     property int innerButtonsPaneSize: timeButtonsPaneSize - 80
@@ -66,6 +68,21 @@ Popup {
 
     property string hrsDisplay: "12"
     property string minutesDisplay: "00"
+
+    // opening TimePicker with a given HH:MM value
+    function setDisplay(hhmm, q, w) {
+        onlyQuartersAllowed = q
+        useWorkTimes = w
+        var s = hhmm.split(":")
+        if(s.length == 2) {
+            var hours = s[0]
+            var minutes = s[1]
+            showMinutes(minutes)
+            showHour(hours)
+            checkDisplay()
+        }
+    }
+
     function showHour(hour) {
         for(var i=0; i < timePickerDisplayModel.length; i++) {
             var h = timePickerDisplayModel[i]
@@ -83,19 +100,17 @@ Popup {
                     return
                 }
             } else {
-                if(useWorkTimes) {
-                    if(h.c1 == hour) {
-                        pickMinutes = false
-                        innerButtonIndex = -1
-                        outerButtonIndex = i
-                        return
-                    }
-                    if(h.c2 == hour) {
-                        pickMinutes = false
-                        outerButtonIndex = -1
-                        innerButtonIndex = i
-                        return
-                    }
+                if(h.c1 == hour) {
+                    pickMinutes = false
+                    innerButtonIndex = -1
+                    outerButtonIndex = i
+                    return
+                }
+                if(h.c2 == hour) {
+                    pickMinutes = false
+                    outerButtonIndex = -1
+                    innerButtonIndex = i
+                    return
                 }
             }
         }
@@ -129,33 +144,33 @@ Popup {
         id: headerPane
         padding: 0
 
-        implicitWidth: timePicker.isLandscape? parent.width - timePicker.timeButtonsPaneSize - 40 : parent.width
-        implicitHeight:timePicker.isLandscape? timePicker.timePickerHeight : timePicker.timePickerHeight - timePicker.timeButtonsPaneSize - 40 - 20
+        implicitWidth: isLandscape? parent.width - timePicker.timeButtonsPaneSize - 40 : parent.width
+        implicitHeight:isLandscape? timePicker.timePickerHeight : timePicker.timePickerHeight - timePicker.timeButtonsPaneSize - 40 - 20
         background: Rectangle {
-            color: Material.primary
+            color: primaryDarkColor
         }
 
         GridLayout {
             id: headerGrid
-            property int myPointSize: timePicker.isLandscape? 48 : 64
+            property int myPointSize: isLandscape? 48 : 64
             anchors.centerIn: parent
-            rows: timePicker.isLandscape? 4 : 2
-            columns: timePicker.isLandscape? 1 : 3
+            rows: isLandscape? 4 : 2
+            columns: isLandscape? 1 : 3
             rowSpacing: 0
 
             Label {
                 id: titleLabel
-                Layout.columnSpan: timePicker.isLandscape? 1 : 3
+                Layout.columnSpan: isLandscape? 1 : 3
                 text: qsTr("Time (HH:MM)")
-                color: "white"
+                color: textOnPrimaryDark
                 Layout.alignment: Text.AlignHCenter
-                font.pointSize: 36
+                font.pointSize: 32
                 fontSizeMode: Text.Fit
             }
 
             Button {
                 id: hrsButton
-                Layout.alignment: timePicker.isLandscape? Text.AlignHCenter : Text.AlignRight
+                Layout.alignment: isLandscape? Text.AlignHCenter : Text.AlignRight
                 checked: true
                 checkable: true
                 contentItem: Label {
@@ -163,7 +178,7 @@ Popup {
                     font.pointSize: headerGrid.myPointSize
                     fontSizeMode: Text.Fit
                     opacity: hrsButton.checked ? 1.0 : 0.6
-                    color: "white"
+                    color: textOnPrimaryDark
                     elide: Text.ElideRight
                 }
                 background: Rectangle {
@@ -183,12 +198,12 @@ Popup {
                 font.pointSize: headerGrid.myPointSize
                 fontSizeMode: Text.Fit
                 opacity: 0.6
-                color: "white"
+                color: textOnPrimaryDark
             }
 
             Button {
                 id: minutesButton
-                Layout.alignment: timePicker.isLandscape? Text.AlignHCenter : Text.AlignLeft
+                Layout.alignment: isLandscape? Text.AlignHCenter : Text.AlignLeft
                 checked: false
                 checkable: true
                 contentItem: Label {
@@ -196,7 +211,7 @@ Popup {
                     font.pointSize: headerGrid.myPointSize
                     fontSizeMode: Text.Fit
                     opacity: minutesButton.checked ? 1.0 : 0.6
-                    color: "white"
+                    color: textOnPrimaryDark
                     elide: Text.ElideRight
                 }
                 background: Rectangle {
@@ -218,7 +233,7 @@ Popup {
         id: footerPane
         padding: 0
         anchors.right: parent.right
-        y: timePicker.isLandscape? parent.height - 20 - 20 : parent.height - 40
+        y: isLandscape? parent.height - 20 - 20 : parent.height - 40
 
         implicitWidth: timePicker.timeButtonsPaneSize + 40
         implicitHeight: 40
@@ -236,7 +251,7 @@ Popup {
                     Layout.fillWidth: true
                     Layout.preferredWidth: 1
                     text: qsTr("Cancel")
-                    textColor: Material.primary
+                    textColor: primaryColor
                     onClicked: {
                         timePicker.close()
                     }
@@ -249,9 +264,9 @@ Popup {
                     Layout.fillWidth: true
                     Layout.preferredWidth: 1
                     text: qsTr("OK")
-                    textColor: Material.primary
+                    textColor: primaryColor
                     onClicked: {
-                        // root.myTime = timePicker.hrsDisplay+":"+timePicker.minutesDisplay
+                        timePicker.isOK = true
                         timePicker.close()
                     }
                 } // ok button
@@ -265,8 +280,8 @@ Popup {
         implicitWidth: timePicker.timeButtonsPaneSize
         implicitHeight: timePicker.timeButtonsPaneSize
         padding: 0
-        x: timePicker.isLandscape? timePicker.timePickerWidth - timePicker.timeButtonsPaneSize - 20 : 20
-        y: timePicker.isLandscape? 24 : timePicker.timePickerHeight - timePicker.timeButtonsPaneSize - 20 - 20
+        x: isLandscape? timePicker.timePickerWidth - timePicker.timeButtonsPaneSize - 20 : 20
+        y: isLandscape? 24 : timePicker.timePickerHeight - timePicker.timeButtonsPaneSize - 20 - 20
         background: Rectangle {color: "transparent"}
 
         Rectangle {
@@ -338,7 +353,7 @@ Popup {
                         minimumPointSize: 8
                         fontSizeMode: Text.Fit
                         opacity: innerButton.checked ? 1.0 : enabled || innerButton.highlighted ? 1.0 : 0.6
-                        color: innerButton.checked || innerButton.highlighted ? "white" : Material.color(Material.Grey, Material.Shade500)
+                        color: innerButton.checked || innerButton.highlighted ? textOnPrimary : Material.color(Material.Grey, Material.Shade500)
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
@@ -346,7 +361,7 @@ Popup {
                     } // content Label
 
                     background: Rectangle {
-                        color: innerButton.checked ? Material.primary : "transparent"
+                        color: innerButton.checked ? primaryColor : "transparent"
                         radius: width / 2
                     }
                 } // inner button
@@ -403,7 +418,7 @@ Popup {
                     minimumPointSize: 8
                     fontSizeMode: Text.Fit
                     opacity: enabled || outerButton.highlighted || outerButton.checked ? 1 : 0.3
-                    color: outerButton.checked || outerButton.highlighted ? "white" : timePicker.pickMinutes && timePicker.onlyQuartersAllowed? Material.primary : Material.foreground
+                    color: outerButton.checked || outerButton.highlighted ? textOnPrimary : timePicker.pickMinutes && timePicker.onlyQuartersAllowed? primaryColor : "black"
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     elide: Text.ElideRight
@@ -411,7 +426,7 @@ Popup {
                 } // outer content label
 
                 background: Rectangle {
-                    color: outerButton.checked ? Material.primary : "transparent"
+                    color: outerButton.checked ? primaryColor : "transparent"
                     radius: width / 2
                 }
             } // outer button
@@ -428,7 +443,7 @@ Popup {
             height: timePicker.timeButtonsPaneSize / 2 - 40
             transformOrigin: Item.Bottom
             rotation: outerButtonGroup.checkedButton? outerButtonGroup.checkedButton.angle : 0
-            color: Material.primary
+            color: primaryColor
             antialiasing: true
         } // line to outer buttons
 
@@ -441,7 +456,7 @@ Popup {
             height: timePicker.innerButtonsPaneSize / 2 - 40
             transformOrigin: Item.Bottom
             rotation: innerButtonGroup.checkedButton? innerButtonGroup.checkedButton.angle : 0
-            color: Material.primary
+            color: primaryColor
             antialiasing: true
         } // line to outer buttons
 
@@ -450,13 +465,15 @@ Popup {
             anchors.centerIn: parent
             width: 10
             height: 10
-            color: Material.primary
+            color: primaryColor
             radius: width / 2
         }
 
     } // timeButtonsPane
 
-
+    onOpened: {
+        timePicker.isOK = false
+    }
 } // timePicker
 
 

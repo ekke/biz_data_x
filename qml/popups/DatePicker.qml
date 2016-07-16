@@ -46,7 +46,7 @@ Popup {
             background: Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                color: primaryColor
+                color: primaryDarkColor
             }
             ColumnLayout {
                 anchors.verticalCenter: parent.verticalCenter
@@ -81,7 +81,7 @@ Popup {
             background: Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                color: primaryColor
+                color: primaryDarkColor
             }
             ColumnLayout {
                 spacing: 6

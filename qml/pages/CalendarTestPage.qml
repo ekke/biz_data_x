@@ -20,6 +20,9 @@ Flickable {
     Pane {
         id: root
         property date myDate: new Date()
+        property string myTime: "12:00"
+        property bool onlyQuartersAllowed: false
+        property bool useWorkTimes: false
         anchors.fill: parent
         ColumnLayout {
             anchors.right: parent.right
@@ -28,7 +31,7 @@ Flickable {
             LabelHeadline {
                 topPadding: 6
                 leftPadding: 10
-                text: qsTr("Test DatePicker")
+                text: qsTr("Test Date and Time Picker")
             }
             HorizontalDivider {}
             LabelTitle {
@@ -39,6 +42,30 @@ Flickable {
                 text: Qt.formatDate(root.myDate, Qt.DefaultLocaleLongDate)
                 color: primaryColor
             }
+            LabelTitle {
+                id: selectedTimeLabel
+                topPadding: 40
+                leftPadding: 30
+                rightPadding: 10
+                text: root.myTime
+                color: primaryColor
+            }
+            Switch {
+                id:qSwitch
+                text: qsTr("every 15 Minutes")
+                checked: root.onlyQuartersAllowed
+                onCheckedChanged: {
+                    root.onlyQuartersAllowed = checked
+                }
+            }
+            Switch {
+                id:wSwitch
+                text: qsTr("use Work Hours")
+                checked: root.useWorkTimes
+                onCheckedChanged: {
+                    root.useWorkTimes = checked
+                }
+            }
 
             //
 
@@ -48,18 +75,29 @@ Flickable {
     ScrollIndicator.vertical: ScrollIndicator { }
 
     ButtonFlat {
-        id: button
         z: 1
         bottomPadding: 24
-        text: "Test the Date Picker"
+        text: "Date Picker"
         textColor: accentColor
         anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.left: parent.left
         onClicked: {
             datePicker.selectedDate = root.myDate
             datePicker.displayMonth = root.myDate.getMonth()
             datePicker.displayYear = root.myDate.getFullYear()
             datePicker.open()
+        }
+    }
+    ButtonFlat {
+        z: 1
+        bottomPadding: 24
+        text: "Time Picker"
+        textColor: accentColor
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        onClicked: {
+            timePicker.open()
+            timePicker.setDisplay(root.myTime, root.onlyQuartersAllowed, root.useWorkTimes)
         }
     }
 
@@ -68,6 +106,15 @@ Flickable {
         onClosed: {
             if(datePicker.isOK) {
                 root.myDate = datePicker.selectedDate
+            }
+        }
+    }
+
+    TimePicker {
+        id: timePicker
+        onClosed: {
+            if(timePicker.isOK) {
+                root.myTime = timePicker.hrsDisplay+":"+timePicker.minutesDisplay
             }
         }
     }
