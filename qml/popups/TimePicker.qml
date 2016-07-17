@@ -72,6 +72,8 @@ Popup {
     property string minutesDisplay: "00"
 
     // opening TimePicker with a given HH:MM value
+    // ATTENTION TimePicker is rounding DOWN to next lower 05 / 15 Minutes
+    // if you want to round UP do it before calling this function
     function setDisplay(hhmm, q, w) {
         onlyQuartersAllowed = q
         useWorkTimes = w
@@ -79,6 +81,11 @@ Popup {
         if(s.length == 2) {
             var hours = s[0]
             var minutes = s[1]
+            if(onlyQuartersAllowed) {
+                minutes = minutes - minutes%15
+            } else {
+                minutes = minutes - minutes%5
+            }
             showMinutes(minutes)
             showHour(hours)
             checkDisplay()
@@ -93,12 +100,14 @@ Popup {
                     pickMinutes = false
                     innerButtonIndex = -1
                     outerButtonIndex = i
+                    updateDisplayHour()
                     return
                 }
                 if(h.n == hour) {
                     pickMinutes = false
                     outerButtonIndex = -1
                     innerButtonIndex = i
+                    updateDisplayHour()
                     return
                 }
             } else {
@@ -106,17 +115,41 @@ Popup {
                     pickMinutes = false
                     innerButtonIndex = -1
                     outerButtonIndex = i
+                    updateDisplayHour()
                     return
                 }
                 if(h.c2 == hour) {
                     pickMinutes = false
                     outerButtonIndex = -1
                     innerButtonIndex = i
+                    updateDisplayHour()
                     return
                 }
             }
         }
+        // not found
+        console.log("Minutes not found: "+hour)
+        pickMinutes = false
+        innerButtonIndex = -1
+        outerButtonIndex = 0
+        updateDisplayHour()
     }
+    function updateDisplayHour() {
+        if (innerButtonIndex >= 0) {
+            if(useWorkTimes) {
+                hrsDisplay = timePickerDisplayModel[innerButtonIndex].n
+            } else {
+                hrsDisplay = timePickerDisplayModel[innerButtonIndex].c2
+            }
+            return
+        }
+        if(timePicker.useWorkTimes) {
+            hrsDisplay = timePickerDisplayModel[innerButtonIndex].d
+        } else {
+            hrsDisplay = timePickerDisplayModel[innerButtonIndex].c1
+        }
+    }
+
     function showMinutes(minutes) {
         for(var i=0; i < timePickerDisplayModel.length; i++) {
             var m = timePickerDisplayModel[i]
@@ -124,10 +157,22 @@ Popup {
                 innerButtonIndex = -1
                 outerButtonIndex = i
                 pickMinutes = true
+                updateDisplayMinutes()
                 return
             }
         }
+        // not found
+        console.log("Minutes not found: "+minutes)
+        innerButtonIndex = -1
+        outerButtonIndex = 0
+        pickMinutes = true
+        updateDisplayMinutes()
+        return
     } // showMinutes
+    function updateDisplayMinutes() {
+        minutesDisplay = timePickerDisplayModel[outerButtonIndex].m
+    }
+
     function checkDisplay() {
         if(pickMinutes) {
             hrsButton.checked = false

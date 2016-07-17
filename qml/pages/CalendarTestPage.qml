@@ -20,7 +20,7 @@ Flickable {
     Pane {
         id: root
         property date myDate: new Date()
-        property string myTime: "12:00"
+        property string myTime: Qt.formatTime(new Date(),"HH:mm")
         property bool onlyQuartersAllowed: false
         property bool useWorkTimes: false
         anchors.fill: parent
