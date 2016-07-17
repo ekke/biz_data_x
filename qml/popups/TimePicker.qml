@@ -144,9 +144,9 @@ Popup {
             return
         }
         if(timePicker.useWorkTimes) {
-            hrsDisplay = timePickerDisplayModel[innerButtonIndex].d
+            hrsDisplay = timePickerDisplayModel[outerButtonIndex].d
         } else {
-            hrsDisplay = timePickerDisplayModel[innerButtonIndex].c1
+            hrsDisplay = timePickerDisplayModel[outerButtonIndex].c1
         }
     }
 
@@ -337,6 +337,18 @@ Popup {
             height: timePicker.timeButtonsPaneSize + 10
             color: Material.color(Material.Grey, Material.Shade50)
             radius: width / 2
+        }
+
+        ButtonFlat {
+            text: qsTr("Now")
+            textColor: accentColor
+            anchors.right: parent.left
+            anchors.top: parent.top
+            anchors.rightMargin: -40
+            anchors.topMargin: -20
+            onClicked: {
+                timePicker.setDisplay(Qt.formatTime(new Date(),"HH:mm"), timePicker.onlyQuartersAllowed, timePicker.useWorkTimes)
+            }
         }
 
         ButtonIconActive {
