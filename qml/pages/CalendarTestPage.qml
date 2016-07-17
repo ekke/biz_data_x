@@ -107,6 +107,7 @@ Flickable {
 
     DatePicker {
         id: datePicker
+        modal: true
         onClosed: {
             if(datePicker.isOK) {
                 root.myDate = datePicker.selectedDate
@@ -116,6 +117,7 @@ Flickable {
 
     TimePicker {
         id: timePicker
+        modal: true
         onClosed: {
             if(timePicker.isOK) {
                 root.myTime = timePicker.hrsDisplay+":"+timePicker.minutesDisplay
