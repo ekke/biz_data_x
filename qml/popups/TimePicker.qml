@@ -16,6 +16,8 @@ Popup {
     implicitHeight: timePickerHeight
     z: 2
 
+    background: Rectangle {color:cardAndDialogBackground}
+
     property bool isOK: false
 
     property int timeButtonsPaneSize: isLandscape? Math.min(timePicker.implicitHeight, timePicker.implicitWidth) - 40 - 20 : Math.min(timePicker.implicitHeight, timePicker.implicitWidth) - 40

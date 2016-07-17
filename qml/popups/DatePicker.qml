@@ -21,6 +21,8 @@ Popup {
     implicitWidth: calendarWidth
     implicitHeight: calendarHeight
 
+    background: Rectangle {color:cardAndDialogBackground}
+
     topPadding: 0
     leftPadding: 0
     rightPadding: 0
