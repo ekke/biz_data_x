@@ -67,6 +67,7 @@ Popup {
     property bool pickMinutes: false
     property bool useWorkTimes: true
     property bool onlyQuartersAllowed: true
+    property bool autoSwapToMinutes: true
 
     property string hrsDisplay: "12"
     property string minutesDisplay: "00"
@@ -183,6 +184,19 @@ Popup {
         }
     }
 
+    function onMinutesButtonClicked() {
+        hrsButton.checked = false
+        minutesButton.checked = true
+        timePicker.pickMinutes = true
+        timePicker.showMinutes(timePicker.minutesDisplay)
+    }
+    function onHoursButtonClicked() {
+        minutesButton.checked = false
+        hrsButton.checked = true
+        timePicker.pickMinutes = false
+        timePicker.showHour(timePicker.hrsDisplay)
+    }
+
     topPadding: 0
     leftPadding: 0
     rightPadding: 0
@@ -232,10 +246,7 @@ Popup {
                     color: "transparent"
                 }
                 onClicked: {
-                    minutesButton.checked = false
-                    hrsButton.checked = true
-                    timePicker.pickMinutes = false
-                    timePicker.showHour(timePicker.hrsDisplay)
+                    onHoursButtonClicked()
                 }
             } // hrsButton
 
@@ -265,10 +276,7 @@ Popup {
                     color: "transparent"
                 }
                 onClicked: {
-                    hrsButton.checked = false
-                    minutesButton.checked = true
-                    timePicker.pickMinutes = true
-                    timePicker.showMinutes(timePicker.minutesDisplay)
+                    onMinutesButtonClicked()
                 }
             } // hrsButton
         } // header grid
@@ -415,6 +423,9 @@ Popup {
                         } else {
                             timePicker.hrsDisplay = timePicker.timePickerDisplayModel[index].c2
                         }
+                        if(timePicker.autoSwapToMinutes) {
+                            timePicker.onMinutesButtonClicked()
+                        }
                     }
 
                     ButtonGroup.group: innerButtonGroup
@@ -478,6 +489,9 @@ Popup {
                             timePicker.hrsDisplay = timePicker.timePickerDisplayModel[index].d
                         } else {
                             timePicker.hrsDisplay = timePicker.timePickerDisplayModel[index].c1
+                        }
+                        if(timePicker.autoSwapToMinutes) {
+                            timePicker.onMinutesButtonClicked()
                         }
                     }
                 }
