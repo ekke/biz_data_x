@@ -3,7 +3,6 @@
 #include "DataManager.hpp"
 
 #include <QtQml>
-
 #include <QJsonObject>
 #include <QFile>
 
@@ -12,14 +11,16 @@ static const QString PRODUCTION_ENVIRONMENT = "prod/";
 static const QString TEST_ENVIRONMENT = "test/";
 static bool isProductionEnvironment = true;
 
+
 static const QString cacheCustomer = "cacheCustomer.json";
 static const QString cacheOrder = "cacheOrder.json";
 static const QString cacheSettingsData = "cacheSettingsData.json";
 
+
 DataManager::DataManager(QObject *parent) :
-    QObject(parent)
-{   
-    // Android: HomeLocation works, iOS: not writable
+        QObject(parent)
+{
+   // Android: HomeLocation works, iOS: not writable
     // Android: AppDataLocation works out of the box, iOS you must create the DIR first !!
     mDataRoot = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).value(0);
     mDataPath = mDataRoot+"/data/";
@@ -60,6 +61,7 @@ DataManager::DataManager(QObject *parent) :
 #endif
     // now set the compact or indent mode for JSON Documents
     mCompactJson = mSettingsData->useCompactJsonFormat();
+	isProductionEnvironment = mSettingsData->isProductionEnvironment();
 
     // ApplicationUI is parent of DataManager
     // DataManager is parent of all root DataObjects
@@ -69,15 +71,15 @@ DataManager::DataManager(QObject *parent) :
     // Order
     // SettingsData
 
-    isProductionEnvironment = mSettingsData->isProductionEnvironment();
-
     // register all DataObjects to get access to properties from QML:
-    qmlRegisterType<Customer>("org.ekkescorner.data", 1, 0, "Customer");
-    qmlRegisterType<Order>("org.ekkescorner.data", 1, 0, "Order");
-    qmlRegisterType<Position>("org.ekkescorner.data", 1, 0, "Position");
-    qmlRegisterType<SettingsData>("org.ekkescorner.data", 1, 0, "SettingsData");
-    // register all ENUMs to get access from QML
-
+	qmlRegisterType<Customer>("org.ekkescorner.data", 1, 0, "Customer");
+	qmlRegisterType<Order>("org.ekkescorner.data", 1, 0, "Order");
+	qmlRegisterType<Position>("org.ekkescorner.data", 1, 0, "Position");
+	qmlRegisterType<SettingsData>("org.ekkescorner.data", 1, 0, "SettingsData");
+	// register all ENUMs to get access from QML
+	
+	
+	
 }
 
 QString DataManager::dataAssetsPath(const QString& fileName)
@@ -134,7 +136,6 @@ bool DataManager::checkDirs()
     return true;
 }
 
-
 /*
  * loads all data from cache.
  * called from main.qml with delay using QTimer
@@ -155,7 +156,6 @@ void DataManager::finish()
 {
     saveCustomerToCache();
     saveOrderToCache();
-    //
     saveSettings();
 }
 
@@ -166,7 +166,7 @@ void DataManager::finish()
  */
 void DataManager::initCustomerFromCache()
 {
-    qDebug() << "start initCustomerFromCache";
+	qDebug() << "start initCustomerFromCache";
     mAllCustomer.clear();
     QVariantList cacheList;
     cacheList = readFromCache(cacheCustomer);
@@ -203,6 +203,8 @@ void DataManager::saveCustomerToCache()
     qDebug() << "Customer* converted to JSON cache #" << cacheList.size();
     writeToCache(cacheCustomer, cacheList);
 }
+
+
 
 /**
 * converts a list of keys in to a list of DataObjects
@@ -251,11 +253,11 @@ QList<QObject*> DataManager::allCustomer()
 QQmlListProperty<Customer> DataManager::customerPropertyList()
 {
     return QQmlListProperty<Customer>(this, 0,
-                                      &DataManager::appendToCustomerProperty, &DataManager::customerPropertyCount,
-                                      &DataManager::atCustomerProperty, &DataManager::clearCustomerProperty);
+            &DataManager::appendToCustomerProperty, &DataManager::customerPropertyCount,
+            &DataManager::atCustomerProperty, &DataManager::clearCustomerProperty);
 }
 
-// implementation for QDeclarativeListProperty to use
+// implementation for QQmlListProperty to use
 // QML functions for List of Customer*
 void DataManager::appendToCustomerProperty(
         QQmlListProperty<Customer> *customerList,
@@ -268,7 +270,7 @@ void DataManager::appendToCustomerProperty(
         emit dataManagerObject->addedToAllCustomer(customer);
     } else {
         qWarning() << "cannot append Customer* to mAllCustomer "
-                   << "Object is not of type DataManager*";
+                << "Object is not of type DataManager*";
     }
 }
 int DataManager::customerPropertyCount(
@@ -291,10 +293,10 @@ Customer* DataManager::atCustomerProperty(
             return (Customer*) dataManager->mAllCustomer.at(pos);
         }
         qWarning() << "cannot get Customer* at pos " << pos << " size is "
-                   << dataManager->mAllCustomer.size();
+                << dataManager->mAllCustomer.size();
     } else {
         qWarning() << "cannot get Customer* at pos " << pos
-                   << "Object is not of type DataManager*";
+                << "Object is not of type DataManager*";
     }
     return 0;
 }
@@ -306,8 +308,8 @@ void DataManager::clearCustomerProperty(
         for (int i = 0; i < dataManager->mAllCustomer.size(); ++i) {
             Customer* customer;
             customer = (Customer*) dataManager->mAllCustomer.at(i);
-            emit dataManager->deletedFromAllCustomerByNr(customer->nr());
-            emit dataManager->deletedFromAllCustomer(customer);
+			emit dataManager->deletedFromAllCustomerByNr(customer->nr());
+			emit dataManager->deletedFromAllCustomer(customer);
             customer->deleteLater();
             customer = 0;
         }
@@ -327,11 +329,12 @@ void DataManager::deleteCustomer()
         Customer* customer;
         customer = (Customer*) mAllCustomer.at(i);
         emit deletedFromAllCustomerByNr(customer->nr());
-        emit deletedFromAllCustomer(customer);
+		emit deletedFromAllCustomer(customer);
+		emit customerPropertyListChanged();
         customer->deleteLater();
         customer = 0;
-    }
-    mAllCustomer.clear();
+     }
+     mAllCustomer.clear();
 }
 
 /**
@@ -370,10 +373,11 @@ void DataManager::insertCustomer(Customer* customer)
     customer->setParent(this);
     mAllCustomer.append(customer);
     emit addedToAllCustomer(customer);
+    emit customerPropertyListChanged();
 }
 
 void DataManager::insertCustomerFromMap(const QVariantMap& customerMap,
-                                        const bool& useForeignProperties)
+        const bool& useForeignProperties)
 {
     Customer* customer = new Customer();
     customer->setParent(this);
@@ -384,6 +388,7 @@ void DataManager::insertCustomerFromMap(const QVariantMap& customerMap,
     }
     mAllCustomer.append(customer);
     emit addedToAllCustomer(customer);
+    customerPropertyListChanged();
 }
 
 bool DataManager::deleteCustomer(Customer* customer)
@@ -395,6 +400,7 @@ bool DataManager::deleteCustomer(Customer* customer)
     }
     emit deletedFromAllCustomerByNr(customer->nr());
     emit deletedFromAllCustomer(customer);
+    emit customerPropertyListChanged();
     customer->deleteLater();
     customer = 0;
     return ok;
@@ -410,6 +416,7 @@ bool DataManager::deleteCustomerByNr(const int& nr)
             mAllCustomer.removeAt(i);
             emit deletedFromAllCustomerByNr(nr);
             emit deletedFromAllCustomer(customer);
+            emit customerPropertyListChanged();
             customer->deleteLater();
             customer = 0;
             return true;
@@ -418,88 +425,6 @@ bool DataManager::deleteCustomerByNr(const int& nr)
     return false;
 }
 
-//void DataManager::fillCustomerDataModel(QString objectName)
-//{
-//    // using dynamic created Pages / Lists it's a good idea to use findChildren ... last()
-//    // probably there are GroupDataModels not deleted yet from previous destroyed Pages
-//    QList<GroupDataModel*> dataModelList = Application::instance()->scene()->findChildren<
-//            GroupDataModel*>(objectName);
-//    if (dataModelList.size() > 0) {
-//        GroupDataModel* dataModel = dataModelList.last();
-//        if (dataModel) {
-//            QList<QObject*> theList;
-//            for (int i = 0; i < mAllCustomer.size(); ++i) {
-//                theList.append(mAllCustomer.at(i));
-//            }
-//            dataModel->clear();
-//            dataModel->insertList(theList);
-//            return;
-//        }
-//    }
-//    qDebug() << "NO GRP DATA FOUND Customer for " << objectName;
-//}
-///**
-// * removing and re-inserting a single item of a DataModel
-// * this will cause the ListView to redraw or recalculate all values for this ListItem
-// * we do this, because only changing properties won't call List functions
-// */
-//void DataManager::replaceItemInCustomerDataModel(QString objectName,
-//                                                 Customer* listItem)
-//{
-//    // using dynamic created Pages / Lists it's a good idea to use findChildren ... last()
-//    // probably there are GroupDataModels not deleted yet from previous destroyed Pages
-//    QList<GroupDataModel*> dataModelList = Application::instance()->scene()->findChildren<
-//            GroupDataModel*>(objectName);
-//    if (dataModelList.size() > 0) {
-//        GroupDataModel* dataModel = dataModelList.last();
-//        if (dataModel) {
-//            bool exists = dataModel->remove(listItem);
-//            if (exists) {
-//                dataModel->insert(listItem);
-//                return;
-//            }
-//            qDebug() << "Customer Object not found and not replaced in " << objectName;
-//        }
-//        return;
-//    }
-//    qDebug() << "no DataModel found for " << objectName;
-//}
-
-//void DataManager::removeItemFromCustomerDataModel(QString objectName, Customer* listItem)
-//{
-//    // using dynamic created Pages / Lists it's a good idea to use findChildren ... last()
-//    // probably there are GroupDataModels not deleted yet from previous destroyed Pages
-//    QList<GroupDataModel*> dataModelList = Application::instance()->scene()->findChildren<
-//            GroupDataModel*>(objectName);
-//    if (dataModelList.size() > 0) {
-//        GroupDataModel* dataModel = dataModelList.last();
-//        if (dataModel) {
-//            bool exists = dataModel->remove(listItem);
-//            if (exists) {
-//                return;
-//            }
-//            qDebug() << "Customer Object not found and not removed from " << objectName;
-//        }
-//        return;
-//    }
-//    qDebug() << "no DataModel found for " << objectName;
-//}
-
-//void DataManager::insertItemIntoCustomerDataModel(QString objectName, Customer* listItem)
-//{
-//    // using dynamic created Pages / Lists it's a good idea to use findChildren ... last()
-//    // probably there are GroupDataModels not deleted yet from previous destroyed Pages
-//    QList<GroupDataModel*> dataModelList = Application::instance()->scene()->findChildren<
-//            GroupDataModel*>(objectName);
-//    if (dataModelList.size() > 0) {
-//        GroupDataModel* dataModel = dataModelList.last();
-//        if (dataModel) {
-//            dataModel->insert(listItem);
-//        }
-//        return;
-//    }
-//    qDebug() << "no DataModel found for " << objectName;
-//}
 
 // nr is DomainKey
 Customer* DataManager::findCustomerByNr(const int& nr){
@@ -513,6 +438,7 @@ Customer* DataManager::findCustomerByNr(const int& nr){
     qDebug() << "no Customer found for nr " << nr;
     return 0;
 }
+
 /*
  * reads Maps of Order in from JSON cache
  * creates List of Order*  from QVariantList
@@ -520,7 +446,7 @@ Customer* DataManager::findCustomerByNr(const int& nr){
  */
 void DataManager::initOrderFromCache()
 {
-    qDebug() << "start initOrderFromCache";
+	qDebug() << "start initOrderFromCache";
     mAllOrder.clear();
     QVariantList cacheList;
     cacheList = readFromCache(cacheOrder);
@@ -561,33 +487,36 @@ void DataManager::saveOrderToCache()
 
 void DataManager::resolveOrderReferences(Order* order)
 {
-    if (!order) {
+	if (!order) {
         qDebug() << "cannot resolveOrderReferences with order NULL";
         return;
     }
     if(order->isAllResolved()) {
-        qDebug() << "nothing to do: all is resolved";
-        return;
-    }
+	    qDebug() << "nothing to do: all is resolved";
+	    return;
+	}
     if (order->hasCustomer() && !order->isCustomerResolvedAsDataObject()) {
-        Customer* customer;
-        customer = findCustomerByNr(order->customer());
-        if (customer) {
-            order->resolveCustomerAsDataObject(customer);
-        } else {
-            qDebug() << "markCustomerAsInvalid: " << order->customer();
-            order->markCustomerAsInvalid();
-        }
+    	Customer* customer;
+   		customer = findCustomerByNr(order->customer());
+    	if (customer) {
+    		order->resolveCustomerAsDataObject(customer);
+    	} else {
+    		qDebug() << "markCustomerAsInvalid: " << order->customer();
+    		order->markCustomerAsInvalid();
+    	}
     }
 }
+
 void DataManager::resolveReferencesForAllOrder()
 {
     for (int i = 0; i < mAllOrder.size(); ++i) {
         Order* order;
         order = (Order*)mAllOrder.at(i);
-        resolveOrderReferences(order);
+    	resolveOrderReferences(order);
     }
 }
+
+
 /**
 * converts a list of keys in to a list of DataObjects
 * per ex. used to resolve lazy arrays
@@ -635,11 +564,11 @@ QList<QObject*> DataManager::allOrder()
 QQmlListProperty<Order> DataManager::orderPropertyList()
 {
     return QQmlListProperty<Order>(this, 0,
-                                   &DataManager::appendToOrderProperty, &DataManager::orderPropertyCount,
-                                   &DataManager::atOrderProperty, &DataManager::clearOrderProperty);
+            &DataManager::appendToOrderProperty, &DataManager::orderPropertyCount,
+            &DataManager::atOrderProperty, &DataManager::clearOrderProperty);
 }
 
-// implementation for QDeclarativeListProperty to use
+// implementation for QQmlListProperty to use
 // QML functions for List of Order*
 void DataManager::appendToOrderProperty(
         QQmlListProperty<Order> *orderList,
@@ -652,7 +581,7 @@ void DataManager::appendToOrderProperty(
         emit dataManagerObject->addedToAllOrder(order);
     } else {
         qWarning() << "cannot append Order* to mAllOrder "
-                   << "Object is not of type DataManager*";
+                << "Object is not of type DataManager*";
     }
 }
 int DataManager::orderPropertyCount(
@@ -675,10 +604,10 @@ Order* DataManager::atOrderProperty(
             return (Order*) dataManager->mAllOrder.at(pos);
         }
         qWarning() << "cannot get Order* at pos " << pos << " size is "
-                   << dataManager->mAllOrder.size();
+                << dataManager->mAllOrder.size();
     } else {
         qWarning() << "cannot get Order* at pos " << pos
-                   << "Object is not of type DataManager*";
+                << "Object is not of type DataManager*";
     }
     return 0;
 }
@@ -690,8 +619,8 @@ void DataManager::clearOrderProperty(
         for (int i = 0; i < dataManager->mAllOrder.size(); ++i) {
             Order* order;
             order = (Order*) dataManager->mAllOrder.at(i);
-            emit dataManager->deletedFromAllOrderByNr(order->nr());
-            emit dataManager->deletedFromAllOrder(order);
+			emit dataManager->deletedFromAllOrderByNr(order->nr());
+			emit dataManager->deletedFromAllOrder(order);
             order->deleteLater();
             order = 0;
         }
@@ -711,11 +640,12 @@ void DataManager::deleteOrder()
         Order* order;
         order = (Order*) mAllOrder.at(i);
         emit deletedFromAllOrderByNr(order->nr());
-        emit deletedFromAllOrder(order);
+		emit deletedFromAllOrder(order);
+		emit orderPropertyListChanged();
         order->deleteLater();
         order = 0;
-    }
-    mAllOrder.clear();
+     }
+     mAllOrder.clear();
 }
 
 /**
@@ -758,7 +688,7 @@ void DataManager::insertOrder(Order* order)
 }
 
 void DataManager::insertOrderFromMap(const QVariantMap& orderMap,
-                                     const bool& useForeignProperties)
+        const bool& useForeignProperties)
 {
     Order* order = new Order();
     order->setParent(this);
@@ -769,7 +699,7 @@ void DataManager::insertOrderFromMap(const QVariantMap& orderMap,
     }
     mAllOrder.append(order);
     emit addedToAllOrder(order);
-    emit orderPropertyListChanged();
+    orderPropertyListChanged();
 }
 
 bool DataManager::deleteOrder(Order* order)
@@ -806,88 +736,6 @@ bool DataManager::deleteOrderByNr(const int& nr)
     return false;
 }
 
-//void DataManager::fillOrderDataModel(QString objectName)
-//{
-//    // using dynamic created Pages / Lists it's a good idea to use findChildren ... last()
-//    // probably there are GroupDataModels not deleted yet from previous destroyed Pages
-//    QList<GroupDataModel*> dataModelList = Application::instance()->scene()->findChildren<
-//            GroupDataModel*>(objectName);
-//    if (dataModelList.size() > 0) {
-//        GroupDataModel* dataModel = dataModelList.last();
-//        if (dataModel) {
-//            QList<QObject*> theList;
-//            for (int i = 0; i < mAllOrder.size(); ++i) {
-//                theList.append(mAllOrder.at(i));
-//            }
-//            dataModel->clear();
-//            dataModel->insertList(theList);
-//            return;
-//        }
-//    }
-//    qDebug() << "NO GRP DATA FOUND Order for " << objectName;
-//}
-///**
-// * removing and re-inserting a single item of a DataModel
-// * this will cause the ListView to redraw or recalculate all values for this ListItem
-// * we do this, because only changing properties won't call List functions
-// */
-//void DataManager::replaceItemInOrderDataModel(QString objectName,
-//                                              Order* listItem)
-//{
-//    // using dynamic created Pages / Lists it's a good idea to use findChildren ... last()
-//    // probably there are GroupDataModels not deleted yet from previous destroyed Pages
-//    QList<GroupDataModel*> dataModelList = Application::instance()->scene()->findChildren<
-//            GroupDataModel*>(objectName);
-//    if (dataModelList.size() > 0) {
-//        GroupDataModel* dataModel = dataModelList.last();
-//        if (dataModel) {
-//            bool exists = dataModel->remove(listItem);
-//            if (exists) {
-//                dataModel->insert(listItem);
-//                return;
-//            }
-//            qDebug() << "Order Object not found and not replaced in " << objectName;
-//        }
-//        return;
-//    }
-//    qDebug() << "no DataModel found for " << objectName;
-//}
-
-//void DataManager::removeItemFromOrderDataModel(QString objectName, Order* listItem)
-//{
-//    // using dynamic created Pages / Lists it's a good idea to use findChildren ... last()
-//    // probably there are GroupDataModels not deleted yet from previous destroyed Pages
-//    QList<GroupDataModel*> dataModelList = Application::instance()->scene()->findChildren<
-//            GroupDataModel*>(objectName);
-//    if (dataModelList.size() > 0) {
-//        GroupDataModel* dataModel = dataModelList.last();
-//        if (dataModel) {
-//            bool exists = dataModel->remove(listItem);
-//            if (exists) {
-//                return;
-//            }
-//            qDebug() << "Order Object not found and not removed from " << objectName;
-//        }
-//        return;
-//    }
-//    qDebug() << "no DataModel found for " << objectName;
-//}
-
-//void DataManager::insertItemIntoOrderDataModel(QString objectName, Order* listItem)
-//{
-//    // using dynamic created Pages / Lists it's a good idea to use findChildren ... last()
-//    // probably there are GroupDataModels not deleted yet from previous destroyed Pages
-//    QList<GroupDataModel*> dataModelList = Application::instance()->scene()->findChildren<
-//            GroupDataModel*>(objectName);
-//    if (dataModelList.size() > 0) {
-//        GroupDataModel* dataModel = dataModelList.last();
-//        if (dataModel) {
-//            dataModel->insert(listItem);
-//        }
-//        return;
-//    }
-//    qDebug() << "no DataModel found for " << objectName;
-//}
 
 // nr is DomainKey
 Order* DataManager::findOrderByNr(const int& nr){
@@ -901,6 +749,47 @@ Order* DataManager::findOrderByNr(const int& nr){
     qDebug() << "no Order found for nr " << nr;
     return 0;
 }
+
+
+
+
+
+
+
+/**
+ * creates a new SettingsData
+ * parent is DataManager
+ * if data is successfully entered you must insertSettingsData
+ * if edit was canceled you must undoCreateSettingsData to free up memory
+ */
+SettingsData* DataManager::createSettingsData()
+{
+    SettingsData* settingsData;
+    settingsData = new SettingsData();
+    settingsData->setParent(this);
+    settingsData->prepareNew();
+    return settingsData;
+}
+
+/**
+ * deletes SettingsData
+ * if createSettingsData was canceled from UI
+ * to delete a previous successfully inserted SettingsData
+ * use deleteSettingsData
+ */
+void DataManager::undoCreateSettingsData(SettingsData* settingsData)
+{
+    if (settingsData) {
+        qDebug() << "undoCreateSettingsData " << settingsData->id();
+        settingsData->deleteLater();
+        settingsData = 0;
+    }
+}
+
+
+
+
+	
 
 SettingsData* DataManager::settingsData()
 {

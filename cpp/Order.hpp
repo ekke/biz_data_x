@@ -23,8 +23,8 @@ class Order: public QObject
 	Q_PROPERTY(int customer READ customer WRITE setCustomer NOTIFY customerChanged FINAL)
 	Q_PROPERTY(Customer* customerAsDataObject READ customerAsDataObject WRITE resolveCustomerAsDataObject NOTIFY customerAsDataObjectChanged FINAL)
 
-	// QDeclarativeListProperty to get easy access from QML
-    Q_PROPERTY(QQmlListProperty<Position> positionsPropertyList READ positionsPropertyList CONSTANT)
+	// QQmlListProperty to get easy access from QML
+	Q_PROPERTY(QQmlListProperty<Position> positionsPropertyList READ positionsPropertyList NOTIFY positionsPropertyListChanged)
 
 public:
 	Order(QObject *parent = 0);
@@ -112,7 +112,7 @@ public:
 	QList<Position*> positions();
 	void setPositions(QList<Position*> positions);
 	// access from QML to positions
-    QQmlListProperty<Position> positionsPropertyList();
+	QQmlListProperty<Position> positionsPropertyList();
 
 
 	virtual ~Order();
@@ -129,6 +129,7 @@ public:
 	void positionsChanged(QList<Position*> positions);
 	void addedToPositions(Position* position);
 	void removedFromPositionsByUuid(QString uuid);
+	void positionsPropertyListChanged();
 	
 	
 
@@ -142,13 +143,14 @@ private:
 	bool mCustomerInvalid;
 	Customer* mCustomerAsDataObject;
 	QList<Position*> mPositions;
-	// implementation for QDeclarativeListProperty to use
+	// implementation for QQmlListProperty to use
 	// QML functions for List of Position*
-    static void appendToPositionsProperty(QQmlListProperty<Position> *positionsList,
+	static void appendToPositionsProperty(QQmlListProperty<Position> *positionsList,
 		Position* position);
-    static int positionsPropertyCount(QQmlListProperty<Position> *positionsList);
-    static Position* atPositionsProperty(QQmlListProperty<Position> *positionsList, int pos);
-    static void clearPositionsProperty(QQmlListProperty<Position> *positionsList);
+	static int positionsPropertyCount(QQmlListProperty<Position> *positionsList);
+	static Position* atPositionsProperty(QQmlListProperty<Position> *positionsList, int pos);
+	static void clearPositionsProperty(QQmlListProperty<Position> *positionsList);
+	
 
 	Q_DISABLE_COPY (Order)
 };

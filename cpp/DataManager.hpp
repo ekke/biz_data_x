@@ -14,8 +14,8 @@ class DataManager: public QObject
 {
 Q_OBJECT
 
-// QDeclarativeListProperty to get easy access from QML
-Q_PROPERTY(QQmlListProperty<Customer> customerPropertyList READ customerPropertyList CONSTANT)
+// QQmlListProperty to get easy access from QML
+Q_PROPERTY(QQmlListProperty<Customer> customerPropertyList READ customerPropertyList NOTIFY customerPropertyListChanged)
 Q_PROPERTY(QQmlListProperty<Order> orderPropertyList READ orderPropertyList NOTIFY orderPropertyListChanged)
 
 public:
@@ -23,22 +23,10 @@ public:
     virtual ~DataManager();
     Q_INVOKABLE
     void init();
-
-    bool checkDirs();
+	bool checkDirs();
 
 	
-//	Q_INVOKABLE
-//	void fillCustomerDataModel(QString objectName);
-
-//	Q_INVOKABLE
-//	void replaceItemInCustomerDataModel(QString objectName, Customer* listItem);
-
-//	Q_INVOKABLE
-//	void removeItemFromCustomerDataModel(QString objectName, Customer* listItem);
-
-//	Q_INVOKABLE
-//	void insertItemIntoCustomerDataModel(QString objectName, Customer* listItem);
-
+	
 	Q_INVOKABLE
 	QList<Customer*> listOfCustomerForKeys(QStringList keyList);
 
@@ -52,7 +40,7 @@ public:
 	void deleteCustomer();
 
 	// access from QML to list of all Customer
-    QQmlListProperty<Customer> customerPropertyList();
+	QQmlListProperty<Customer> customerPropertyList();
 
 	Q_INVOKABLE
 	Customer* createCustomer();
@@ -68,31 +56,22 @@ public:
 
 	Q_INVOKABLE
 	bool deleteCustomer(Customer* customer);
+	
 
 	Q_INVOKABLE
 	bool deleteCustomerByNr(const int& nr);
 
 	Q_INVOKABLE
     Customer* findCustomerByNr(const int& nr);
+
 	
-//	Q_INVOKABLE
-//	void fillOrderDataModel(QString objectName);
-
-//	Q_INVOKABLE
-//	void replaceItemInOrderDataModel(QString objectName, Order* listItem);
-
-//	Q_INVOKABLE
-//	void removeItemFromOrderDataModel(QString objectName, Order* listItem);
-
-//	Q_INVOKABLE
-//	void insertItemIntoOrderDataModel(QString objectName, Order* listItem);
 
 	Q_INVOKABLE
 	void resolveOrderReferences(Order* order);
 
 	Q_INVOKABLE
 	void resolveReferencesForAllOrder();
-
+	
 	Q_INVOKABLE
 	QList<Order*> listOfOrderForKeys(QStringList keyList);
 
@@ -106,7 +85,7 @@ public:
 	void deleteOrder();
 
 	// access from QML to list of all Order
-    QQmlListProperty<Order> orderPropertyList();
+	QQmlListProperty<Order> orderPropertyList();
 
 	Q_INVOKABLE
 	Order* createOrder();
@@ -122,6 +101,7 @@ public:
 
 	Q_INVOKABLE
 	bool deleteOrder(Order* order);
+	
 
 	Q_INVOKABLE
 	bool deleteOrderByNr(const int& nr);
@@ -129,13 +109,27 @@ public:
 	Q_INVOKABLE
     Order* findOrderByNr(const int& nr);
 
+	
+	
+
 	Q_INVOKABLE
-    SettingsData* settingsData();
+	SettingsData* createSettingsData();
+
+	Q_INVOKABLE
+	void undoCreateSettingsData(SettingsData* settingsData);
+
+
+	
+
+
+
 
     void initCustomerFromCache();
     void initOrderFromCache();
-    void initSettingsDataFromCache();
-    void finish();
+	Q_INVOKABLE
+	SettingsData* settingsData();
+	
+	void finish();
 
 Q_SIGNALS:
 
@@ -143,54 +137,54 @@ Q_SIGNALS:
 	void addedToAllCustomer(Customer* customer);
 	void deletedFromAllCustomerByNr(int nr);
 	void deletedFromAllCustomer(Customer* customer);
+	void customerPropertyListChanged();
 	void addedToAllOrder(Order* order);
 	void deletedFromAllOrderByNr(int nr);
 	void deletedFromAllOrder(Order* order);
+	void orderPropertyListChanged();
 
-    void orderPropertyListChanged();
-    
-public slots:
 
 private:
+	QString mDataRoot;
+	QString mDataPath;
+	QString mSettingsPath;
+	QString mDataAssetsPath;
+	QString dataAssetsPath(const QString& fileName);
+	QString dataPath(const QString& fileName);
 
-    QString mDataRoot;
-    QString mDataPath;
-    QString mSettingsPath;
-    QString mDataAssetsPath;
-    QString dataAssetsPath(const QString& fileName);
-    QString dataPath(const QString& fileName);
-
-    SettingsData* mSettingsData;
-    void readSettings();
-    void saveSettings();
-    bool mCompactJson;
-
+	SettingsData* mSettingsData;
+	void readSettings();
+	void saveSettings();
+	bool mCompactJson;
 	// DataObject stored in List of QObject*
 	// GroupDataModel only supports QObject*
     QList<QObject*> mAllCustomer;
     // implementation for QQmlListProperty to use
     // QML functions for List of All Customer*
     static void appendToCustomerProperty(
-        QQmlListProperty<Customer> *customerList,
+    	QQmlListProperty<Customer> *customerList,
     	Customer* customer);
     static int customerPropertyCount(
-        QQmlListProperty<Customer> *customerList);
+    	QQmlListProperty<Customer> *customerList);
     static Customer* atCustomerProperty(
-        QQmlListProperty<Customer> *customerList, int pos);
+    	QQmlListProperty<Customer> *customerList, int pos);
     static void clearCustomerProperty(
-        QQmlListProperty<Customer> *customerList);
+    	QQmlListProperty<Customer> *customerList);
+    	
     QList<QObject*> mAllOrder;
-    // implementation for QDeclarativeListProperty to use
+    // implementation for QQmlListProperty to use
     // QML functions for List of All Order*
     static void appendToOrderProperty(
-        QQmlListProperty<Order> *orderList,
+    	QQmlListProperty<Order> *orderList,
     	Order* order);
     static int orderPropertyCount(
-        QQmlListProperty<Order> *orderList);
+    	QQmlListProperty<Order> *orderList);
     static Order* atOrderProperty(
-        QQmlListProperty<Order> *orderList, int pos);
+    	QQmlListProperty<Order> *orderList, int pos);
     static void clearOrderProperty(
-        QQmlListProperty<Order> *orderList);
+    	QQmlListProperty<Order> *orderList);
+    	
+    	
 
     void saveCustomerToCache();
     void saveOrderToCache();

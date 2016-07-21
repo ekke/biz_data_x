@@ -437,6 +437,7 @@ void Order::addToPositions(Position* position)
 {
     mPositions.append(position);
     emit addedToPositions(position);
+    emit positionsPropertyListChanged();
 }
 
 bool Order::removeFromPositions(Position* position)
@@ -448,6 +449,7 @@ bool Order::removeFromPositions(Position* position)
     	return false;
     }
     emit removedFromPositionsByUuid(position->uuid());
+    emit positionsPropertyListChanged();
     // positions are contained - so we must delete them
     position->deleteLater();
     position = 0;
@@ -466,6 +468,7 @@ void Order::addToPositionsFromMap(const QVariantMap& positionMap)
     position->fillFromMap(positionMap);
     mPositions.append(position);
     emit addedToPositions(position);
+    emit positionsPropertyListChanged();
 }
 bool Order::removeFromPositionsByUuid(const QString& uuid)
 {
@@ -475,6 +478,7 @@ bool Order::removeFromPositionsByUuid(const QString& uuid)
         if (position->uuid() == uuid) {
         	mPositions.removeAt(i);
         	emit removedFromPositionsByUuid(uuid);
+        	emit positionsPropertyListChanged();
         	// positions are contained - so we must delete them
         	position->deleteLater();
         	position = 0;
@@ -500,8 +504,9 @@ void Order::setPositions(QList<Position*> positions)
 		emit positionsChanged(positions);
 	}
 }
+
 /**
- * to access lists from QML we're using QDeclarativeListProperty
+ * to access lists from QML we're using QQmlListProperty
  * and implement methods to append, count and clear
  * now from QML we can use
  * order.positionsPropertyList.length to get the size
@@ -565,6 +570,7 @@ void Order::clearPositionsProperty(QQmlListProperty<Position> *positionsList)
         qWarning() << "cannot clear positions " << "Object is not of type Order*";
     }
 }
+
 
 
 Order::~Order()
