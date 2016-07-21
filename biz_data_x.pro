@@ -8,19 +8,19 @@ CONFIG += c++11
 HEADERS += \
     cpp/applicationui.hpp \
     cpp/uiconstants.hpp \
-    cpp/SettingsData.hpp \
-    cpp/Customer.hpp \
-    cpp/DataManager.hpp \
-    cpp/Order.hpp \
-    cpp/Position.hpp
+    cpp/gen/SettingsData.hpp \
+    cpp/gen/Customer.hpp \
+    cpp/gen/DataManager.hpp \
+    cpp/gen/Order.hpp \
+    cpp/gen/Position.hpp
 
 SOURCES += cpp/main.cpp \
     cpp/applicationui.cpp \
-    cpp/SettingsData.cpp \
-    cpp/Customer.cpp \
-    cpp/DataManager.cpp \
-    cpp/Order.cpp \
-    cpp/Position.cpp
+    cpp/gen/SettingsData.cpp \
+    cpp/gen/Customer.cpp \
+    cpp/gen/DataManager.cpp \
+    cpp/gen/Order.cpp \
+    cpp/gen/Position.cpp
 
 lupdate_only {
     SOURCES +=  qml/main.qml \
@@ -90,3 +90,6 @@ qtPrepareTool(LRELEASE, lrelease)
      command = $$LRELEASE $$tsfile
      system($$command)|error("Failed to run: $$command")
  }
+
+DISTFILES += \
+    cpp/gen/README.md

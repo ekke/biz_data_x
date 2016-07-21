@@ -6,8 +6,8 @@
 
 #include <QtQml>
 
-#include "SettingsData.hpp"
-#include "DataManager.hpp"
+#include "gen/SettingsData.hpp"
+#include "gen/DataManager.hpp"
 
 class ApplicationUI : public QObject
 {
