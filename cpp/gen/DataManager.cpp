@@ -44,7 +44,8 @@ DataManager::DataManager(QObject *parent) :
     if (mSettingsData->hasPublicCache()) {
         // great while testing: access files from file explorer
         mDataRoot = QStandardPaths::standardLocations(QStandardPaths::GenericDataLocation).value(0);
-        mDataRoot += "/data/ekkescorner/biz_data_x";
+        // per ex. /data/ekkescorner/theAppName
+        mDataRoot += mSettingsData->publicRoot4Dev();
         mDataPath = mDataRoot+"/data/";
         ok = checkDirs();
         if(!ok) {

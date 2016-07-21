@@ -6,5 +6,6 @@
     "isProductionEnvironment": false,
     "primaryColor": 8,
     "useCompactJsonFormat": true,
-    "version": 1
+    "version": 1,
+    "publicRoot4Dev":"/data/ekkescorner/biz_data_x"
 }

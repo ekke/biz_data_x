@@ -20,6 +20,7 @@ class SettingsData: public QObject
 	Q_PROPERTY(bool hasPublicCache READ hasPublicCache WRITE setHasPublicCache NOTIFY hasPublicCacheChanged FINAL)
 	Q_PROPERTY(bool useCompactJsonFormat READ useCompactJsonFormat WRITE setUseCompactJsonFormat NOTIFY useCompactJsonFormatChanged FINAL)
 	Q_PROPERTY(int lastUsedNumber READ lastUsedNumber WRITE setLastUsedNumber NOTIFY lastUsedNumberChanged FINAL)
+	Q_PROPERTY(QString publicRoot4Dev READ publicRoot4Dev WRITE setPublicRoot4Dev NOTIFY publicRoot4DevChanged FINAL)
 
 
 public:
@@ -57,6 +58,8 @@ public:
 	void setUseCompactJsonFormat(bool useCompactJsonFormat);
 	int lastUsedNumber() const;
 	void setLastUsedNumber(int lastUsedNumber);
+	QString publicRoot4Dev() const;
+	void setPublicRoot4Dev(QString publicRoot4Dev);
 
 
 
@@ -73,6 +76,7 @@ public:
 	void hasPublicCacheChanged(bool hasPublicCache);
 	void useCompactJsonFormatChanged(bool useCompactJsonFormat);
 	void lastUsedNumberChanged(int lastUsedNumber);
+	void publicRoot4DevChanged(QString publicRoot4Dev);
 	
 
 private:
@@ -86,6 +90,7 @@ private:
 	bool mHasPublicCache;
 	bool mUseCompactJsonFormat;
 	int mLastUsedNumber;
+	QString mPublicRoot4Dev;
 
 	Q_DISABLE_COPY (SettingsData)
 };

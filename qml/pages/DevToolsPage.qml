@@ -58,6 +58,9 @@ Flickable {
                         checked: root.settingsData.hasPublicCache
                         onCheckedChanged: {
                             root.settingsData.hasPublicCache = checked
+                            if(root.settingsData.publicRoot4Dev.length == 0) {
+                                root.settingsData.publicRoot4Dev = "/data/ekkescorner/"+Qt.application.name.replace("lib","").replace(".so","")
+                            }
                         }
                     } // switch
                 } // switch item
@@ -70,6 +73,18 @@ Flickable {
                     rightPadding: 10
                     wrapMode: Text.WordWrap
                     text: qsTr("normal cache: QStandardPaths::AppDataLocation\npublic cache: QStandardPaths::GenericDataLocation")
+                    Layout.preferredWidth: 1
+                    font.italic: true
+                }
+            } // row
+            RowLayout {
+                Layout.leftMargin: 16
+                LabelBodySecondary {
+                    anchors.verticalCenter: parent.verticalCenter
+                    leftPadding: 10
+                    rightPadding: 10
+                    wrapMode: Text.WordWrap
+                    text: root.settingsData.publicRoot4Dev
                     Layout.preferredWidth: 1
                     font.italic: true
                 }
