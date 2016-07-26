@@ -59,5 +59,7 @@
         <file>qml/pages/CalendarTestPage.qml</file>
         <file>qml/popups/DatePicker.qml</file>
         <file>qml/popups/TimePicker.qml</file>
+        <file>qml/navigation/CalendarNavigation.qml</file>
+        <file>qml/pages/CalendarDayPage.qml</file>
     </qresource>
 </RCC>

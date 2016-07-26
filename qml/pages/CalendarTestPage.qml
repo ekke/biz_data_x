@@ -79,6 +79,20 @@ Flickable {
     ButtonFlat {
         z: 1
         bottomPadding: 24
+        text: "Calendar Day"
+        textColor: primaryColor
+        anchors.bottom: datePickerButton.top
+        anchors.left: parent.left
+        anchors.leftMargin: 30
+        onClicked: {
+            navPane.pushCalendarDay()
+        }
+    }
+
+    ButtonFlat {
+        id: datePickerButton
+        z: 1
+        bottomPadding: 24
         text: "Date Picker"
         textColor: accentColor
         anchors.bottom: parent.bottom
