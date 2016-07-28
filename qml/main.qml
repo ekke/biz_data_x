@@ -94,6 +94,9 @@ ApplicationWindow {
     property real opacityBodyAndButton: primaryTextOpacity
     property real opacityBodySecondary: secondaryTextOpacity
     property real opacityCaption: secondaryTextOpacity
+    // using Icons as Toggle to recognize 'checked'
+    property real opacityToggleInactive: 0.2
+    property real opacityToggleActive: 1.0
     //
     // TODO C++ ENUM
     // Destination
