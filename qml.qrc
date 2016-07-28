@@ -61,5 +61,6 @@
         <file>qml/popups/TimePicker.qml</file>
         <file>qml/navigation/CalendarNavigation.qml</file>
         <file>qml/pages/CalendarDayPage.qml</file>
+        <file>qml/common/ButtonOneChar.qml</file>
     </qresource>
 </RCC>
