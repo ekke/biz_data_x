@@ -62,5 +62,6 @@
         <file>qml/navigation/CalendarNavigation.qml</file>
         <file>qml/pages/CalendarDayPage.qml</file>
         <file>qml/common/ButtonOneChar.qml</file>
+        <file>qml/common/ButtonOneCharUncolored.qml</file>
     </qresource>
 </RCC>

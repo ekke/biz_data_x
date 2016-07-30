@@ -1,4 +1,4 @@
-# ekke (Ekkehard Gentz) @ekkescorner
+# ekke (Ekkehard Gentz) @ekkescorne
 TEMPLATE = app
 TARGET = biz_data_x
 
