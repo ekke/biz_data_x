@@ -63,5 +63,7 @@
         <file>qml/pages/CalendarDayPage.qml</file>
         <file>qml/common/ButtonOneChar.qml</file>
         <file>qml/common/ButtonOneCharUncolored.qml</file>
+        <file>qml/common/CharCircle.qml</file>
+        <file>qml/common/ListRowButton.qml</file>
     </qresource>
 </RCC>
