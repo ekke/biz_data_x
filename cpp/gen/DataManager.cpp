@@ -52,7 +52,7 @@ DataManager::DataManager(QObject *parent) :
         if(!ok) {
             qFatal("App won't work - cannot create data directory");
         }
-        qDebug() << "Data Path redirected to PUBLIC CCHE: " << mDataPath;
+        qDebug() << "Data Path redirected to PUBLIC CACHE: " << mDataPath;
         // tip: copy settingsData to public cache to see the content
         // but settings will always be used from AppDataLocation
     }
@@ -846,6 +846,7 @@ void DataManager::readSettings()
     }
     // create SettingsData* from JSON
     mSettingsData->fillFromMap(jda.toVariant().toMap());
+    isProductionEnvironment = mSettingsData->isProductionEnvironment();
     qDebug() << "Settings* created";
 }
 
@@ -879,6 +880,8 @@ QVariantList DataManager::readFromCache(const QString& fileName)
     if (!dataFile.exists()) {
         // check if there are some pre-defined data in data-assets
         QString dataAssetsFilePath = dataAssetsPath(fileName);
+        qDebug() << fileName << "not found in cache" << cacheFilePath;
+        qDebug() << "try copy from: " << dataAssetsFilePath;
         QFile dataAssetsFile(dataAssetsFilePath);
         if (dataAssetsFile.exists()) {
             // copy file from data-assets to cached data
@@ -887,13 +890,15 @@ QVariantList DataManager::readFromCache(const QString& fileName)
                 qDebug() << "cannot copy " << dataAssetsFilePath << " to " << cacheFilePath;
                 return cacheList;
             }
-            // IMPORTANT !!! copying from RESOURCES ":/data-assets/" to AppDataLocation
-            // makes the target file READ ONLY - you must set PERMISSIONS
-            // copying from RESOURCES ":/data-assets/" to GenericDataLocation the target is READ-WRITE
-            copyOk = dataFile.setPermissions(QFileDevice::ReadUser | QFileDevice::WriteUser);
-            if (!copyOk) {
-                qDebug() << "cannot set Permissions to read / write settings";
-                return cacheList;
+            if(!mSettingsData->hasPublicCache()) {
+                // IMPORTANT !!! copying from RESOURCES ":/data-assets/" to AppDataLocation
+                // makes the target file READ ONLY - you must set PERMISSIONS
+                // copying from RESOURCES ":/data-assets/" to GenericDataLocation the target is READ-WRITE
+                copyOk = dataFile.setPermissions(QFileDevice::ReadUser | QFileDevice::WriteUser);
+                if (!copyOk) {
+                    qDebug() << "cannot set Permissions to read / write settings";
+                    return cacheList;
+                }
             }
         } else {
             // no cache, no prefilled data-assets - empty list

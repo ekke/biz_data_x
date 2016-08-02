@@ -502,6 +502,7 @@ void Order::setPositions(QList<Position*> positions)
 	if (positions != mPositions) {
 		mPositions = positions;
 		emit positionsChanged(positions);
+		emit positionsPropertyListChanged();
 	}
 }
 
