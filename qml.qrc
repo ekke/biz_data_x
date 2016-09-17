@@ -67,5 +67,7 @@
         <file>qml/common/ListRowButton.qml</file>
         <file>qml/popups/LetterPicker.qml</file>
         <file>qml/popups/PopupExit.qml</file>
+        <file>qml/common/IconOnAccent.qml</file>
+        <file>qml/common/IconOnPrimary.qml</file>
     </qresource>
 </RCC>
