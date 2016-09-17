@@ -254,24 +254,23 @@ ApplicationWindow {
 
         // STACK VIEW KEYS and SHORTCUTS
         // support of BACK key
-        // can be used from StackView pushed on ROOT (OrdersNavigation) tp pop()
+        // can be used from StackView pushed on ROOT
         // or to exit the app
-        property bool firstPageInfoRead: false
         Keys.onBackPressed: {
+            event.accepted = true
             if(navigationModel[navigationIndex].canGoBack && destinations.itemAt(navigationIndex).item.depth > 1) {
                 destinations.itemAt(navigationIndex).item.goBack()
-                event.accepted = true
                 return
             }
-            event.accepted = !firstPageInfoRead
-            // user gets Popupo Info
-            // hitting again BACK will close the app
-            if(!firstPageInfoRead) {
-                firstPageInfoRead = true
-                showInfo(qsTr("Next BACK closes APP and clears Values\n\nUse 'Android Home' Button for Fast-Restart.\n\n"))
+            if (Qt.platform.os === "winrt") {
+                Qt.quit()
                 return
             }
-            // We must cleanup loaded Pages
+            if (Qt.platform.os === "android") {
+                popupExitApp.open()
+                return
+            }
+            showToast(qsTr("No more Pages"))
         }
         // TODO some Shortcuts
         // end STACK VIEW KEYS and SHORTCUTS
@@ -469,6 +468,16 @@ ApplicationWindow {
     // end APP WINDOW FUNCTIONS
 
     // APP WINDOW POPUPS
+    PopupExit {
+        id: popupExitApp
+        onAboutToHide: {
+            popupExitApp.stopTimer()
+            resetFocus()
+            if(popupExitApp.isExit) {
+                Qt.quit()
+            }
+        }
+    } // popupExitApp
     PopupInfo {
         id: popupInfo
         onAboutToHide: {
