@@ -261,10 +261,10 @@ Page {
 
     // called immediately after Loader.loaded
     function init() {
-        console.log(qsTr("Init done from OrderListPage"))
+        console.log("Init done from OrderListPage")
     }
     // called from Component.destruction
     function cleanup() {
-        console.log(qsTr("Cleanup done from OrderListPage"))
+        console.log("Cleanup done from OrderListPage")
     }
 } // end primaryPage

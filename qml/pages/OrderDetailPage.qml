@@ -336,13 +336,13 @@ Page {
 
     // called immediately after Loader.loaded
     function init() {
-        console.log(qsTr("Init done from OrderDetailPage"))
+        console.log("Init done from OrderDetailPage")
         remarksTextField.forceActiveFocus()
         console.log("REMARKS FOCUS ?"+remarksTextField.activeFocus)
     }
     // called from Component.destruction
     function cleanup() {
-        console.log(qsTr("Cleanup done from OrderDetailPage"))
+        console.log("Cleanup done from OrderDetailPage")
     }
 
 } // carPage

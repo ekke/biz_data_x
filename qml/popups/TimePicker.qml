@@ -8,10 +8,11 @@ import "../common"
 
 Popup {
     id: timePicker
+    property alias titleText: headerPane.titleText
     property int timePickerWidth: isLandscape? appWindow.width * 0.85 : appWindow.width * 0.80
     property int timePickerHeight: isLandscape? appWindow.height * 0.90 : appWindow.height * 0.85
-    x: (parent.width - timePickerWidth) / 2
-    y: isLandscape? (parent.height - timePickerHeight) / 2 - 24 : (parent.height - timePickerHeight) / 2 + 12
+    x: (appWindow.width - timePickerWidth) / 2
+    y: isLandscape? (appWindow.height - timePickerHeight) / 2 - 24 : (appWindow.height - timePickerHeight) / 2 + 12
     implicitWidth: timePickerWidth
     implicitHeight: timePickerHeight
     z: 2
@@ -203,6 +204,7 @@ Popup {
 
     Pane {
         id: headerPane
+        property string titleText: qsTr("Time (HH:MM)")
         padding: 0
 
         implicitWidth: isLandscape? parent.width - timePicker.timeButtonsPaneSize - 40 : parent.width
@@ -222,7 +224,7 @@ Popup {
             Label {
                 id: titleLabel
                 Layout.columnSpan: isLandscape? 1 : 3
-                text: qsTr("Time (HH:MM)")
+                text: headerPane.titleText
                 color: textOnPrimaryDark
                 Layout.alignment: Text.AlignHCenter
                 font.pointSize: 32
@@ -231,6 +233,7 @@ Popup {
 
             Button {
                 id: hrsButton
+                focusPolicy: Qt.NoFocus
                 Layout.alignment: isLandscape? Text.AlignHCenter : Text.AlignRight
                 checked: true
                 checkable: true
@@ -261,6 +264,7 @@ Popup {
 
             Button {
                 id: minutesButton
+                focusPolicy: Qt.NoFocus
                 Layout.alignment: isLandscape? Text.AlignHCenter : Text.AlignLeft
                 checked: false
                 checkable: true
@@ -406,6 +410,7 @@ Popup {
                 model: timePicker.timePickerModel
                 delegate: Button {
                     id: innerButton
+                    focusPolicy: Qt.NoFocus
                     text: timePicker.useWorkTimes? modelData.n : modelData.c2
                     font.bold: checked
                     x: timePicker.innerButtonsPaneSize / 2 - width / 2 //- 20
@@ -469,6 +474,7 @@ Popup {
             model: timePicker.timePickerModel
             delegate: Button {
                 id: outerButton
+                focusPolicy: Qt.NoFocus
                 text: timePicker.pickMinutes? modelData.m : timePicker.useWorkTimes? modelData.d : modelData.c1
                 font.bold: checked || timePicker.pickMinutes && timePicker.onlyQuartersAllowed
                 x: timePicker.timeButtonsPaneSize / 2 - width / 2

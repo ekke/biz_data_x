@@ -148,10 +148,10 @@ Flickable {
 
     // called immediately after Loader.loaded
     function init() {
-        console.log(qsTr("Init done from Calendar test page"))
+        console.log("Init done from Calendar test page")
     }
     // called from Component.destruction
     function cleanup() {
-        console.log(qsTr("Cleanup done from Calendar test page"))
+        console.log("Cleanup done from Calendar test page")
     }
 } // flickable

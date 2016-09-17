@@ -65,10 +65,9 @@ Drawer {
                     height: 64
                     x: 16
                     y: 12
-                    IconColored {
+                    IconOnPrimary {
                         imageName: "work.png"
                         imageSize: 36
-                        color: textOnPrimary
                     }
                 }
             }

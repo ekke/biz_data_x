@@ -58,7 +58,7 @@ Pane {
     }
     // called immediately after Loader.loaded
     function init() {
-        console.log(qsTr("Init done from InitialItemPage"))
+        console.log("Init done from InitialItemPage")
     }
     function showInfo(info) {
         console.log("INFO: "+info)
@@ -67,6 +67,6 @@ Pane {
 
     // called from Component.destruction
     function cleanup() {
-        console.log(qsTr("Cleanup done from InitialItemPage"))
+        console.log("Cleanup done from InitialItemPage")
     }
 } // initialItem

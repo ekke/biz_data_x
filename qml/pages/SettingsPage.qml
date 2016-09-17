@@ -176,11 +176,11 @@ Flickable {
 
     // called immediately after Loader.loaded
     function init() {
-        console.log(qsTr("Init done from SettingsPage"))
+        console.log("Init done from SettingsPage")
     }
     // called from Component.destruction
     function cleanup() {
-        console.log(qsTr("Cleanup done from SettingsPage"))
+        console.log("Cleanup done from SettingsPage")
     }
 
 } // flickable

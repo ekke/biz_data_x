@@ -59,8 +59,11 @@ ApplicationWindow {
     property real toolBarInactiveOpacity: themePalette[12]
     property color toastColor: themePalette[13]
     property real toastOpacity: themePalette[14]
-    // Material.dropShadowColor  OK for Light, but too dark for dark theme
-    property color dropShadow: isDarkTheme? "#E4E4E4" : Material.dropShadowColor
+    // 5.7: dropShadowColor is ok - the shadow is darker as the background
+    // but not so easy to distinguish as in light theme
+    // optional:
+    // isDarkTheme? "#E4E4E4" : Material.dropShadowColor
+    property color dropShadow: Material.dropShadowColor
     onIsDarkThemeChanged: {
         if(isDarkTheme == 1) {
             Material.theme = Material.Dark
@@ -168,6 +171,31 @@ ApplicationWindow {
     property alias navigationBar: drawerLoader.item
 
     property bool highlightActiveNavigationButton : true
+
+    // NAVIGATION STYLE
+    property SettingsData settings
+    property int myNavigationStyle: -1 // TODO settings? settings.navigationStyle : -1
+    onMyNavigationStyleChanged: {
+        if(myNavigationStyle == 2) {
+            isClassicNavigationStyle = true
+            isBottomNavigationStyle = false
+            isComfortNavigationStyle = false
+            return
+        }
+        if(myNavigationStyle == 1) {
+            isClassicNavigationStyle = false
+            isBottomNavigationStyle = true
+            isComfortNavigationStyle = false
+            return
+        }
+        isClassicNavigationStyle = false
+        isBottomNavigationStyle = false
+        isComfortNavigationStyle = true
+    }
+    property bool isClassicNavigationStyle: false
+    property bool isBottomNavigationStyle: false
+    property bool isComfortNavigationStyle: true
+    property bool hasOnlyOneMenu: false // TODO settings? (settings.oneMenuButton && isComfortNavigationStyle) : false
 
     // header per Page, footer global in Portrait + perhaps per Page, too
     // header and footer invisible until initDone

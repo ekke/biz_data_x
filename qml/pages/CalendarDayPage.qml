@@ -114,11 +114,11 @@ Page {
 
     // called immediately after Loader.loaded
     function init() {
-        console.log(qsTr("Init done from CalendarDayPage"))
+        console.log("Init done from CalendarDayPage")
     }
     // called from Component.destruction
     function cleanup() {
-        console.log(qsTr("Cleanup done from CalendarDayPage"))
+        console.log("Cleanup done from CalendarDayPage")
     }
 
     FloatingActionButton {
