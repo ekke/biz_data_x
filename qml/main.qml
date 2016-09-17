@@ -199,26 +199,34 @@ ApplicationWindow {
 
     // header per Page, footer global in Portrait + perhaps per Page, too
     // header and footer invisible until initDone
-    footer: initDone && !isLandscape && drawerLoader.status == Loader.Ready && navigationBar.position == 0 ? favoritesLoader.item : null
-    header: isLandscape || !initDone ? null : titleBar
+    footer: initDone && !isLandscape &&!isClassicNavigationStyle && drawerLoader.status == Loader.Ready && navigationBar.position == 0 ? favoritesLoader.item : null
+    header: (isLandscape && !useDefaultTitleBarInLandscape) || !initDone ? null : titleBar
     // show TITLE  BARS is delayed until INIT DONE
+    property bool useDefaultTitleBarInLandscape: false
     Loader {
         id: titleBar
-        visible: !isLandscape && initDone
-        active: !isLandscape && initDone
+        visible: (!isLandscape || useDefaultTitleBarInLandscape) && initDone
+        active: (!isLandscape || useDefaultTitleBarInLandscape) && initDone
         source: "navigation/DrawerTitleBar.qml"
     }
     // in LANDSCAPE header is null and we have a floating TitleBar
     Loader {
         id: titleBarFloating
-        visible: isLandscape && initDone
-        active: isLandscape && initDone
+        visible: !useDefaultTitleBarInLandscape && isLandscape && initDone
+        active: !useDefaultTitleBarInLandscape && isLandscape && initDone
         source: "navigation/DrawerTitleBar.qml"
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
     }
     // end TITLE BARS
+    function resetDefaultTitleBarInLandscape() {
+        useDefaultTitleBarInLandscape = false
+    }
+    function setDefaultTitleBarInLandscape() {
+        useDefaultTitleBarInLandscape = true
+    }
+
 
 
     // STACK VIEW (rootPane)
@@ -303,6 +311,8 @@ ApplicationWindow {
                 console.log("startupDelayedTimer START")
                 rootPane.initialItem.showInfo("Initialize Data ...")
                 dataManager.init()
+                settings = dataManager.settingsData()
+                //
                 rootPane.initialItem.showInfo("Create Navigation Controls ...")
                 // add navigation model for DEBUG BUILD ?
                 if(myApp.isDebugBuild()) {
@@ -427,8 +437,8 @@ ApplicationWindow {
     Loader {
         id: favoritesLoader
         active: initDone
-        // visible: initDone && !isLandscape && (drawerLoader.status == Loader.Ready? navigationBar.position == 0 : false)
-        visible: initDone && !isLandscape && drawerLoader.status == Loader.Ready && navigationBar.position == 0
+        // attention: set also footer !
+        visible: initDone && !isLandscape && !isClassicNavigationStyle && drawerLoader.status == Loader.Ready && navigationBar.position == 0
         source: "navigation/DrawerFavoritesNavigationBar.qml"
     }
     function openNavigationBar() {
