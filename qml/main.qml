@@ -174,7 +174,7 @@ ApplicationWindow {
 
     // NAVIGATION STYLE
     property SettingsData settings
-    property int myNavigationStyle: -1 // TODO settings? settings.navigationStyle : -1
+    property int myNavigationStyle: settings? settings.navigationStyle : -1
     onMyNavigationStyleChanged: {
         if(myNavigationStyle == 2) {
             isClassicNavigationStyle = true
@@ -195,7 +195,7 @@ ApplicationWindow {
     property bool isClassicNavigationStyle: false
     property bool isBottomNavigationStyle: false
     property bool isComfortNavigationStyle: true
-    property bool hasOnlyOneMenu: false // TODO settings? (settings.oneMenuButton && isComfortNavigationStyle) : false
+    property bool hasOnlyOneMenu: settings? (settings.oneMenuButton && isComfortNavigationStyle) : false
 
     // header per Page, footer global in Portrait + perhaps per Page, too
     // header and footer invisible until initDone
