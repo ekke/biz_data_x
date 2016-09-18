@@ -13,6 +13,9 @@ static const QString hasPublicCacheKey = "hasPublicCache";
 static const QString useCompactJsonFormatKey = "useCompactJsonFormat";
 static const QString lastUsedNumberKey = "lastUsedNumber";
 static const QString publicRoot4DevKey = "publicRoot4Dev";
+static const QString navigationStyleKey = "navigationStyle";
+static const QString oneMenuButtonKey = "oneMenuButton";
+static const QString classicStackNavigationKey = "classicStackNavigation";
 
 // keys used from Server API etc
 static const QString idForeignKey = "id";
@@ -25,12 +28,15 @@ static const QString hasPublicCacheForeignKey = "hasPublicCache";
 static const QString useCompactJsonFormatForeignKey = "useCompactJsonFormat";
 static const QString lastUsedNumberForeignKey = "lastUsedNumber";
 static const QString publicRoot4DevForeignKey = "publicRoot4Dev";
+static const QString navigationStyleForeignKey = "navigationStyle";
+static const QString oneMenuButtonForeignKey = "oneMenuButton";
+static const QString classicStackNavigationForeignKey = "classicStackNavigation";
 
 /*
  * Default Constructor if SettingsData not initialized from QVariantMap
  */
 SettingsData::SettingsData(QObject *parent) :
-        QObject(parent), mId(-1), mVersion(0), mIsProductionEnvironment(false), mPrimaryColor(0), mAccentColor(0), mDarkTheme(false), mHasPublicCache(false), mUseCompactJsonFormat(false), mLastUsedNumber(0), mPublicRoot4Dev("")
+        QObject(parent), mId(-1), mVersion(0), mIsProductionEnvironment(false), mPrimaryColor(0), mAccentColor(0), mDarkTheme(false), mHasPublicCache(false), mUseCompactJsonFormat(false), mLastUsedNumber(0), mPublicRoot4Dev(""), mNavigationStyle(0), mOneMenuButton(false), mClassicStackNavigation(false)
 {
 }
 
@@ -53,6 +59,9 @@ void SettingsData::fillFromMap(const QVariantMap& settingsDataMap)
 	mUseCompactJsonFormat = settingsDataMap.value(useCompactJsonFormatKey).toBool();
 	mLastUsedNumber = settingsDataMap.value(lastUsedNumberKey).toInt();
 	mPublicRoot4Dev = settingsDataMap.value(publicRoot4DevKey).toString();
+	mNavigationStyle = settingsDataMap.value(navigationStyleKey).toInt();
+	mOneMenuButton = settingsDataMap.value(oneMenuButtonKey).toBool();
+	mClassicStackNavigation = settingsDataMap.value(classicStackNavigationKey).toBool();
 }
 /*
  * initialize OrderData from QVariantMap
@@ -73,6 +82,9 @@ void SettingsData::fillFromForeignMap(const QVariantMap& settingsDataMap)
 	mUseCompactJsonFormat = settingsDataMap.value(useCompactJsonFormatForeignKey).toBool();
 	mLastUsedNumber = settingsDataMap.value(lastUsedNumberForeignKey).toInt();
 	mPublicRoot4Dev = settingsDataMap.value(publicRoot4DevForeignKey).toString();
+	mNavigationStyle = settingsDataMap.value(navigationStyleForeignKey).toInt();
+	mOneMenuButton = settingsDataMap.value(oneMenuButtonForeignKey).toBool();
+	mClassicStackNavigation = settingsDataMap.value(classicStackNavigationForeignKey).toBool();
 }
 /*
  * initialize OrderData from QVariantMap
@@ -93,6 +105,9 @@ void SettingsData::fillFromCacheMap(const QVariantMap& settingsDataMap)
 	mUseCompactJsonFormat = settingsDataMap.value(useCompactJsonFormatKey).toBool();
 	mLastUsedNumber = settingsDataMap.value(lastUsedNumberKey).toInt();
 	mPublicRoot4Dev = settingsDataMap.value(publicRoot4DevKey).toString();
+	mNavigationStyle = settingsDataMap.value(navigationStyleKey).toInt();
+	mOneMenuButton = settingsDataMap.value(oneMenuButtonKey).toBool();
+	mClassicStackNavigation = settingsDataMap.value(classicStackNavigationKey).toBool();
 }
 
 void SettingsData::prepareNew()
@@ -128,6 +143,9 @@ QVariantMap SettingsData::toMap()
 	settingsDataMap.insert(useCompactJsonFormatKey, mUseCompactJsonFormat);
 	settingsDataMap.insert(lastUsedNumberKey, mLastUsedNumber);
 	settingsDataMap.insert(publicRoot4DevKey, mPublicRoot4Dev);
+	settingsDataMap.insert(navigationStyleKey, mNavigationStyle);
+	settingsDataMap.insert(oneMenuButtonKey, mOneMenuButton);
+	settingsDataMap.insert(classicStackNavigationKey, mClassicStackNavigation);
 	return settingsDataMap;
 }
 
@@ -149,6 +167,9 @@ QVariantMap SettingsData::toForeignMap()
 	settingsDataMap.insert(useCompactJsonFormatForeignKey, mUseCompactJsonFormat);
 	settingsDataMap.insert(lastUsedNumberForeignKey, mLastUsedNumber);
 	settingsDataMap.insert(publicRoot4DevForeignKey, mPublicRoot4Dev);
+	settingsDataMap.insert(navigationStyleForeignKey, mNavigationStyle);
+	settingsDataMap.insert(oneMenuButtonForeignKey, mOneMenuButton);
+	settingsDataMap.insert(classicStackNavigationForeignKey, mClassicStackNavigation);
 	return settingsDataMap;
 }
 
@@ -303,6 +324,48 @@ void SettingsData::setPublicRoot4Dev(QString publicRoot4Dev)
 	if (publicRoot4Dev != mPublicRoot4Dev) {
 		mPublicRoot4Dev = publicRoot4Dev;
 		emit publicRoot4DevChanged(publicRoot4Dev);
+	}
+}
+// ATT 
+// Optional: navigationStyle
+int SettingsData::navigationStyle() const
+{
+	return mNavigationStyle;
+}
+
+void SettingsData::setNavigationStyle(int navigationStyle)
+{
+	if (navigationStyle != mNavigationStyle) {
+		mNavigationStyle = navigationStyle;
+		emit navigationStyleChanged(navigationStyle);
+	}
+}
+// ATT 
+// Optional: oneMenuButton
+bool SettingsData::oneMenuButton() const
+{
+	return mOneMenuButton;
+}
+
+void SettingsData::setOneMenuButton(bool oneMenuButton)
+{
+	if (oneMenuButton != mOneMenuButton) {
+		mOneMenuButton = oneMenuButton;
+		emit oneMenuButtonChanged(oneMenuButton);
+	}
+}
+// ATT 
+// Optional: classicStackNavigation
+bool SettingsData::classicStackNavigation() const
+{
+	return mClassicStackNavigation;
+}
+
+void SettingsData::setClassicStackNavigation(bool classicStackNavigation)
+{
+	if (classicStackNavigation != mClassicStackNavigation) {
+		mClassicStackNavigation = classicStackNavigation;
+		emit classicStackNavigationChanged(classicStackNavigation);
 	}
 }
 

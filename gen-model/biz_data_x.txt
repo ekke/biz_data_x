@@ -1,0 +1,57 @@
+package org.lunifera.dsl.ext.sample.cpp.qt {
+	
+	import org.lunifera.dsl.ext.cpp.qt.datatypes.*;
+	import org.lunifera.dsl.ext.cpp.qt.lib.types.annotation.*;
+	
+	@TargetOS("Qt")
+	dto Customer {
+		domainKey int nr;
+		var QString name;
+		var QString city;
+		var QString zip;
+		var QString street;
+		var bool hasAddress;
+		var bool hasOpenOrders;
+		var int abc;
+	}
+	
+	@TargetOS("Qt")
+	dto Order {
+		domainKey int nr;
+		@DateFormatString("yyyy-MM-dd")
+		var Date orderDate;
+		var QString remarks;
+		var bool expressDelivery;
+		
+		ref cascade Position [1..*] positions opposite orderHeader;
+		ref lazy Customer [1] customer;
+	}
+	
+	@TargetOS("Qt")
+	dto Position {
+		domainKey QString uuid;
+		var QString description;
+		var double price;
+		
+		ref Order orderHeader opposite positions;
+	}
+	
+	@TargetOS("Qt")
+	dto SettingsData {
+		domainKey int id;
+		var int version;
+		var bool isProductionEnvironment;
+		var int primaryColor;
+		var int accentColor;
+		var bool darkTheme;
+		var bool hasPublicCache;
+		var bool useCompactJsonFormat;
+		var int lastUsedNumber;
+		var QString publicRoot4Dev;
+		// -1,0: oneHandComfort, 1: bottom, 2: classic
+		var int navigationStyle;
+		var bool oneMenuButton;
+		var bool classicStackNavigation;
+	}
+	
+}
