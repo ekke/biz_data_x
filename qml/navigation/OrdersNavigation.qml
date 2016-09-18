@@ -138,6 +138,7 @@ Page {
 
     function init() {
         console.log("INIT OrderNavPane")
+        navPane.initialItem.init()
     }
     function cleanup() {
         console.log("CLEANUP OrderNavPane")

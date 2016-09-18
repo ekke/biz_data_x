@@ -6,6 +6,7 @@ import QtQuick.Controls.Material 2.0
 import QtGraphicalEffects 1.0
 
 import "../common"
+import org.ekkescorner.data 1.0
 
 Flickable {
     property string name: "SettingsPage"
@@ -138,45 +139,6 @@ Flickable {
                     } // mouse
                 }
             } // row accent
-            HorizontalDivider {}
-            RowLayout {
-                LabelSubheading {
-                    Layout.preferredWidth: 1
-                    topPadding: 6
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Default Theme:")
-                }
-                LabelBody {
-                    Layout.preferredWidth: 2
-                    topPadding: 6
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Light Theme\nPrimary Color: Indigo\nAccent Color: Deep Orange")
-                }
-            }
-            RowLayout {
-                Layout.bottomMargin: 6
-                LabelBodySecondary {
-                    Layout.preferredWidth: 1
-                    topPadding: 6
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Hint:")
-                }
-                LabelBody {
-                    Layout.preferredWidth: 2
-                    topPadding: 6
-                    bottomPadding: 6
-                    leftPadding: 10
-                    rightPadding: 10
-                    wrapMode: Text.WordWrap
-                    text: qsTr("Switching to Dark Theme please change Primary Color to Blue, Green or so. Indigo itself is too dark.")
-                }
-            }
             HorizontalDivider {}
             LabelTitle {
                 topPadding: 6
