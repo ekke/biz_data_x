@@ -5,6 +5,7 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 
 ToolButton {
+    id: favMenuButton
     Layout.alignment: Qt.AlignHCenter
     focusPolicy: Qt.NoFocus
     implicitHeight: 56
@@ -30,5 +31,6 @@ ToolButton {
     }
     onClicked: {
         openNavigationBar()
+        favMenuBugfix = !favMenuBugfix
     }
 }
