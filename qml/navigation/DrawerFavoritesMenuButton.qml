@@ -31,6 +31,7 @@ ToolButton {
     }
     onClicked: {
         openNavigationBar()
+        // see QTBUG-59293
         favMenuBugfix = !favMenuBugfix
     }
 }
