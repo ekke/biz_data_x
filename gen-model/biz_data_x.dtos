@@ -1,7 +1,7 @@
+import org.ekkescorner.dtos.datatypes.*;
+import org.ekkescorner.dtos.datatypes.annotations.*;
+
 package org.lunifera.dsl.ext.sample.cpp.qt {
-	
-	import org.lunifera.dsl.ext.cpp.qt.datatypes.*;
-	import org.lunifera.dsl.ext.cpp.qt.lib.types.annotation.*;
 	
 	@TargetOS("Qt")
 	dto Customer {

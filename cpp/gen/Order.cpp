@@ -391,6 +391,14 @@ QVariantList Order::positionsAsQVariantList()
     }
 	return positionsList;
 }
+QVariantList Order::positionsAsCacheQVariantList()
+{
+	QVariantList positionsList;
+	for (int i = 0; i < mPositions.size(); ++i) {
+        positionsList.append((mPositions.at(i))->toCacheMap());
+    }
+	return positionsList;
+}
 QVariantList Order::positionsAsForeignQVariantList()
 {
 	QVariantList positionsList;

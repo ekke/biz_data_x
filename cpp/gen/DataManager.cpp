@@ -61,7 +61,7 @@ DataManager::DataManager(QObject *parent) :
     // always use compact JSON in release builds
     mSettingsData->setUseCompactJsonFormat(true);
     // never use public data path in releae build
-    mSettingsData->setPublicRoot4Dev(false);
+    mSettingsData->setHasPublicCache(false);
 #endif
     // now set the compact or indent mode for JSON Documents
     mCompactJson = mSettingsData->useCompactJsonFormat();
@@ -365,7 +365,7 @@ Customer* DataManager::createCustomer()
 void DataManager::undoCreateCustomer(Customer* customer)
 {
     if (customer) {
-        qDebug() << "undoCreateCustomer " << customer->nr();
+        // qDebug() << "undoCreateCustomer " << customer->nr();
         customer->deleteLater();
         customer = 0;
     }
@@ -676,7 +676,7 @@ Order* DataManager::createOrder()
 void DataManager::undoCreateOrder(Order* order)
 {
     if (order) {
-        qDebug() << "undoCreateOrder " << order->nr();
+        // qDebug() << "undoCreateOrder " << order->nr();
         order->deleteLater();
         order = 0;
     }
@@ -784,7 +784,7 @@ SettingsData* DataManager::createSettingsData()
 void DataManager::undoCreateSettingsData(SettingsData* settingsData)
 {
     if (settingsData) {
-        qDebug() << "undoCreateSettingsData " << settingsData->id();
+        // qDebug() << "undoCreateSettingsData " << settingsData->id();
         settingsData->deleteLater();
         settingsData = 0;
     }

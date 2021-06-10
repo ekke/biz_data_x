@@ -82,6 +82,9 @@ public:
 	QVariantList positionsAsQVariantList();
 	
 	Q_INVOKABLE
+	QVariantList positionsAsCacheQVariantList();
+	
+	Q_INVOKABLE
 	QVariantList positionsAsForeignQVariantList();
 
 	Q_INVOKABLE
