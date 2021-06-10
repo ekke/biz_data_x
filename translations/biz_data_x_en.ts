@@ -24,8 +24,9 @@
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="54"/>
-        <source>About is a normal Page.
-Navigation Drawer can be opened swiping from left or tapping on Menu Button.
+        <source>blog ekkes-corner: http://ekkes-corner.org
+blog mobile app dev:http://appbus.org
+blog series Qt for Mobile:http://j.mp/qt-x
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -37,16 +38,6 @@ Navigation Drawer can be opened swiping from left or tapping on Menu Button.
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="70"/>
         <source>WHILE SELECTED</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/AboutPage.qml" line="85"/>
-        <source>Init done from ABOUT</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/AboutPage.qml" line="89"/>
-        <source>Cleanup done from ABOUT</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -152,32 +143,68 @@ Navigation Drawer can be opened swiping from left or tapping on Menu Button.
         <source>Material BlueGrey</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>CalendarDayPage</name>
     <message>
-        <location filename="../qml/pages/AccentColorPage.qml" line="99"/>
-        <source>Init AccentColorPage</source>
+        <location filename="../qml/pages/CalendarDayPage.qml" line="26"/>
+        <source>Mo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccentColorPage.qml" line="103"/>
-        <source>Cleanup AccentColorPage</source>
+        <location filename="../qml/pages/CalendarDayPage.qml" line="26"/>
+        <source>Tu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CalendarDayPage.qml" line="26"/>
+        <source>We</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CalendarDayPage.qml" line="26"/>
+        <source>Th</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CalendarDayPage.qml" line="26"/>
+        <source>Fr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CalendarDayPage.qml" line="26"/>
+        <source>Sa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CalendarDayPage.qml" line="26"/>
+        <source>Su</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CalendarTestPage</name>
     <message>
-        <location filename="../qml/pages/CalendarTestPage.qml" line="31"/>
-        <source>Test DatePicker</source>
+        <location filename="../qml/pages/CalendarTestPage.qml" line="34"/>
+        <source>Test Date and Time Picker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CalendarTestPage.qml" line="82"/>
-        <source>Init done from Calendar test page</source>
+        <location filename="../qml/pages/CalendarTestPage.qml" line="56"/>
+        <source>every 15 Minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CalendarTestPage.qml" line="86"/>
-        <source>Cleanup done from Calendar test page</source>
+        <location filename="../qml/pages/CalendarTestPage.qml" line="65"/>
+        <source>use Work Hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ComboBoxButton</name>
+    <message>
+        <location filename="../qml/common/ComboBoxButton.qml" line="11"/>
+        <source>Please select</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -257,31 +284,21 @@ Navigation Drawer can be opened swiping from left or tapping on Menu Button.
         <source>C</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../qml/pages/CustomerPage.qml" line="231"/>
-        <source>Init done from CustomerPage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CustomerPage.qml" line="237"/>
-        <source>Cleanup done from CustomerPage</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>DatePicker</name>
     <message>
-        <location filename="../qml/popups/DatePicker.qml" line="261"/>
+        <location filename="../qml/popups/DatePicker.qml" line="284"/>
         <source>Today</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/popups/DatePicker.qml" line="272"/>
+        <location filename="../qml/popups/DatePicker.qml" line="295"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/popups/DatePicker.qml" line="281"/>
+        <location filename="../qml/popups/DatePicker.qml" line="304"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -304,34 +321,24 @@ Navigation Drawer can be opened swiping from left or tapping on Menu Button.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/DevToolsPage.qml" line="72"/>
+        <location filename="../qml/pages/DevToolsPage.qml" line="75"/>
         <source>normal cache: QStandardPaths::AppDataLocation
 public cache: QStandardPaths::GenericDataLocation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/DevToolsPage.qml" line="86"/>
+        <location filename="../qml/pages/DevToolsPage.qml" line="101"/>
         <source>Compact JSON Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/DevToolsPage.qml" line="113"/>
+        <location filename="../qml/pages/DevToolsPage.qml" line="128"/>
         <source>Without DEBUG mode COMPACT JSON is always used. JSON with Indents is better readable, so you can switch this for DEBUG mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/DevToolsPage.qml" line="126"/>
+        <location filename="../qml/pages/DevToolsPage.qml" line="141"/>
         <source>You must restart to enable dev tools settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/DevToolsPage.qml" line="143"/>
-        <source>Init done from DEV TOOLS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/DevToolsPage.qml" line="147"/>
-        <source>Cleanup done from DEV TOOLS</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -396,29 +403,6 @@ A full featured Business App of course will have some more logic behind the scen
         <location filename="../qml/pages/HomePage.qml" line="102"/>
         <source>Please follow my blog to understand the concepts.
 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/HomePage.qml" line="117"/>
-        <source>Init done from Home Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/HomePage.qml" line="121"/>
-        <source>Cleanup done from Home Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>InitialItemPage</name>
-    <message>
-        <location filename="../qml/pages/InitialItemPage.qml" line="45"/>
-        <source>Init done from InitialItemPage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/InitialItemPage.qml" line="54"/>
-        <source>Cleanup done from InitialItemPage</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -507,16 +491,6 @@ Please enter something into the
         <source>Here you could place a ListView with Positions or create Positions using Repeater or use FAB to push List of Positions on top</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../qml/pages/OrderDetailPage.qml" line="339"/>
-        <source>Init done from OrderDetailPage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/OrderDetailPage.qml" line="345"/>
-        <source>Cleanup done from OrderDetailPage</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>OrderListPage</name>
@@ -548,16 +522,6 @@ Please enter something into the
     <message>
         <location filename="../qml/pages/OrderListPage.qml" line="203"/>
         <source>Swipe back to cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/OrderListPage.qml" line="264"/>
-        <source>Init done from OrderListPage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/OrderListPage.qml" line="268"/>
-        <source>Cleanup done from OrderListPage</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -614,14 +578,25 @@ Tap on the Floating Action Button (Add Icon).
 </source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>PopupExit</name>
     <message>
-        <location filename="../qml/pages/OrdersPage.qml" line="94"/>
-        <source>Init done from OrdersPage</source>
+        <location filename="../qml/popups/PopupExit.qml" line="24"/>
+        <source>No more Pages
+Do you want to exit and leave the App ?
+
+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OrdersPage.qml" line="98"/>
-        <source>Cleanup done from OrdersPage</source>
+        <location filename="../qml/popups/PopupExit.qml" line="33"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/popups/PopupExit.qml" line="42"/>
+        <source>Exit the App</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -727,97 +702,144 @@ Tap on the Floating Action Button (Add Icon).
         <source>Material BlueGrey</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../qml/pages/PrimaryColorPage.qml" line="93"/>
-        <source>Init done from PrimaryColorPage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/PrimaryColorPage.qml" line="97"/>
-        <source>Cleanup done from PrimaryColorPage</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="29"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="31"/>
         <source>Settings Biz Data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="42"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="44"/>
         <source>Settings is initialItem of StackView.
 Settings is marked as Favorite, so can be opened from Bottom Navigation (in Portrait Mode)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="52"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="54"/>
         <source>Activation Policy: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="60"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="62"/>
         <source>WHILE SELECTED</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="69"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="68"/>
+        <source>Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="76"/>
         <source>Dark Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="89"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="92"/>
+        <source>Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="101"/>
         <source>Primary Color:
 Tap on Color Rectangle to edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="114"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="126"/>
         <source>Accent Color:
 Tap on Color Rectangle to edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="138"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="145"/>
+        <source>Navigation Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="153"/>
+        <source>Classic Material Navigation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="175"/>
+        <source>Menu and Back Buttons: Top-Left
+Back Button on Android also at bottom.
+Open Drawer: swipe from left side or tap on Menu Button.
+This is the classic Navigation Style using a Drawer to get access to all destinations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="182"/>
+        <source>Material Bottom Navigation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="204"/>
+        <source>Same as Classic Navigation
+plus: Bottom Navigation Bar.
+Bottom Navigation is a new way Google added recently to Google Material Style Guide.
+Bottom Navigation Bar is only visible in Portrait Mode - in Landscape Mode it would occupy too much space from available height.
+QtCon Conference App uses Bottom Navigation Bar for easy access to Home, Schedule, Speaker and Tracks.
+To access other destinations you must open Drawer from Menu Button or swipe from left side.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="211"/>
+        <source>One Hand Comfort Navigation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="230"/>
+        <source>Same as Classic Navigation plus Bottom Navigation Bar
+plus: Menu Button (Hamburger Button) added to left most position of Bottom Navigation Bar.
+Now the Menu Button can be reached easy without moving fingers to Top Left Menu Button.
+Coming from BlackBerry 10 ? Then you already used the Menu Button from bottom left.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="241"/>
+        <source>Only one Menu Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="257"/>
+        <source>Using the Comfort Navigation and you don&apos;t like to have two Menu Buttons ?
+You can hide the Top-Left Menu Button in Portrait Mode and always use the one from Bottom Navigation Bar.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SettingsPage.qml" line="270"/>
         <source>Last Number:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="156"/>
+        <location filename="../qml/pages/SettingsPage.qml" line="288"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="179"/>
-        <source>Init done from SettingsPage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SettingsPage.qml" line="183"/>
-        <source>Cleanup done from SettingsPage</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SimpleTextTitle</name>
     <message>
-        <location filename="../qml/common/SimpleTextTitle.qml" line="39"/>
+        <location filename="../qml/common/SimpleTextTitle.qml" line="42"/>
         <source>Light Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/common/SimpleTextTitle.qml" line="39"/>
+        <location filename="../qml/common/SimpleTextTitle.qml" line="42"/>
         <source>Dark Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/common/SimpleTextTitle.qml" line="45"/>
+        <location filename="../qml/common/SimpleTextTitle.qml" line="48"/>
         <source>Select Primary Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/common/SimpleTextTitle.qml" line="52"/>
+        <location filename="../qml/common/SimpleTextTitle.qml" line="55"/>
         <source>Select Accent Color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -825,22 +847,22 @@ Tap on Color Rectangle to edit</source>
 <context>
     <name>StackTextTitle</name>
     <message>
-        <location filename="../qml/common/StackTextTitle.qml" line="52"/>
+        <location filename="../qml/common/StackTextTitle.qml" line="55"/>
         <source>Light Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/common/StackTextTitle.qml" line="52"/>
+        <location filename="../qml/common/StackTextTitle.qml" line="55"/>
         <source>Dark Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/common/StackTextTitle.qml" line="58"/>
+        <location filename="../qml/common/StackTextTitle.qml" line="61"/>
         <source>Select Primary Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/common/StackTextTitle.qml" line="65"/>
+        <location filename="../qml/common/StackTextTitle.qml" line="68"/>
         <source>Select Accent Color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -848,74 +870,93 @@ Tap on Color Rectangle to edit</source>
 <context>
     <name>SwipeTextTitle</name>
     <message>
-        <location filename="../qml/common/SwipeTextTitle.qml" line="53"/>
+        <location filename="../qml/common/SwipeTextTitle.qml" line="56"/>
         <source>Light Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/common/SwipeTextTitle.qml" line="53"/>
+        <location filename="../qml/common/SwipeTextTitle.qml" line="56"/>
         <source>Dark Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/common/SwipeTextTitle.qml" line="59"/>
+        <location filename="../qml/common/SwipeTextTitle.qml" line="62"/>
         <source>Select Primary Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/common/SwipeTextTitle.qml" line="66"/>
+        <location filename="../qml/common/SwipeTextTitle.qml" line="69"/>
         <source>Select Accent Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TimePicker</name>
+    <message>
+        <location filename="../qml/popups/TimePicker.qml" line="210"/>
+        <source>Time (HH:MM)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/popups/TimePicker.qml" line="318"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/popups/TimePicker.qml" line="331"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/popups/TimePicker.qml" line="362"/>
+        <source>Now</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="128"/>
+        <location filename="../qml/main.qml" line="134"/>
         <source>Biz Data Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>Biz Data</translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="131"/>
+        <location filename="../qml/main.qml" line="137"/>
         <source>Biz Data Customer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="132"/>
+        <location filename="../qml/main.qml" line="138"/>
         <source>Biz Data Orders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="133"/>
+        <location filename="../qml/main.qml" line="139"/>
         <source>Biz Data Calendar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="135"/>
+        <location filename="../qml/main.qml" line="141"/>
         <source>Biz Data Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="136"/>
+        <location filename="../qml/main.qml" line="142"/>
         <source>Biz Data About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="137"/>
+        <location filename="../qml/main.qml" line="143"/>
         <source>Biz Data D E V E L O P E R Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="240"/>
-        <source>Next BACK closes APP and clears Values
-
-Use &apos;Android Home&apos; Button for Fast-Restart.
-
-</source>
+        <location filename="../qml/main.qml" line="281"/>
+        <source>No more Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/main.qml" line="435"/>
+        <location filename="../qml/main.qml" line="475"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>

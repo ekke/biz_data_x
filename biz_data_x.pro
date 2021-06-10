@@ -72,7 +72,7 @@ include(deployment.pri)
 # 4. Optional: if translations not done: Run Tools-External-Linguist-Release
 
 # Supported languages
-LANGUAGES = de en
+LANGUAGES = de_at de en
 
 # used to create .ts files
  defineReplace(prependAll) {

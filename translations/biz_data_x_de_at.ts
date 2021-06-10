@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de_DE">
+<TS version="2.1" language="de_AT">
 <context>
     <name>AboutPage</name>
     <message>
@@ -360,7 +360,7 @@ public cache: QStandardPaths::GenericDataLocation</source>
     <message>
         <location filename="../qml/pages/HomePage.qml" line="26"/>
         <source>The Home Page</source>
-        <translation>Die Home Seite</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/HomePage.qml" line="37"/>
@@ -918,7 +918,7 @@ You can hide the Top-Left Menu Button in Portrait Mode and always use the one fr
     <message>
         <location filename="../qml/main.qml" line="134"/>
         <source>Biz Data Homepage</source>
-        <translation>Biz Daten Berlin</translation>
+        <translation>Biz Daten Wien</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="137"/>
