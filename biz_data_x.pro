@@ -22,14 +22,12 @@ SOURCES += cpp/main.cpp \
     cpp/gen/Order.cpp \
     cpp/gen/Position.cpp
 
-lupdate_only {
-    SOURCES +=  qml/main.qml \
+OTHER_FILES +=  qml/main.qml \
     qml/common/*.qml \
     qml/navigation/*.qml \
     qml/pages/*.qml \
     qml/popups/*.qml \
     qml/tabs/*.qml
-}
 
 OTHER_FILES += images/black/*.png \
     images/black/x18/*.png \
